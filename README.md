@@ -1,5 +1,7 @@
 ### Hi Bro 👋
 
+![GitHub](https://img.shields.io/github/followers/samzong?label=GitHub&logo=Github&style=flat-square)
+
 Welcome to my Github, You can connect me use [@telegram](https://t.me/samzong)
 
 ### What I do ?
