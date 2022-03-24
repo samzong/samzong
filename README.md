@@ -1,7 +1,7 @@
 ### Hi Bro 👋
 
 ![GitHub](https://img.shields.io/github/followers/samzong?label=GitHub&logo=Github&style=flat-square)
-![Twitter](https://img.shields.io/twitter/follow/samzong?label=Follow&style=plastic)
+![Twitter](https://img.shields.io/twitter/follow/samzong?label=Follow&style=plastic&logo=appveyor)
 
 Welcome to my Github! You can connect me use on [@telegram](https://t.me/samzong)
 
