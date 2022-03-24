@@ -2,12 +2,13 @@
 
 ![GitHub](https://img.shields.io/github/followers/samzong?label=GitHub&logo=Github&style=flat-square)
 
-Welcome to my Github, You can connect me use [@telegram](https://t.me/samzong)
+Welcome to my Github! You can connect me use on [@telegram](https://t.me/samzong)
 
 ### What I do ?
 
-- A Product Manager
-- A Pythoner
+- 1st Product Manager
+- 2ed Open Source Enthusiast
+- 3rd Pythoner
 
 ### Code Status
 
