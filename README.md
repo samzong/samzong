@@ -5,7 +5,9 @@
 
 Welcome to my Zone ! You can connect me use on [@telegram](https://t.me/samzong)
 
-my resume https://cv.samzong.me/
+- my resume https://cv.samzong.me/
+- my blogs  https://samzong.me/
+
 
 ### What I do ?
 
