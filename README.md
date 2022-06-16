@@ -14,6 +14,7 @@ Welcome to my Zone ! You can connect me use on [@telegram](https://t.me/samzong)
 - 1st Product Manager
 - 2ed Open Source Enthusiast
 - 3rd Pythoner
+- ... to study go # 2022.06.16
 
 ### My Github Stats
 
