@@ -18,6 +18,8 @@ Welcome ! You can connect me use on [@telegram](https://t.me/samzong)
 - 3rd Pythoner
 - ... to study go # 2022.06.16
 
+> to study piano # 2022.10.20
+
 ### My Github Stats
 
 
