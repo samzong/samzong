@@ -40,7 +40,3 @@ jobs:
           plugin_followup_sections: repositories
           plugin_introduction: yes
           plugin_introduction_title: yes
-          plugin_starlists: yes
-          plugin_starlists_limit: 2
-          plugin_starlists_limit_languages: 8
-          plugin_starlists_limit_repositories: 2
