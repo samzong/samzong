@@ -40,18 +40,6 @@ jobs:
           plugin_followup_sections: repositories
           plugin_introduction: yes
           plugin_introduction_title: yes
-          plugin_reactions: yes
-          plugin_reactions_details: count
-          plugin_reactions_display: relative
-          plugin_reactions_limit: 200
-          plugin_reactions_limit_discussions: 100
-          plugin_reactions_limit_discussions_comments: 100
-          plugin_reactions_limit_issues: 100
-          plugin_screenshot: yes
-          plugin_screenshot_background: yes
-          plugin_screenshot_selector: body
-          plugin_screenshot_title: Screenshot
-          plugin_screenshot_url: https://samzong.me
           plugin_starlists: yes
           plugin_starlists_limit: 2
           plugin_starlists_limit_languages: 8
