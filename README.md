@@ -32,9 +32,8 @@ Here are some ideas to get you started:
     <td><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=samzong&langs_count=10?hide=html,css,scss&layout=compact&theme=react&bg_color=20232A"></td>
   </tr>
 </table>
--->
 
-<!-- <div align=center>
+<div align=center>
   <img width="100%" src="https://github-readme-activity-graph.cyclic.app/graph?username=SAMZONG&theme=react-dark&bg_color=20232A">
 </div>
  -->
