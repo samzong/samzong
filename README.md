@@ -10,11 +10,17 @@
 
 ## Hi, Friends. 👋  <img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=samzong.samzong">
 
-- 🔭 I’m currently working on [@DaoCloud](https://www.daocloud.io)
-- 🌱 I’m currently learning Golang, Kubernetes, Istio, Piano, Tai Chi
-- 👯 I’m looking to collaborate on [CNCF projects](https://landscape.cncf.io/)
-- 💬 Ask me about Cloud Native, Kubernetes, Istio, etc. 
+```python
+import openai
+import kubernetes
 
+intro = (f"🔭 I'm currently working on [@DaoCloud](https://www.daocloud.io)\n"
+         f"🌱 I'm currently learning Golang, Kubernetes, Istio, Piano, Tai Chi\n"
+         f"👯 I'm looking to collaborate on [CNCF projects](https://landscape.cncf.io/)\n"
+         f"💬 Ask me about Cloud Native, Kubernetes, Istio, etc.")
+
+print(intro)
+```
 <!--
 **samzong/samzong** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 Here are some ideas to get you started:
