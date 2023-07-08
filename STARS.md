@@ -415,7 +415,7 @@
 *   [GoogleCloudPlatform/microservices-demo](https://github.com/GoogleCloudPlatform/microservices-demo) - Sample cloud-first application with 10 microservices showcasing Kubernetes, Istio, and gRPC.
 *   [kovidgoyal/kitty](https://github.com/kovidgoyal/kitty) - Cross-platform, fast, feature-rich, GPU based terminal
 *   [python-poetry/poetry-plugin-export](https://github.com/python-poetry/poetry-plugin-export) - Poetry plugin to export the dependencies to various formats
-*   [jina-ai/jina](https://github.com/jina-ai/jina) - 🔮 Build multimodal AI services via cloud native technologies
+*   [jina-ai/jina](https://github.com/jina-ai/jina) - 🔮 Multimodal AI services & pipelines with cloud-native stack: gRPC, Kubernetes, Docker, OpenTelemetry, Prometheus, Jaeger, etc.
 *   [jimporter/mike](https://github.com/jimporter/mike) - Manage multiple versions of your MkDocs-powered documentation via Git
 *   [imClumsyPanda/langchain-ChatGLM](https://github.com/imClumsyPanda/langchain-ChatGLM) - langchain-ChatGLM, local knowledge based ChatGLM with langchain ｜ 基于本地知识库的 ChatGLM 问答
 *   [Aqua-Dream/Tieba\_Spider](https://github.com/Aqua-Dream/Tieba_Spider) - 百度贴吧爬虫(基于scrapy和mysql)
