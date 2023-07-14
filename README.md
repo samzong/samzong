@@ -15,7 +15,8 @@ import openai
 import kubernetes
 
 intro = (f"🔭 I'm currently working on [@DaoCloud](https://www.daocloud.io)\n"
-         f"🌱 I'm currently learning Golang, Kubernetes, Istio, Piano, Tai Chi\n"
+         f"🌱 I'm currently using Python, FastAPI, Flask, Kubernetes\n"
+         f"🌱 I'm currently learning Golang, React, Kubernetes, Istio, Piano, Tai Chi\n"
          f"👯 I'm looking to collaborate on [CNCF projects](https://landscape.cncf.io/)\n"
          f"💬 Ask me about Cloud Native, Kubernetes, Istio, etc.")
 
