@@ -12,8 +12,7 @@ intro = (f"🔭 I'm currently working as a PM at [@DaoCloud](https://www.daoclou
 print(intro)
 ```
 
-## Achievements on GitHub
+## [Contribution PR size history](https://ossinsight-lite-hbbcgg1s2-samzong.vercel.app/)
 
-<div align=left>
-  <img width="100%" src="https://github-readme-stats.vercel.app/api?username=samzong&count_private=true&theme=react-dark&bg_color=20232A">
-</div>
+[![Contribution PR size history](https://ossinsight-lite-hbbcgg1s2-samzong.vercel.app/widgets/contribution-pull-request-size-history/thumbnail.png)](https://ossinsight-lite-hbbcgg1s2-samzong.vercel.app/widgets/contribution-pull-request-size-history)
+
