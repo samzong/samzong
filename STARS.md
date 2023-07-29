@@ -4,9 +4,9 @@
 
 ## Table of Contents
 
+*   [Python](#python)
 *   [Jupyter Notebook](#jupyter-notebook)
 *   [C](#c)
-*   [Python](#python)
 *   [CSS](#css)
 *   [miscellaneous](#miscellaneous)
 *   [TypeScript](#typescript)
@@ -41,30 +41,9 @@
 *   [Swift](#swift)
 *   [Objective-C](#objective-c)
 
-## Jupyter Notebook
-
-*   [camenduru/text-generation-webui-colab](https://github.com/camenduru/text-generation-webui-colab) - A colab gradio web UI for running Large Language Models
-*   [CompVis/stable-diffusion](https://github.com/CompVis/stable-diffusion) - A latent text-to-image diffusion model
-*   [openai/openai-cookbook](https://github.com/openai/openai-cookbook) - Examples and guides for using the OpenAI API
-*   [ben1234560/AiLearning-Theory-Applying](https://github.com/ben1234560/AiLearning-Theory-Applying) - 快速上手Ai理论及应用实战：基础知识、ML、DL、NLP-BERT、竞赛。含大量注释及数据集，力求每一位能看懂并复现。
-*   [lijin-THU/notes-python](https://github.com/lijin-THU/notes-python) - 中文 Python 笔记
-
-## C
-
-*   [ggerganov/llama.cpp](https://github.com/ggerganov/llama.cpp) - Port of Facebook's LLaMA model in C/C++
-*   [jmorganca/ollama](https://github.com/jmorganca/ollama) - Get up and running with large language models locally
-*   [fluent/fluent-bit](https://github.com/fluent/fluent-bit) - Fast and Lightweight Logs and Metrics processor for Linux, BSD, OSX and Windows
-*   [Meituan-Dianping/Logan](https://github.com/Meituan-Dianping/Logan) - Logan is a lightweight case logging system based on mobile platform.
-*   [signalwire/freeswitch](https://github.com/signalwire/freeswitch) - FreeSWITCH is a Software Defined Telecom Stack enabling the digital transformation from proprietary telecom switches to a versatile software implementation that runs on any commodity hardware. From a Raspberry PI to a multi-core server, FreeSWITCH can unlock the telecommunications potential of any device.
-*   [pgvector/pgvector](https://github.com/pgvector/pgvector) - Open-source vector similarity search for Postgres
-*   [taosdata/TDengine](https://github.com/taosdata/TDengine) - TDengine is an open source, high-performance, cloud native time-series database optimized for Internet of Things (IoT), Connected Cars, Industrial IoT and DevOps.
-*   [wg/wrk](https://github.com/wg/wrk) - Modern HTTP benchmarking tool
-*   [kingToolbox/WindTerm](https://github.com/kingToolbox/WindTerm) - A professional cross-platform SSH/Sftp/Shell/Telnet/Serial terminal.
-*   [Foundry376/Mailspring](https://github.com/Foundry376/Mailspring) - :love\_letter: A beautiful, fast and fully open source mail client for Mac, Windows and Linux.
-*   [Gnucash/gnucash](https://github.com/Gnucash/gnucash) - GnuCash Double-Entry Accounting Program.
-
 ## Python
 
+*   [FlagAlpha/Llama2-Chinese](https://github.com/FlagAlpha/Llama2-Chinese) - Llama中文社区，最好的中文Llama大模型，完全开源可商用
 *   [PanQiWei/AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) - An easy-to-use LLMs quantization package with user-friendly apis, based on GPTQ algorithm.
 *   [qwopqwop200/GPTQ-for-LLaMa](https://github.com/qwopqwop200/GPTQ-for-LLaMa) - 4 bits quantization of LLaMA using GPTQ
 *   [kubeflow/pipelines](https://github.com/kubeflow/pipelines) - Machine Learning Pipelines for Kubeflow
@@ -202,6 +181,28 @@
 *   [lamerman/shellpy](https://github.com/lamerman/shellpy) - A tool for convenient shell scripting in python
 *   [bluedazzle/wechat\_sender](https://github.com/bluedazzle/wechat_sender) - 随时随地发送消息到微信
 *   [houtianze/bypy](https://github.com/houtianze/bypy) - Python client for Baidu Yun (Personal Cloud Storage) 百度云/百度网盘Python客户端
+
+## Jupyter Notebook
+
+*   [camenduru/text-generation-webui-colab](https://github.com/camenduru/text-generation-webui-colab) - A colab gradio web UI for running Large Language Models
+*   [CompVis/stable-diffusion](https://github.com/CompVis/stable-diffusion) - A latent text-to-image diffusion model
+*   [openai/openai-cookbook](https://github.com/openai/openai-cookbook) - Examples and guides for using the OpenAI API
+*   [ben1234560/AiLearning-Theory-Applying](https://github.com/ben1234560/AiLearning-Theory-Applying) - 快速上手Ai理论及应用实战：基础知识、ML、DL、NLP-BERT、竞赛。含大量注释及数据集，力求每一位能看懂并复现。
+*   [lijin-THU/notes-python](https://github.com/lijin-THU/notes-python) - 中文 Python 笔记
+
+## C
+
+*   [ggerganov/llama.cpp](https://github.com/ggerganov/llama.cpp) - Port of Facebook's LLaMA model in C/C++
+*   [jmorganca/ollama](https://github.com/jmorganca/ollama) - Get up and running with large language models locally
+*   [fluent/fluent-bit](https://github.com/fluent/fluent-bit) - Fast and Lightweight Logs and Metrics processor for Linux, BSD, OSX and Windows
+*   [Meituan-Dianping/Logan](https://github.com/Meituan-Dianping/Logan) - Logan is a lightweight case logging system based on mobile platform.
+*   [signalwire/freeswitch](https://github.com/signalwire/freeswitch) - FreeSWITCH is a Software Defined Telecom Stack enabling the digital transformation from proprietary telecom switches to a versatile software implementation that runs on any commodity hardware. From a Raspberry PI to a multi-core server, FreeSWITCH can unlock the telecommunications potential of any device.
+*   [pgvector/pgvector](https://github.com/pgvector/pgvector) - Open-source vector similarity search for Postgres
+*   [taosdata/TDengine](https://github.com/taosdata/TDengine) - TDengine is an open source, high-performance, cloud native time-series database optimized for Internet of Things (IoT), Connected Cars, Industrial IoT and DevOps.
+*   [wg/wrk](https://github.com/wg/wrk) - Modern HTTP benchmarking tool
+*   [kingToolbox/WindTerm](https://github.com/kingToolbox/WindTerm) - A professional cross-platform SSH/Sftp/Shell/Telnet/Serial terminal.
+*   [Foundry376/Mailspring](https://github.com/Foundry376/Mailspring) - :love\_letter: A beautiful, fast and fully open source mail client for Mac, Windows and Linux.
+*   [Gnucash/gnucash](https://github.com/Gnucash/gnucash) - GnuCash Double-Entry Accounting Program.
 
 ## CSS
 
@@ -410,7 +411,7 @@
 *   [fedstate/fedstate](https://github.com/fedstate/fedstate) - Federated middleware based on Karmada
 *   [casdoor/casdoor](https://github.com/casdoor/casdoor) - An open-source Identity and Access Management (IAM) / Single-Sign-On (SSO) platform with web UI supporting OAuth 2.0, OIDC, SAML, CAS, LDAP, WebAuthn, TOTP and MFA
 *   [fzdwx/jacksapi](https://github.com/fzdwx/jacksapi) - Jack's ChatGpt API client, simulate the official response of ChatGPT
-*   [songquanpeng/one-api](https://github.com/songquanpeng/one-api) - OpenAI 接口管理 & 分发系统，支持 Azure、Claude、PaLM 2、智谱以及文心一言，可用于二次分发管理 key，仅单可执行文件，已打包好 Docker 镜像，一键部署，开箱即用. OpenAI key management & redistribution system, using a single API for all LLMs, and features an English UI.
+*   [songquanpeng/one-api](https://github.com/songquanpeng/one-api) - OpenAI 接口管理 & 分发系统，支持 Azure、Anthropic Claude、Google PaLM 2、智谱 ChatGLM、百度文心一言以及阿里通义千问，可用于二次分发管理 key，仅单可执行文件，已打包好 Docker 镜像，一键部署，开箱即用. OpenAI key management & redistribution system, using a single API for all LLMs, and features an English UI.
 *   [kubesphere/kube-events](https://github.com/kubesphere/kube-events) - K8s Event Exporting, Filtering and Alerting in Multi-Tenant Environment
 *   [kubesphere/kubeeye](https://github.com/kubesphere/kubeeye) - KubeEye aims to find various problems on Kubernetes, such as application misconfiguration, unhealthy cluster components and node problems.
 *   [kubernetes/kops](https://github.com/kubernetes/kops) - Kubernetes Operations (kOps) - Production Grade k8s Installation, Upgrades and Management
@@ -660,7 +661,6 @@
 *   [Q1mi/Django-REST-framework-documentation](https://github.com/Q1mi/Django-REST-framework-documentation) - The translation of documentation for the version 3 of REST framework.（Only dev branch-based PR will be accepted. ）
 *   [refscn/rplibs](https://github.com/refscn/rplibs) - Refs.cn 原型设计元件库，基于Axure RP 10/9/8，支持 Android、Apple、Windows、微信，移动、桌面平台的应用和网站原型设计。六年历程 2.8k+ star，感谢大家使用。
 *   [TeamStuQ/skill-map](https://github.com/TeamStuQ/skill-map) - 程序员技能图谱
-*   [phodal/growth-in-action](https://github.com/phodal/growth-in-action) - 全栈增长工程师实战
 
 ## Shell
 
