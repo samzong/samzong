@@ -226,7 +226,6 @@
 *   [DeepTecher/awesome-ChatGPT-resource-zh](https://github.com/DeepTecher/awesome-ChatGPT-resource-zh) - 精选 OpenAI 的 [ChatGPT](https://chat.openai.com) 资源清单, 跟随最新资源并添加中文相关Work
 *   [cncf/ambassadors](https://github.com/cncf/ambassadors) - 🌏🌎🌍 CNCF Ambassadors
 *   [warpdotdev/Warp](https://github.com/warpdotdev/Warp) - Warp is a blazingly-fast modern Rust based GPU-accelerated terminal built to make you and your team more productive.
-*   [kappital/kappital](https://github.com/kappital/kappital) - A Cloud-Native Service Catalog and Full Lifecycle Management Platform accross Multi-cloud and Edge
 *   [modularml/mojo](https://github.com/modularml/mojo) - The Mojo Programming Language
 *   [imDazui/Tvlist-awesome-m3u-m3u8](https://github.com/imDazui/Tvlist-awesome-m3u-m3u8) - 直播源相关资源汇总 📺 💯 IPTV、M3U —— 勤洗手、戴口罩，祝愿所有人百毒不侵
 *   [asdjkl6/tv](https://github.com/asdjkl6/tv) - 复刻和转仓说明出处，请勿商用
@@ -411,10 +410,11 @@
 *   [fedstate/fedstate](https://github.com/fedstate/fedstate) - Federated middleware based on Karmada
 *   [casdoor/casdoor](https://github.com/casdoor/casdoor) - An open-source Identity and Access Management (IAM) / Single-Sign-On (SSO) platform with web UI supporting OAuth 2.0, OIDC, SAML, CAS, LDAP, WebAuthn, TOTP and MFA
 *   [fzdwx/jacksapi](https://github.com/fzdwx/jacksapi) - Jack's ChatGpt API client, simulate the official response of ChatGPT
-*   [songquanpeng/one-api](https://github.com/songquanpeng/one-api) - OpenAI 接口管理 & 分发系统，支持 Azure、Anthropic Claude、Google PaLM 2、智谱 ChatGLM、百度文心一言以及阿里通义千问，可用于二次分发管理 key，仅单可执行文件，已打包好 Docker 镜像，一键部署，开箱即用. OpenAI key management & redistribution system, using a single API for all LLMs, and features an English UI.
+*   [songquanpeng/one-api](https://github.com/songquanpeng/one-api) - OpenAI 接口管理 & 分发系统，支持 Azure、Anthropic Claude、Google PaLM 2、智谱 ChatGLM、百度文心一言、讯飞星火认知以及阿里通义千问，可用于二次分发管理 key，仅单可执行文件，已打包好 Docker 镜像，一键部署，开箱即用. OpenAI key management & redistribution system, using a single API for all LLMs, and features an English UI.
 *   [kubesphere/kube-events](https://github.com/kubesphere/kube-events) - K8s Event Exporting, Filtering and Alerting in Multi-Tenant Environment
 *   [kubesphere/kubeeye](https://github.com/kubesphere/kubeeye) - KubeEye aims to find various problems on Kubernetes, such as application misconfiguration, unhealthy cluster components and node problems.
 *   [kubernetes/kops](https://github.com/kubernetes/kops) - Kubernetes Operations (kOps) - Production Grade k8s Installation, Upgrades and Management
+*   [kappital/kappital](https://github.com/kappital/kappital) - A Cloud-Native Service Catalog and Full Lifecycle Management Platform accross Multi-cloud and Edge
 *   [volcano-sh/volcano](https://github.com/volcano-sh/volcano) - A Cloud Native Batch System (Project under CNCF)
 *   [clusternet/clusternet](https://github.com/clusternet/clusternet) - \[CNCF Sandbox Project] Managing your Kubernetes clusters (including public, private, edge, etc.) as easily as visiting the Internet ⎈
 *   [copilot-io/runtime-copilot](https://github.com/copilot-io/runtime-copilot) - The main purpose of runtime copilot is to assist with node runtime management tasks such as configuring registries, upgrading versions, installing plugins, and replacing runtimes.
