@@ -298,7 +298,7 @@
 *   [peterbe/govspy](https://github.com/peterbe/govspy) - Go vs. Python
 *   [leisurelicht/wtfpython-cn](https://github.com/leisurelicht/wtfpython-cn) - wtfpython的中文翻译/施工结束/ 能力有限，欢迎帮我改进翻译
 *   [DaoCloud/DaoCloud-docs](https://github.com/DaoCloud/DaoCloud-docs) - DaoCloud Enterprise 5.0 Documentation
-*   [microsoft/recommenders](https://github.com/microsoft/recommenders) - Best Practices on Recommendation Systems
+*   [recommenders-team/recommenders](https://github.com/recommenders-team/recommenders) - Best Practices on Recommendation Systems
 *   [bndr/pipreqs](https://github.com/bndr/pipreqs) - pipreqs - Generate pip requirements.txt file based on imports of any project. Looking for maintainers to move this project forward.
 *   [WeblateOrg/weblate](https://github.com/WeblateOrg/weblate) - Web based localization tool with tight version control integration.
 *   [ultrabug/mkdocs-static-i18n](https://github.com/ultrabug/mkdocs-static-i18n) - MkDocs i18n plugin using static translation markdown files
