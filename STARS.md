@@ -71,7 +71,7 @@
 *   [reactive-python/reactpy](https://github.com/reactive-python/reactpy) - It's React, but in Python
 *   [geekan/MetaGPT](https://github.com/geekan/MetaGPT) - 🌟 The Multi-Agent Framework: Given one line Requirement, return PRD, Design, Tasks, Repo
 *   [THUDM/ChatGLM2-6B](https://github.com/THUDM/ChatGLM2-6B) - ChatGLM2-6B: An Open Bilingual Chat LLM | 开源双语对话语言模型
-*   [s0md3v/roop](https://github.com/s0md3v/roop) - one-click deepfake (face swap)
+*   [s0md3v/roop](https://github.com/s0md3v/roop) - one-click face swap
 *   [Stability-AI/stablediffusion](https://github.com/Stability-AI/stablediffusion) - High-Resolution Image Synthesis with Latent Diffusion Models
 *   [pengzhile/pandora](https://github.com/pengzhile/pandora) - 潘多拉，一个让你呼吸顺畅的ChatGPT。Pandora, a ChatGPT that helps you breathe smoothly.
 *   [AntonOsika/gpt-engineer](https://github.com/AntonOsika/gpt-engineer) - Specify what you want it to build, the AI asks for clarification, and then builds it.
@@ -379,7 +379,7 @@
 *   [yuque-helper/yuque2book](https://github.com/yuque-helper/yuque2book) - export yuque repo to a book 将你的语雀文档导出的工具
 *   [kuizuo/blog](https://github.com/kuizuo/blog) - 愧怍的个人博客
 *   [star-history/star-history](https://github.com/star-history/star-history) - The missing star history graph of GitHub repos - https://star-history.com
-*   [StanGirard/quivr](https://github.com/StanGirard/quivr) - Your Second Brain powered by Generative AI 🧠 Dump all your files and chat with it  ( GPT 3.5/4, Private, Anthropic, VertexAI, LLMs...) & Embeddings
+*   [StanGirard/quivr](https://github.com/StanGirard/quivr) - 🧠 Your Second Brain supercharged by Generative AI 🧠 Dump all your files and chat with your personal assistant on your files & more using GPT 3.5/4, Private, Anthropic, VertexAI, LLMs...
 *   [n8n-io/n8n](https://github.com/n8n-io/n8n) - Free and source-available fair-code licensed workflow automation tool. Easily automate tasks across different services.
 *   [n8n-io/n8n-nodes-starter](https://github.com/n8n-io/n8n-nodes-starter) - Example starter module for custom n8n nodes.
 *   [prompt-engineering/chat-visual-novel](https://github.com/prompt-engineering/chat-visual-novel) - ChatVisualNovel - a fully customizable visual novel engine powered by ChatGPT. ChatVisualNovel —— 基于ChatGPT的定制化视觉小说引擎。
