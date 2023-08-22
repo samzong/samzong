@@ -4,11 +4,12 @@
 
 ## Table of Contents
 
+*   [JavaScript](#javascript)
+*   [miscellaneous](#miscellaneous)
 *   [Python](#python)
 *   [Go](#go)
 *   [Shell](#shell)
 *   [TypeScript](#typescript)
-*   [miscellaneous](#miscellaneous)
 *   [Rust](#rust)
 *   [C++](#c)
 *   [Vim Script](#vim-script)
@@ -18,7 +19,6 @@
 *   [CSS](#css)
 *   [Cuda](#cuda)
 *   [Dockerfile](#dockerfile)
-*   [JavaScript](#javascript)
 *   [Vue](#vue)
 *   [HTML](#html)
 *   [SCSS](#scss)
@@ -40,6 +40,154 @@
 *   [ActionScript](#actionscript)
 *   [Swift](#swift)
 *   [Objective-C](#objective-c)
+
+## JavaScript
+
+*   [pinterest/snappass](https://github.com/pinterest/snappass) - Share passwords securely
+*   [Ice-Hazymoon/openai-scf-proxy](https://github.com/Ice-Hazymoon/openai-scf-proxy) - 使用腾讯云函数一分钟搭建 OpenAI 免翻墙代理
+*   [josStorer/chatGPTBox](https://github.com/josStorer/chatGPTBox) - Integrating ChatGPT into your browser deeply, everything you need is here
+*   [goodideal/gitlab-bot](https://github.com/goodideal/gitlab-bot) - 将Gitlab的push、tag push、merge request和pipeline推送到企业微信的机器人
+*   [samzong/samzong.github.io](https://github.com/samzong/samzong.github.io) - Work, and reflections on life. Explore cloud native, share experiences, contemplate life.
+*   [purple-force/docsite](https://github.com/purple-force/docsite) - An opensource static website generator
+*   [vercel/next.js](https://github.com/vercel/next.js) - The React Framework
+*   [simonecorsi/mawesome](https://github.com/simonecorsi/mawesome) - 😎 Github action to generate your own awesome list from project you've starred ordered by languages!
+*   [open-telemetry/opentelemetry.io](https://github.com/open-telemetry/opentelemetry.io) - The OpenTelemetry website and documentation
+*   [pavolloffay/kubecon-eu-2023-opentelemetry-kubernetes-tutorial](https://github.com/pavolloffay/kubecon-eu-2023-opentelemetry-kubernetes-tutorial) -
+*   [SeimoIO/website](https://github.com/SeimoIO/website) - SeimoIO's website
+*   [songquanpeng/message-pusher](https://github.com/songquanpeng/message-pusher) - 搭建专属于你的消息推送服务，支持多种消息推送方式，支持 Markdown，基于 Golang 仅单可执行文件，开箱即用
+*   [kubesphere/kube-design](https://github.com/kubesphere/kube-design) - Kube Design for KubeSphere Console
+*   [0hq/WebGPT](https://github.com/0hq/WebGPT) - Run GPT model on the browser with WebGPU. An implementation of GPT inference in less than ~1500 lines of vanilla Javascript.
+*   [leancloud/docs](https://github.com/leancloud/docs) - LeanCloud Documentation
+*   [vinta/pangu.js](https://github.com/vinta/pangu.js) - Paranoid text spacing in JavaScript
+*   [Hackl0us/SS-Rule-Snippet](https://github.com/Hackl0us/SS-Rule-Snippet) - 搜集、整理、维护 Surge / Quantumult (X) / Shadowrocket / Surfboard / clash (Premium) 实用规则。
+*   [cteamx/Thief](https://github.com/cteamx/Thief) - 一款创新跨平台摸鱼神器，支持小说、股票、网页、视频、直播、PDF、游戏等摸鱼模式，为上班族打造的上班必备神器，使用此软件可以让上班倍感轻松，远离 ICU。
+*   [anc95/ChatGPT-CodeReview](https://github.com/anc95/ChatGPT-CodeReview) - 🐥 A code review bot powered by ChatGPT
+*   [PipedreamHQ/pipedream](https://github.com/PipedreamHQ/pipedream) - Connect APIs, remarkably fast.  Free for developers.
+*   [openai-translator/bob-plugin-openai-translator](https://github.com/openai-translator/bob-plugin-openai-translator) - 基于 ChatGPT API 的文本翻译、文本润色、语法纠错 Bob 插件，让我们一起迎接不需要巴别塔的新时代！Licensed under CC BY-NC-SA 4.0
+*   [douyu/juno](https://github.com/douyu/juno) - Juno 译名朱诺。这个名字来源于古罗马神话中的众神之母。它是斗鱼的微服务管理系统， 如同众神之母一样守护着所有微服务的系统。
+*   [tangly1024/NotionNext](https://github.com/tangly1024/NotionNext) - 使用 NextJS + Notion API 实现的，支持多种部署方案的静态博客，无需服务器、零门槛搭建网站，为Notion和所有创作者设计。 (A static blog built with NextJS and Notion API, supporting multiple deployment options. No server required, zero threshold to set up a website. Designed for Notion and all creators.)
+*   [Postcatlab/postcat](https://github.com/Postcatlab/postcat) - Postcat 是一个可扩展的 API 工具平台。集合基础的 API 管理和测试功能，并且可以通过插件简化你的 API 开发工作，让你可以更快更好地创建 API。An extensible API tool.
+*   [polarismesh/website](https://github.com/polarismesh/website) - source for the polarismesh.cn site
+*   [jgraph/drawio-desktop](https://github.com/jgraph/drawio-desktop) - Official electron build of draw.io
+*   [umami-software/umami](https://github.com/umami-software/umami) - Umami is a simple, fast, privacy-focused alternative to Google Analytics.
+*   [apidoc/apidoc](https://github.com/apidoc/apidoc) - RESTful web API Documentation Generator.
+*   [cskefu/cskefu](https://github.com/cskefu/cskefu) - 🌲 春松客服，开源客服系统
+*   [deathau/markdownload](https://github.com/deathau/markdownload) - A Firefox and Google Chrome extension to clip websites and download them into a readable markdown file.
+*   [sootheslayer/VisualizingStreamingData](https://github.com/sootheslayer/VisualizingStreamingData) - Visuallizing a real time streaming data on web app using node.js socket.io and Apache Kafka
+*   [ToolJet/ToolJet](https://github.com/ToolJet/ToolJet) - Low-code platform for building business applications. Connect to databases, cloud storages, GraphQL, API endpoints, Airtable, Google sheets, OpenAI, etc and build apps using drag and drop application builder. Built using JavaScript/TypeScript. 🚀
+*   [xCss/bing](https://github.com/xCss/bing) - Bing 壁纸 API
+*   [star7th/showdoc](https://github.com/star7th/showdoc) - ShowDoc is a tool greatly applicable for an IT team to share documents online一个非常适合IT团队的在线API文档、技术文档工具
+*   [DIYgod/RSSHub-Radar](https://github.com/DIYgod/RSSHub-Radar) - 🍰 Browser extension that simplifies finding and subscribing RSS and RSSHub
+*   [karmada-io/dashboard](https://github.com/karmada-io/dashboard) - Web UI for Karmada
+*   [volantis-x/hexo-theme-volantis](https://github.com/volantis-x/hexo-theme-volantis) - A Wonderful Theme for Hexo.
+*   [xaoxuu/hexo-theme-stellar](https://github.com/xaoxuu/hexo-theme-stellar) - 内置文档系统的简约商务风Hexo主题，支持丰富的标签和动态数据组件。
+*   [hexojs/hexo](https://github.com/hexojs/hexo) - A fast, simple & powerful blog framework, powered by Node.js.
+*   [vuejs/vuepress](https://github.com/vuejs/vuepress) - 📝 Minimalistic Vue-powered static site generator
+*   [docsifyjs/docsify](https://github.com/docsifyjs/docsify) - 🃏 A magical documentation site generator.
+*   [eip-work/kuboard-press](https://github.com/eip-work/kuboard-press) - Kuboard 是基于 Kubernetes 的微服务管理界面。同时提供 Kubernetes 免费中文教程，入门教程，最新版本的 Kubernetes v1.23.4 安装手册，(k8s install) 在线答疑，持续更新。
+*   [blinkfox/hexo-theme-matery](https://github.com/blinkfox/hexo-theme-matery) - A beautiful hexo blog theme with material design and responsive design.一个基于材料设计和响应式设计而成的全面、美观的Hexo主题。国内访问：http://blinkfox.com
+*   [MrXujiang/h5-Dooring](https://github.com/MrXujiang/h5-Dooring) - H5 Page Maker, H5 Editor, LowCode. Make H5 as easy as building blocks. | 让H5制作像搭积木一样简单, 轻松搭建H5页面, H5网站, PC端网站,LowCode平台.
+*   [chinese-poetry/chinese-poetry](https://github.com/chinese-poetry/chinese-poetry) - The most comprehensive database of Chinese poetry 🧶最全中华古诗词数据库,  唐宋两朝近一万四千古诗人,  接近5.5万首唐诗加26万宋诗.  两宋时期1564位词人，21050首词。
+*   [steedos/steedos-platform](https://github.com/steedos/steedos-platform) - Steedos Low-code PaaS platform is an open-source alternative to Salesforce Platform 🤖 🎨 🚀 . It provides a powerful and flexible platform for building enterprise-grade applications quickly and easily.
+*   [ryanhanwu/How-To-Ask-Questions-The-Smart-Way](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way) - 本文原文由知名 Hacker Eric S. Raymond 所撰寫，教你如何正確的提出技術問題並獲得你滿意的答案。
+*   [zhaoolee/ChromeAppHeroes](https://github.com/zhaoolee/ChromeAppHeroes) - 🌈谷粒-Chrome插件英雄榜, 为优秀的Chrome插件写一本中文说明书, 让Chrome插件英雄们造福人类~  ChromePluginHeroes, Write a Chinese manual for the excellent Chrome plugin, let the Chrome plugin heroes benefit the human~ 公众号「0加1」同步更新
+*   [phodal/moform](https://github.com/phodal/moform) - A Serverlesss form builder
+*   [xiangyuecn/Recorder](https://github.com/xiangyuecn/Recorder) - html5 js 录音 mp3 wav ogg webm amr g711a g711u 格式，支持pc和Android、iOS部分浏览器、Hybrid App（提供Android iOS App源码）、微信，提供ASR语音识别转文字 H5版语音通话聊天示例 DTMF编码解码
+*   [cnodejs/nodeclub](https://github.com/cnodejs/nodeclub) - :baby\_chick:Nodeclub 是使用 Node.js 和 MongoDB 开发的社区系统
+*   [DIYgod/DPlayer](https://github.com/DIYgod/DPlayer) - :lollipop: Wow, such a lovely HTML5 danmaku video player
+*   [TevinLi/amWiki](https://github.com/TevinLi/amWiki) - amWiki 是一款由 JS 开发、依赖 Atom 或 Nodejs-Npm 的 Markdown 轻量级前端化开源文库系统
+*   [sqlpad/sqlpad](https://github.com/sqlpad/sqlpad) - Web-based SQL editor. Legacy project in maintenance mode.
+*   [liutian/light-push](https://github.com/liutian/light-push) - 轻量级推送服务和实时在线监控平台，同时用于开发即时通信系统，基于node的socket.io，支持web、android、ios客户端，支持移动端离线推送，可进行分布式部署
+
+## miscellaneous
+
+*   [ivmm/Student-resources](https://github.com/ivmm/Student-resources) - 本文介绍的是利用学生、教职工身份可以享受到的相关学生优惠、教育优惠或教师优惠的权益，但也希望各位享受权利的同时不要忘记自己的义务，不要售卖、转手自己的学生优惠、教育优惠的资格，使得其他同学无法受益。
+*   [Chanzhaoyu/chatgpt-web-plus](https://github.com/Chanzhaoyu/chatgpt-web-plus) - chatgpt-web-plus
+*   [wangdoc/typescript-tutorial](https://github.com/wangdoc/typescript-tutorial) - TypeScript 教程
+*   [CLUEbenchmark/SuperCLUE](https://github.com/CLUEbenchmark/SuperCLUE) - SuperCLUE: 中文通用大模型综合性基准 | A Benchmark for Foundation Models in Chinese
+*   [orbstack/orbstack](https://github.com/orbstack/orbstack) - Fast, light, simple Docker containers & Linux machines for macOS
+*   [CrazyBoyM/llama2-Chinese-chat](https://github.com/CrazyBoyM/llama2-Chinese-chat) - 全网首个放出llama2 13b 中文训练对话模型，且"首发版"已在LLM排行榜取得优秀成绩（至今未被某“假首个且收费”的骗子社区模型超越，且在同类模型中处于领先位置）。llama2 Chinese chat - 本项目是一个教程记录整理的repo，旨在提供给新手的参照价值和开箱即用的中文LLaMa2对话体验。包含训练过程记录，各种主要量化方式，部署后端api的推荐方案，以及在一个具体的前端网页上实现开箱即用的流畅对话体验。
+*   [enaqx/awesome-react](https://github.com/enaqx/awesome-react) - A collection of awesome things regarding React ecosystem
+*   [typora/typora-issues](https://github.com/typora/typora-issues) - Bugs, suggestions or free discussions about the minimal markdown editor — Typora
+*   [Uyukisan/stackcloudtalk](https://github.com/Uyukisan/stackcloudtalk) - 香色闺阁源⛄️
+*   [sparanoid/chinese-copywriting-guidelines](https://github.com/sparanoid/chinese-copywriting-guidelines) - Chinese copywriting guidelines for better written communication／中文文案排版指北
+*   [LangLangShanDeNanKe/chatgpt](https://github.com/LangLangShanDeNanKe/chatgpt) - ChatGPT网址导航，分享免费好用AI网站！
+*   [DeepTecher/awesome-ChatGPT-resource-zh](https://github.com/DeepTecher/awesome-ChatGPT-resource-zh) - 精选 OpenAI 的 [ChatGPT](https://chat.openai.com) 资源清单, 跟随最新资源并添加中文相关Work
+*   [cncf/ambassadors](https://github.com/cncf/ambassadors) - 🌏🌎🌍 CNCF Ambassadors
+*   [warpdotdev/Warp](https://github.com/warpdotdev/Warp) - Warp is a blazingly-fast modern Rust based GPU-accelerated terminal built to make you and your team more productive.
+*   [modularml/mojo](https://github.com/modularml/mojo) - The Mojo Programming Language
+*   [imDazui/Tvlist-awesome-m3u-m3u8](https://github.com/imDazui/Tvlist-awesome-m3u-m3u8) - 直播源相关资源汇总 📺 💯 IPTV、M3U —— 勤洗手、戴口罩，祝愿所有人百毒不侵
+*   [asdjkl6/tv](https://github.com/asdjkl6/tv) - 复刻和转仓说明出处，请勿商用
+*   [liu673cn/box](https://github.com/liu673cn/box) - TVbox开源版（空壳-自行配置）
+*   [gnehs/subtitle-translator-electron](https://github.com/gnehs/subtitle-translator-electron) - ↔️ Translate subtitle using ChatGPT
+*   [mse-group/Slides](https://github.com/mse-group/Slides) - 提供 MSE 相关的大会、直播和 Meetup 的 PPT 下载。
+*   [ruanyf/weekly](https://github.com/ruanyf/weekly) - 科技爱好者周刊，每周五发布
+*   [dyweb/papers-notebook](https://github.com/dyweb/papers-notebook) - :page\_facing\_up: :cn: :page\_with\_curl: 论文阅读笔记（分布式系统、虚拟化、机器学习）Papers Notebook (Distributed System, Virtualization, Machine Learning)
+*   [kenwoodjw/python\_interview\_question](https://github.com/kenwoodjw/python_interview_question) - 关于python的面试题
+*   [hcfyapp/crx-selection-translate](https://github.com/hcfyapp/crx-selection-translate) - 一站式划词 / 截图 / 网页全文 / 音视频翻译扩展。
+*   [zoidbergwill/awesome-ebpf](https://github.com/zoidbergwill/awesome-ebpf) - A curated list of awesome projects related to eBPF.
+*   [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) - 🦄️ 🎃 👻 Clash Premium 规则集(RULE-SET)，兼容 ClashX Pro、Clash for Windows 客户端。
+*   [liaokongVFX/LangChain-Chinese-Getting-Started-Guide](https://github.com/liaokongVFX/LangChain-Chinese-Getting-Started-Guide) - LangChain 的中文入门教程
+*   [hax/heshijun\_v\_360](https://github.com/hax/heshijun_v_360) - 贺师俊与360的劳动争议诉讼
+*   [kattgu7/Anti-996-License](https://github.com/kattgu7/Anti-996-License) - Anti-996 License Version 1.0
+*   [jobbole/awesome-go-cn](https://github.com/jobbole/awesome-go-cn) - Go 资源大全中文版， 内容包括：Web框架、模板引擎、表单、身份认证、数据库、ORM框架、图片处理、文本处理、自然语言处理、机器学习、日志、代码分析、教程和（电子）书等。由「开源前哨」和「Go开发大全」微信团队维护。
+*   [PlexPt/awesome-chatgpt-prompts-zh](https://github.com/PlexPt/awesome-chatgpt-prompts-zh) - ChatGPT 中文调教指南。各种场景使用指南。学习怎么让它听你的话。
+*   [ripperhe/Bob](https://github.com/ripperhe/Bob) - Bob 是一款 macOS 平台的翻译和 OCR 软件。
+*   [AntBranch/awesome-github](https://github.com/AntBranch/awesome-github) - A curated list of awesome GitHub guides, articles, sites, tools, projects and resources.  收集这个列表，只是为了更好地使用GitHub,欢迎提交pr和issue。
+*   [xx025/carrot](https://github.com/xx025/carrot) - Free ChatGPT Site List 这儿为你准备了众多免费好用的ChatGPT镜像站点
+*   [DocsHome/microservices](https://github.com/DocsHome/microservices) - Microservices from Design to Deployment 中文版 《微服务：从设计到部署》
+*   [SquadcastHub/awesome-sre-tools](https://github.com/SquadcastHub/awesome-sre-tools) - A curated list of Site Reliability and Production Engineering Tools
+*   [zettastor/dbs](https://github.com/zettastor/dbs) - ZettaStor DBS provides enterprise-level business storage solutions with high availability, high performance, easy expansion and easy maintenance for large-scale virtualization, private cloud and container environments.
+*   [shahraizali/awesome-django](https://github.com/shahraizali/awesome-django) - The Best Django Resource, Awesome Django for mature packages.
+*   [humanloop/awesome-chatgpt](https://github.com/humanloop/awesome-chatgpt) - Curated list of awesome tools, demos, docs for ChatGPT and GPT-3
+*   [sindresorhus/awesome-nodejs](https://github.com/sindresorhus/awesome-nodejs) - :zap: Delightful Node.js packages and resources
+*   [sindresorhus/awesome](https://github.com/sindresorhus/awesome) - 😎 Awesome lists about all kinds of interesting topics
+*   [cskefu/community](https://github.com/cskefu/community) - Cskefu community relevant content
+*   [travis-ci/travis-ci](https://github.com/travis-ci/travis-ci) - Free continuous integration platform for GitHub projects.
+*   [The-Run-Philosophy-Organization/run](https://github.com/The-Run-Philosophy-Organization/run) - 润学全球官方指定GITHUB，整理润学宗旨、纲领、理论和各类润之实例；解决为什么润，润去哪里，怎么润三大问题； 并成为新中国人的核心宗教，核心信念。
+*   [firstcontributions/first-contributions](https://github.com/firstcontributions/first-contributions) - 🚀✨ Help beginners to contribute to open source projects
+*   [dotnetcore/Home](https://github.com/dotnetcore/Home) - Home repo of  .NET Core Community
+*   [cncf/presentations](https://github.com/cncf/presentations) - 📊Presentations from the CNCF community to share and reuse
+*   [cloudnativeapp/meetup](https://github.com/cloudnativeapp/meetup) - cloudnative meetup slides
+*   [cncf/k8s-conformance](https://github.com/cncf/k8s-conformance) - 🧪CNCF K8s Conformance Working Group
+*   [jobbole/awesome-design-cn](https://github.com/jobbole/awesome-design-cn) - 设计师资源大全，包含：ICON图标、Logo设计、PhotoShop插件、交互设计工具、流程图、线框图/原型图、设计博客等
+*   [xxjwxc/uber\_go\_guide\_cn](https://github.com/xxjwxc/uber_go_guide_cn) - Uber Go 语言编码规范中文版. The Uber Go Style Guide .
+*   [Jackpopc/DevWeekly](https://github.com/Jackpopc/DevWeekly) - 每周五发布，精选优质开发者内容，包括开源项目、工具资源、技术文章等方面。
+*   [karmada-io/community](https://github.com/karmada-io/community) - Karmada community relevant content
+*   [trekhleb/state-of-the-art-shitcode](https://github.com/trekhleb/state-of-the-art-shitcode) - 💩State-of-the-art shitcode principles your project should follow to call it a proper shitcode
+*   [rzashakeri/beautify-github-profile](https://github.com/rzashakeri/beautify-github-profile) - This repository will assist you in creating a more beautiful and appealing github profile, and you will have access to a comprehensive range of tools and tutorials for beautifying your github profile.  🪄 ⭐
+*   [David-VTUK/CKA-StudyGuide](https://github.com/David-VTUK/CKA-StudyGuide) - Study guide for the CKA exam
+*   [ayuer/shanghai\_house\_knowledge](https://github.com/ayuer/shanghai_house_knowledge) - 2020年11月在上海买房经历总结出来的买房购房做的一些功课分享给大家，技术人帮助技术人，希望对大家有所帮助。
+*   [mfornos/awesome-microservices](https://github.com/mfornos/awesome-microservices) - A curated list of Microservice Architecture related principles and technologies.
+*   [Wechat-ggGitHub/Awesome-GitHub-Repo](https://github.com/Wechat-ggGitHub/Awesome-GitHub-Repo) - 收集整理 GitHub 上高质量、有趣的开源项目。
+*   [itgoyo/TelegramGroup](https://github.com/itgoyo/TelegramGroup) - 悄咪咪收集的1000+个Telegram群合集，如果有更多好玩的telegram群，欢迎在 issue 提出或者pull requests
+*   [cncf/curriculum](https://github.com/cncf/curriculum) - 📚Open Source Curriculum for CNCF Certification Courses
+*   [yifeikong/reverse-interview-zh](https://github.com/yifeikong/reverse-interview-zh) - 技术面试最后反问面试官的话
+*   [Hack-with-Github/Awesome-Hacking](https://github.com/Hack-with-Github/Awesome-Hacking) - A collection of various awesome lists for hackers, pentesters and security researchers
+*   [humiaozuzu/awesome-flask](https://github.com/humiaozuzu/awesome-flask) - A curated list of awesome Flask resources and plugins
+*   [LinuxSuRen/remote-jobs-in-china](https://github.com/LinuxSuRen/remote-jobs-in-china) - 支持远程办公的中国公司
+*   [lizhe2004/chatbot-list](https://github.com/lizhe2004/chatbot-list) - 行业内关于智能客服、聊天机器人的应用和架构、算法分享和介绍
+*   [tomhuang12/awesome-k8s-resources](https://github.com/tomhuang12/awesome-k8s-resources) - A curated list of awesome Kubernetes tools and resources.
+*   [hexojs/awesome-hexo](https://github.com/hexojs/awesome-hexo) - A curated list of awesome things related to Hexo
+*   [1c7/chinese-independent-developer](https://github.com/1c7/chinese-independent-developer) - 👩🏿‍💻👨🏾‍💻👩🏼‍💻👨🏽‍💻👩🏻‍💻中国独立开发者项目列表 -- 分享大家都在做什么
+*   [shockerli/go-awesome](https://github.com/shockerli/go-awesome) - Go 语言优秀资源整理，为项目落地加速🏃
+*   [nikitavoloboev/my-mac](https://github.com/nikitavoloboev/my-mac) - Apps/tools I use on macOS
+*   [jackfrued/Python-Core-50-Courses](https://github.com/jackfrued/Python-Core-50-Courses) - Python语言基础50课
+*   [taowen/awesome-lowcode](https://github.com/taowen/awesome-lowcode) - 国内低代码平台从业者交流
+*   [haiiiiiyun/awesome-django-cn](https://github.com/haiiiiiyun/awesome-django-cn) - Django 优秀资源大全。
+*   [fwwdn/sensitive-stop-words](https://github.com/fwwdn/sensitive-stop-words) - 互联网常用敏感词、停止词词库
+*   [aben1188/awesome-uni-app](https://github.com/aben1188/awesome-uni-app) - Awesome for uni-app！ 基于Vue.js的跨平台多端应用前端框架uni-app一站式开发资源汇总
+*   [CarGuo/gsy\_flutter\_book](https://github.com/CarGuo/gsy_flutter_book) - Flutter 完整开发实战详解系列，提供在线预览和pdf下载，本系列将完整讲述：如何快速从 0 开发一个完整的 Flutter APP，配套高完成度 Flutter 开源项目 GSYGithubAppFlutter ，同时会提供一些Flutter的开发细节技巧，之后深入源码和实战为你全面解析 Flutter 。
+*   [websemantics/awesome-ant-design](https://github.com/websemantics/awesome-ant-design) - A curated list of Ant Design resources and related projects. The main idea is that everyone can contribute here, so we can have a central repository of informations about Ant Design that we keep up-to-date
+*   [996icu/996.ICU](https://github.com/996icu/996.ICU) - Repo for counting stars and contributing. Press F to pay respect to glorious developers.
+*   [wagamamaz/tensorlayer-tricks](https://github.com/wagamamaz/tensorlayer-tricks) - How to use TensorLayer
+*   [GitHubDaily/GitHubDaily](https://github.com/GitHubDaily/GitHubDaily) - 坚持分享 GitHub 上高质量、有趣实用的开源技术教程、开发者工具、编程网站、技术资讯。A list cool, interesting projects of GitHub.
+*   [jaywcjlove/mysql-tutorial](https://github.com/jaywcjlove/mysql-tutorial) - MySQL入门教程（MySQL tutorial book）
+*   [opendigg/awesome-github-wechat-weapp](https://github.com/opendigg/awesome-github-wechat-weapp) - 微信小程序开源项目库汇总
+*   [justjavac/awesome-wechat-weapp](https://github.com/justjavac/awesome-wechat-weapp) - 微信小程序开发资源汇总 :100:
+*   [TonnyL/Awesome\_APIs](https://github.com/TonnyL/Awesome_APIs) - :octocat: A collection of APIs
+*   [serhii-londar/open-source-mac-os-apps](https://github.com/serhii-londar/open-source-mac-os-apps) - 🚀 Awesome list of open source applications for macOS. https://t.me/s/opensourcemacosapps
+*   [nieweidong/fetool](https://github.com/nieweidong/fetool) - 大前端的瑞士军刀，只记录有用的。
 
 ## Python
 
@@ -448,96 +596,6 @@
 *   [Redocly/redoc](https://github.com/Redocly/redoc) - 📘  OpenAPI/Swagger-generated API Reference Documentation
 *   [halo-dev/console](https://github.com/halo-dev/console) - Web Console for Halo(Formerly halo-admin)
 
-## miscellaneous
-
-*   [Chanzhaoyu/chatgpt-web-plus](https://github.com/Chanzhaoyu/chatgpt-web-plus) - chatgpt-web-plus
-*   [wangdoc/typescript-tutorial](https://github.com/wangdoc/typescript-tutorial) - TypeScript 教程
-*   [CLUEbenchmark/SuperCLUE](https://github.com/CLUEbenchmark/SuperCLUE) - SuperCLUE: 中文通用大模型综合性基准 | A Benchmark for Foundation Models in Chinese
-*   [orbstack/orbstack](https://github.com/orbstack/orbstack) - Fast, light, simple Docker containers & Linux machines for macOS
-*   [CrazyBoyM/llama2-Chinese-chat](https://github.com/CrazyBoyM/llama2-Chinese-chat) - 全网首个中文llama2 13b 对话模型。llama2 Chinese chat - 本项目是一个教程记录整理的repo，旨在提供给新手的参照价值和开箱即用的中文LLaMa2对话体验。包含训练过程记录，各种主要量化方式，部署后端api的推荐方案，以及在一个具体的前端网页上实现开箱即用的流畅对话体验。
-*   [enaqx/awesome-react](https://github.com/enaqx/awesome-react) - A collection of awesome things regarding React ecosystem
-*   [typora/typora-issues](https://github.com/typora/typora-issues) - Bugs, suggestions or free discussions about the minimal markdown editor — Typora
-*   [Uyukisan/stackcloudtalk](https://github.com/Uyukisan/stackcloudtalk) - 香色闺阁源⛄️
-*   [sparanoid/chinese-copywriting-guidelines](https://github.com/sparanoid/chinese-copywriting-guidelines) - Chinese copywriting guidelines for better written communication／中文文案排版指北
-*   [LangLangShanDeNanKe/chatgpt](https://github.com/LangLangShanDeNanKe/chatgpt) - ChatGPT网址导航，分享免费好用AI网站！
-*   [DeepTecher/awesome-ChatGPT-resource-zh](https://github.com/DeepTecher/awesome-ChatGPT-resource-zh) - 精选 OpenAI 的 [ChatGPT](https://chat.openai.com) 资源清单, 跟随最新资源并添加中文相关Work
-*   [cncf/ambassadors](https://github.com/cncf/ambassadors) - 🌏🌎🌍 CNCF Ambassadors
-*   [warpdotdev/Warp](https://github.com/warpdotdev/Warp) - Warp is a blazingly-fast modern Rust based GPU-accelerated terminal built to make you and your team more productive.
-*   [modularml/mojo](https://github.com/modularml/mojo) - The Mojo Programming Language
-*   [imDazui/Tvlist-awesome-m3u-m3u8](https://github.com/imDazui/Tvlist-awesome-m3u-m3u8) - 直播源相关资源汇总 📺 💯 IPTV、M3U —— 勤洗手、戴口罩，祝愿所有人百毒不侵
-*   [asdjkl6/tv](https://github.com/asdjkl6/tv) - 复刻和转仓说明出处，请勿商用
-*   [liu673cn/box](https://github.com/liu673cn/box) - TVbox开源版（空壳-自行配置）
-*   [gnehs/subtitle-translator-electron](https://github.com/gnehs/subtitle-translator-electron) - ↔️ Translate subtitle using ChatGPT
-*   [mse-group/Slides](https://github.com/mse-group/Slides) - 提供 MSE 相关的大会、直播和 Meetup 的 PPT 下载。
-*   [ruanyf/weekly](https://github.com/ruanyf/weekly) - 科技爱好者周刊，每周五发布
-*   [dyweb/papers-notebook](https://github.com/dyweb/papers-notebook) - :page\_facing\_up: :cn: :page\_with\_curl: 论文阅读笔记（分布式系统、虚拟化、机器学习）Papers Notebook (Distributed System, Virtualization, Machine Learning)
-*   [kenwoodjw/python\_interview\_question](https://github.com/kenwoodjw/python_interview_question) - 关于python的面试题
-*   [hcfyapp/crx-selection-translate](https://github.com/hcfyapp/crx-selection-translate) - 一站式划词 / 截图 / 网页全文 / 音视频翻译扩展。
-*   [zoidbergwill/awesome-ebpf](https://github.com/zoidbergwill/awesome-ebpf) - A curated list of awesome projects related to eBPF.
-*   [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) - 🦄️ 🎃 👻 Clash Premium 规则集(RULE-SET)，兼容 ClashX Pro、Clash for Windows 客户端。
-*   [liaokongVFX/LangChain-Chinese-Getting-Started-Guide](https://github.com/liaokongVFX/LangChain-Chinese-Getting-Started-Guide) - LangChain 的中文入门教程
-*   [hax/heshijun\_v\_360](https://github.com/hax/heshijun_v_360) - 贺师俊与360的劳动争议诉讼
-*   [kattgu7/Anti-996-License](https://github.com/kattgu7/Anti-996-License) - Anti-996 License Version 1.0
-*   [jobbole/awesome-go-cn](https://github.com/jobbole/awesome-go-cn) - Go 资源大全中文版， 内容包括：Web框架、模板引擎、表单、身份认证、数据库、ORM框架、图片处理、文本处理、自然语言处理、机器学习、日志、代码分析、教程和（电子）书等。由「开源前哨」和「Go开发大全」微信团队维护。
-*   [PlexPt/awesome-chatgpt-prompts-zh](https://github.com/PlexPt/awesome-chatgpt-prompts-zh) - ChatGPT 中文调教指南。各种场景使用指南。学习怎么让它听你的话。
-*   [ripperhe/Bob](https://github.com/ripperhe/Bob) - Bob 是一款 macOS 平台的翻译和 OCR 软件。
-*   [AntBranch/awesome-github](https://github.com/AntBranch/awesome-github) - A curated list of awesome GitHub guides, articles, sites, tools, projects and resources.  收集这个列表，只是为了更好地使用GitHub,欢迎提交pr和issue。
-*   [xx025/carrot](https://github.com/xx025/carrot) - Free ChatGPT Site List 这儿为你准备了众多免费好用的ChatGPT镜像站点
-*   [DocsHome/microservices](https://github.com/DocsHome/microservices) - Microservices from Design to Deployment 中文版 《微服务：从设计到部署》
-*   [SquadcastHub/awesome-sre-tools](https://github.com/SquadcastHub/awesome-sre-tools) - A curated list of Site Reliability and Production Engineering Tools
-*   [zettastor/dbs](https://github.com/zettastor/dbs) - ZettaStor DBS provides enterprise-level business storage solutions with high availability, high performance, easy expansion and easy maintenance for large-scale virtualization, private cloud and container environments.
-*   [shahraizali/awesome-django](https://github.com/shahraizali/awesome-django) - The Best Django Resource, Awesome Django for mature packages.
-*   [humanloop/awesome-chatgpt](https://github.com/humanloop/awesome-chatgpt) - Curated list of awesome tools, demos, docs for ChatGPT and GPT-3
-*   [sindresorhus/awesome-nodejs](https://github.com/sindresorhus/awesome-nodejs) - :zap: Delightful Node.js packages and resources
-*   [sindresorhus/awesome](https://github.com/sindresorhus/awesome) - 😎 Awesome lists about all kinds of interesting topics
-*   [cskefu/community](https://github.com/cskefu/community) - Cskefu community relevant content
-*   [travis-ci/travis-ci](https://github.com/travis-ci/travis-ci) - Free continuous integration platform for GitHub projects.
-*   [The-Run-Philosophy-Organization/run](https://github.com/The-Run-Philosophy-Organization/run) - 润学全球官方指定GITHUB，整理润学宗旨、纲领、理论和各类润之实例；解决为什么润，润去哪里，怎么润三大问题； 并成为新中国人的核心宗教，核心信念。
-*   [firstcontributions/first-contributions](https://github.com/firstcontributions/first-contributions) - 🚀✨ Help beginners to contribute to open source projects
-*   [dotnetcore/Home](https://github.com/dotnetcore/Home) - Home repo of  .NET Core Community
-*   [cncf/presentations](https://github.com/cncf/presentations) - 📊Presentations from the CNCF community to share and reuse
-*   [cloudnativeapp/meetup](https://github.com/cloudnativeapp/meetup) - cloudnative meetup slides
-*   [cncf/k8s-conformance](https://github.com/cncf/k8s-conformance) - 🧪CNCF K8s Conformance Working Group
-*   [jobbole/awesome-design-cn](https://github.com/jobbole/awesome-design-cn) - 设计师资源大全，包含：ICON图标、Logo设计、PhotoShop插件、交互设计工具、流程图、线框图/原型图、设计博客等
-*   [xxjwxc/uber\_go\_guide\_cn](https://github.com/xxjwxc/uber_go_guide_cn) - Uber Go 语言编码规范中文版. The Uber Go Style Guide .
-*   [Jackpopc/DevWeekly](https://github.com/Jackpopc/DevWeekly) - 每周五发布，精选优质开发者内容，包括开源项目、工具资源、技术文章等方面。
-*   [karmada-io/community](https://github.com/karmada-io/community) - Karmada community relevant content
-*   [trekhleb/state-of-the-art-shitcode](https://github.com/trekhleb/state-of-the-art-shitcode) - 💩State-of-the-art shitcode principles your project should follow to call it a proper shitcode
-*   [rzashakeri/beautify-github-profile](https://github.com/rzashakeri/beautify-github-profile) - This repository will assist you in creating a more beautiful and appealing github profile, and you will have access to a comprehensive range of tools and tutorials for beautifying your github profile.  🪄 ⭐
-*   [David-VTUK/CKA-StudyGuide](https://github.com/David-VTUK/CKA-StudyGuide) - Study guide for the CKA exam
-*   [ayuer/shanghai\_house\_knowledge](https://github.com/ayuer/shanghai_house_knowledge) - 2020年11月在上海买房经历总结出来的买房购房做的一些功课分享给大家，技术人帮助技术人，希望对大家有所帮助。
-*   [mfornos/awesome-microservices](https://github.com/mfornos/awesome-microservices) - A curated list of Microservice Architecture related principles and technologies.
-*   [Wechat-ggGitHub/Awesome-GitHub-Repo](https://github.com/Wechat-ggGitHub/Awesome-GitHub-Repo) - 收集整理 GitHub 上高质量、有趣的开源项目。
-*   [itgoyo/TelegramGroup](https://github.com/itgoyo/TelegramGroup) - 悄咪咪收集的1000+个Telegram群合集，如果有更多好玩的telegram群，欢迎在 issue 提出或者pull requests
-*   [cncf/curriculum](https://github.com/cncf/curriculum) - 📚Open Source Curriculum for CNCF Certification Courses
-*   [yifeikong/reverse-interview-zh](https://github.com/yifeikong/reverse-interview-zh) - 技术面试最后反问面试官的话
-*   [Hack-with-Github/Awesome-Hacking](https://github.com/Hack-with-Github/Awesome-Hacking) - A collection of various awesome lists for hackers, pentesters and security researchers
-*   [humiaozuzu/awesome-flask](https://github.com/humiaozuzu/awesome-flask) - A curated list of awesome Flask resources and plugins
-*   [LinuxSuRen/remote-jobs-in-china](https://github.com/LinuxSuRen/remote-jobs-in-china) - 支持远程办公的中国公司
-*   [lizhe2004/chatbot-list](https://github.com/lizhe2004/chatbot-list) - 行业内关于智能客服、聊天机器人的应用和架构、算法分享和介绍
-*   [tomhuang12/awesome-k8s-resources](https://github.com/tomhuang12/awesome-k8s-resources) - A curated list of awesome Kubernetes tools and resources.
-*   [hexojs/awesome-hexo](https://github.com/hexojs/awesome-hexo) - A curated list of awesome things related to Hexo
-*   [1c7/chinese-independent-developer](https://github.com/1c7/chinese-independent-developer) - 👩🏿‍💻👨🏾‍💻👩🏼‍💻👨🏽‍💻👩🏻‍💻中国独立开发者项目列表 -- 分享大家都在做什么
-*   [shockerli/go-awesome](https://github.com/shockerli/go-awesome) - Go 语言优秀资源整理，为项目落地加速🏃
-*   [nikitavoloboev/my-mac](https://github.com/nikitavoloboev/my-mac) - Apps/tools I use on macOS
-*   [jackfrued/Python-Core-50-Courses](https://github.com/jackfrued/Python-Core-50-Courses) - Python语言基础50课
-*   [taowen/awesome-lowcode](https://github.com/taowen/awesome-lowcode) - 国内低代码平台从业者交流
-*   [haiiiiiyun/awesome-django-cn](https://github.com/haiiiiiyun/awesome-django-cn) - Django 优秀资源大全。
-*   [fwwdn/sensitive-stop-words](https://github.com/fwwdn/sensitive-stop-words) - 互联网常用敏感词、停止词词库
-*   [aben1188/awesome-uni-app](https://github.com/aben1188/awesome-uni-app) - Awesome for uni-app！ 基于Vue.js的跨平台多端应用前端框架uni-app一站式开发资源汇总
-*   [CarGuo/gsy\_flutter\_book](https://github.com/CarGuo/gsy_flutter_book) - Flutter 完整开发实战详解系列，提供在线预览和pdf下载，本系列将完整讲述：如何快速从 0 开发一个完整的 Flutter APP，配套高完成度 Flutter 开源项目 GSYGithubAppFlutter ，同时会提供一些Flutter的开发细节技巧，之后深入源码和实战为你全面解析 Flutter 。
-*   [websemantics/awesome-ant-design](https://github.com/websemantics/awesome-ant-design) - A curated list of Ant Design resources and related projects. The main idea is that everyone can contribute here, so we can have a central repository of informations about Ant Design that we keep up-to-date
-*   [996icu/996.ICU](https://github.com/996icu/996.ICU) - Repo for counting stars and contributing. Press F to pay respect to glorious developers.
-*   [wagamamaz/tensorlayer-tricks](https://github.com/wagamamaz/tensorlayer-tricks) - How to use TensorLayer
-*   [GitHubDaily/GitHubDaily](https://github.com/GitHubDaily/GitHubDaily) - 坚持分享 GitHub 上高质量、有趣实用的开源技术教程、开发者工具、编程网站、技术资讯。A list cool, interesting projects of GitHub.
-*   [jaywcjlove/mysql-tutorial](https://github.com/jaywcjlove/mysql-tutorial) - MySQL入门教程（MySQL tutorial book）
-*   [opendigg/awesome-github-wechat-weapp](https://github.com/opendigg/awesome-github-wechat-weapp) - 微信小程序开源项目库汇总
-*   [justjavac/awesome-wechat-weapp](https://github.com/justjavac/awesome-wechat-weapp) - 微信小程序开发资源汇总 :100:
-*   [TonnyL/Awesome\_APIs](https://github.com/TonnyL/Awesome_APIs) - :octocat: A collection of APIs
-*   [serhii-londar/open-source-mac-os-apps](https://github.com/serhii-londar/open-source-mac-os-apps) - 🚀 Awesome list of open source applications for macOS. https://t.me/s/opensourcemacosapps
-*   [nieweidong/fetool](https://github.com/nieweidong/fetool) - 大前端的瑞士军刀，只记录有用的。
-*   [iMeiji/shadowsocks\_install](https://github.com/iMeiji/shadowsocks_install) - Auto install shadowsocks server，thanks 秋水逸冰
-
 ## Rust
 
 *   [huggingface/candle](https://github.com/huggingface/candle) - Minimalist ML framework for Rust
@@ -630,7 +688,6 @@
 *   [emptycrown/llama-hub](https://github.com/emptycrown/llama-hub) - A library of data loaders for LLMs made by the community -- to be used with GPT Index and/or LangChain
 *   [openai/openai-cookbook](https://github.com/openai/openai-cookbook) - Examples and guides for using the OpenAI API
 *   [ben1234560/AiLearning-Theory-Applying](https://github.com/ben1234560/AiLearning-Theory-Applying) - 快速上手Ai理论及应用实战：基础知识、ML、DL、NLP-BERT、竞赛。含大量注释及数据集，力求每一位能看懂并复现。
-*   [lijin-THU/notes-python](https://github.com/lijin-THU/notes-python) - 中文 Python 笔记
 
 ## C
 
@@ -662,63 +719,6 @@
 ## Dockerfile
 
 *   [alauda/kubeflow-chart](https://github.com/alauda/kubeflow-chart) - Kubeflow helm chart
-
-## JavaScript
-
-*   [Ice-Hazymoon/openai-scf-proxy](https://github.com/Ice-Hazymoon/openai-scf-proxy) - 使用腾讯云函数一分钟搭建 OpenAI 免翻墙代理
-*   [josStorer/chatGPTBox](https://github.com/josStorer/chatGPTBox) - Integrating ChatGPT into your browser deeply, everything you need is here
-*   [goodideal/gitlab-bot](https://github.com/goodideal/gitlab-bot) - 将Gitlab的push、tag push、merge request和pipeline推送到企业微信的机器人
-*   [samzong/samzong.github.io](https://github.com/samzong/samzong.github.io) - Work, and reflections on life. Explore cloud native, share experiences, contemplate life.
-*   [purple-force/docsite](https://github.com/purple-force/docsite) - An opensource static website generator
-*   [vercel/next.js](https://github.com/vercel/next.js) - The React Framework
-*   [simonecorsi/mawesome](https://github.com/simonecorsi/mawesome) - 😎 Github action to generate your own awesome list from project you've starred ordered by languages!
-*   [open-telemetry/opentelemetry.io](https://github.com/open-telemetry/opentelemetry.io) - The OpenTelemetry website and documentation
-*   [pavolloffay/kubecon-eu-2023-opentelemetry-kubernetes-tutorial](https://github.com/pavolloffay/kubecon-eu-2023-opentelemetry-kubernetes-tutorial) -
-*   [SeimoIO/website](https://github.com/SeimoIO/website) - SeimoIO's website
-*   [songquanpeng/message-pusher](https://github.com/songquanpeng/message-pusher) - 搭建专属于你的消息推送服务，支持多种消息推送方式，支持 Markdown，基于 Golang 仅单可执行文件，开箱即用
-*   [kubesphere/kube-design](https://github.com/kubesphere/kube-design) - Kube Design for KubeSphere Console
-*   [0hq/WebGPT](https://github.com/0hq/WebGPT) - Run GPT model on the browser with WebGPU. An implementation of GPT inference in less than ~1500 lines of vanilla Javascript.
-*   [leancloud/docs](https://github.com/leancloud/docs) - LeanCloud Documentation
-*   [vinta/pangu.js](https://github.com/vinta/pangu.js) - Paranoid text spacing in JavaScript
-*   [Hackl0us/SS-Rule-Snippet](https://github.com/Hackl0us/SS-Rule-Snippet) - 搜集、整理、维护 Surge / Quantumult (X) / Shadowrocket / Surfboard / clash (Premium) 实用规则。
-*   [cteamx/Thief](https://github.com/cteamx/Thief) - 一款创新跨平台摸鱼神器，支持小说、股票、网页、视频、直播、PDF、游戏等摸鱼模式，为上班族打造的上班必备神器，使用此软件可以让上班倍感轻松，远离 ICU。
-*   [anc95/ChatGPT-CodeReview](https://github.com/anc95/ChatGPT-CodeReview) - 🐥 A code review bot powered by ChatGPT
-*   [PipedreamHQ/pipedream](https://github.com/PipedreamHQ/pipedream) - Connect APIs, remarkably fast.  Free for developers.
-*   [openai-translator/bob-plugin-openai-translator](https://github.com/openai-translator/bob-plugin-openai-translator) - 基于 ChatGPT API 的文本翻译、文本润色、语法纠错 Bob 插件，让我们一起迎接不需要巴别塔的新时代！Licensed under CC BY-NC-SA 4.0
-*   [douyu/juno](https://github.com/douyu/juno) - Juno 译名朱诺。这个名字来源于古罗马神话中的众神之母。它是斗鱼的微服务管理系统， 如同众神之母一样守护着所有微服务的系统。
-*   [tangly1024/NotionNext](https://github.com/tangly1024/NotionNext) - 使用 NextJS + Notion API 实现的，支持多种部署方案的静态博客，无需服务器、零门槛搭建网站，为Notion和所有创作者设计。 (A static blog built with NextJS and Notion API, supporting multiple deployment options. No server required, zero threshold to set up a website. Designed for Notion and all creators.)
-*   [Postcatlab/postcat](https://github.com/Postcatlab/postcat) - Postcat 是一个可扩展的 API 工具平台。集合基础的 API 管理和测试功能，并且可以通过插件简化你的 API 开发工作，让你可以更快更好地创建 API。An extensible API tool.
-*   [polarismesh/website](https://github.com/polarismesh/website) - source for the polarismesh.cn site
-*   [jgraph/drawio-desktop](https://github.com/jgraph/drawio-desktop) - Official electron build of draw.io
-*   [umami-software/umami](https://github.com/umami-software/umami) - Umami is a simple, fast, privacy-focused alternative to Google Analytics.
-*   [apidoc/apidoc](https://github.com/apidoc/apidoc) - RESTful web API Documentation Generator.
-*   [cskefu/cskefu](https://github.com/cskefu/cskefu) - 🌲 春松客服，开源客服系统
-*   [deathau/markdownload](https://github.com/deathau/markdownload) - A Firefox and Google Chrome extension to clip websites and download them into a readable markdown file.
-*   [sootheslayer/VisualizingStreamingData](https://github.com/sootheslayer/VisualizingStreamingData) - Visuallizing a real time streaming data on web app using node.js socket.io and Apache Kafka
-*   [ToolJet/ToolJet](https://github.com/ToolJet/ToolJet) - Low-code platform for building business applications. Connect to databases, cloud storages, GraphQL, API endpoints, Airtable, Google sheets, OpenAI, etc and build apps using drag and drop application builder. Built using JavaScript/TypeScript. 🚀
-*   [xCss/bing](https://github.com/xCss/bing) - Bing 壁纸 API
-*   [star7th/showdoc](https://github.com/star7th/showdoc) - ShowDoc is a tool greatly applicable for an IT team to share documents online一个非常适合IT团队的在线API文档、技术文档工具
-*   [DIYgod/RSSHub-Radar](https://github.com/DIYgod/RSSHub-Radar) - 🍰 Browser extension that simplifies finding and subscribing RSS and RSSHub
-*   [karmada-io/dashboard](https://github.com/karmada-io/dashboard) - Web UI for Karmada
-*   [volantis-x/hexo-theme-volantis](https://github.com/volantis-x/hexo-theme-volantis) - A Wonderful Theme for Hexo.
-*   [xaoxuu/hexo-theme-stellar](https://github.com/xaoxuu/hexo-theme-stellar) - 内置文档系统的简约商务风Hexo主题，支持丰富的标签和动态数据组件。
-*   [hexojs/hexo](https://github.com/hexojs/hexo) - A fast, simple & powerful blog framework, powered by Node.js.
-*   [vuejs/vuepress](https://github.com/vuejs/vuepress) - 📝 Minimalistic Vue-powered static site generator
-*   [docsifyjs/docsify](https://github.com/docsifyjs/docsify) - 🃏 A magical documentation site generator.
-*   [eip-work/kuboard-press](https://github.com/eip-work/kuboard-press) - Kuboard 是基于 Kubernetes 的微服务管理界面。同时提供 Kubernetes 免费中文教程，入门教程，最新版本的 Kubernetes v1.23.4 安装手册，(k8s install) 在线答疑，持续更新。
-*   [blinkfox/hexo-theme-matery](https://github.com/blinkfox/hexo-theme-matery) - A beautiful hexo blog theme with material design and responsive design.一个基于材料设计和响应式设计而成的全面、美观的Hexo主题。国内访问：http://blinkfox.com
-*   [MrXujiang/h5-Dooring](https://github.com/MrXujiang/h5-Dooring) - H5 Page Maker, H5 Editor, LowCode. Make H5 as easy as building blocks. | 让H5制作像搭积木一样简单, 轻松搭建H5页面, H5网站, PC端网站,LowCode平台.
-*   [chinese-poetry/chinese-poetry](https://github.com/chinese-poetry/chinese-poetry) - The most comprehensive database of Chinese poetry 🧶最全中华古诗词数据库,  唐宋两朝近一万四千古诗人,  接近5.5万首唐诗加26万宋诗.  两宋时期1564位词人，21050首词。
-*   [steedos/steedos-platform](https://github.com/steedos/steedos-platform) - Steedos Low-code PaaS platform is an open-source alternative to Salesforce Platform 🤖 🎨 🚀 . It provides a powerful and flexible platform for building enterprise-grade applications quickly and easily.
-*   [ryanhanwu/How-To-Ask-Questions-The-Smart-Way](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way) - 本文原文由知名 Hacker Eric S. Raymond 所撰寫，教你如何正確的提出技術問題並獲得你滿意的答案。
-*   [zhaoolee/ChromeAppHeroes](https://github.com/zhaoolee/ChromeAppHeroes) - 🌈谷粒-Chrome插件英雄榜, 为优秀的Chrome插件写一本中文说明书, 让Chrome插件英雄们造福人类~  ChromePluginHeroes, Write a Chinese manual for the excellent Chrome plugin, let the Chrome plugin heroes benefit the human~ 公众号「0加1」同步更新
-*   [phodal/moform](https://github.com/phodal/moform) - A Serverlesss form builder
-*   [xiangyuecn/Recorder](https://github.com/xiangyuecn/Recorder) - html5 js 录音 mp3 wav ogg webm amr g711a g711u 格式，支持pc和Android、iOS部分浏览器、Hybrid App（提供Android iOS App源码）、微信，提供ASR语音识别转文字 H5版语音通话聊天示例 DTMF编码解码
-*   [cnodejs/nodeclub](https://github.com/cnodejs/nodeclub) - :baby\_chick:Nodeclub 是使用 Node.js 和 MongoDB 开发的社区系统
-*   [DIYgod/DPlayer](https://github.com/DIYgod/DPlayer) - :lollipop: Wow, such a lovely HTML5 danmaku video player
-*   [TevinLi/amWiki](https://github.com/TevinLi/amWiki) - amWiki 是一款由 JS 开发、依赖 Atom 或 Nodejs-Npm 的 Markdown 轻量级前端化开源文库系统
-*   [sqlpad/sqlpad](https://github.com/sqlpad/sqlpad) - Web-based SQL editor. Legacy project in maintenance mode.
-*   [liutian/light-push](https://github.com/liutian/light-push) - 轻量级推送服务和实时在线监控平台，同时用于开发即时通信系统，基于node的socket.io，支持web、android、ios客户端，支持移动端离线推送，可进行分布式部署
 
 ## Vue
 
