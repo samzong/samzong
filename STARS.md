@@ -76,7 +76,6 @@
 *   [pengzhile/pandora](https://github.com/pengzhile/pandora) - 潘多拉，一个让你呼吸顺畅的ChatGPT。Pandora, a ChatGPT that helps you breathe smoothly.
 *   [AntonOsika/gpt-engineer](https://github.com/AntonOsika/gpt-engineer) - Specify what you want it to build, the AI asks for clarification, and then builds it.
 *   [Undertone0809/promptulate](https://github.com/Undertone0809/promptulate) - 一个强大的大语言模型自动化与应用开发框架，支持智能决策、消息持久化、外部工具调用、角色预设等功能，开箱即用。 通过promptulate，你可以轻松构建起属于自己的LLM应用程序。
-*   [langgenius/dify](https://github.com/langgenius/dify) - One API for plugins and datasets, one interface for prompt engineering and visual operation, all for creating powerful AI applications.
 *   [THUDM/GLM-130B](https://github.com/THUDM/GLM-130B) - GLM-130B: An Open Bilingual Pre-Trained Model (ICLR 2023)
 *   [facebookresearch/llama](https://github.com/facebookresearch/llama) - Inference code for LLaMA models
 *   [itcharge/LeetCode-Py](https://github.com/itcharge/LeetCode-Py) - ⛽️「算法通关手册」：超详细的「算法与数据结构」基础讲解教程，从零基础开始学习算法知识，800+ 道「LeetCode 题目」详细解析，200 道「大厂面试热门题目」。
@@ -191,6 +190,7 @@
 *   [kubeedge/edgemesh](https://github.com/kubeedge/edgemesh) - Simplified network and services for edge applications
 *   [iawia002/lux](https://github.com/iawia002/lux) - 👾 Fast and simple video download library and CLI tool written in Go
 *   [kubesphere/kubekey](https://github.com/kubesphere/kubekey) - Install Kubernetes/K3s only, both Kubernetes/K3s and KubeSphere, and related cloud-native add-ons, it supports all-in-one, multi-node, and HA 🔥 ⎈ 🐳
+*   [jmorganca/ollama](https://github.com/jmorganca/ollama) - Get up and running with Llama 2 and other large language models locally
 *   [fluid-cloudnative/fluid](https://github.com/fluid-cloudnative/fluid) - Fluid, elastic data abstraction and acceleration for BigData/AI applications in cloud. (Project under CNCF)
 *   [harvester/harvester](https://github.com/harvester/harvester) - Open source hyperconverged infrastructure (HCI) software
 *   [docker/compose](https://github.com/docker/compose) - Define and run multi-container applications with Docker
@@ -536,6 +536,7 @@
 *   [prompt-engineering/chat-visual-novel](https://github.com/prompt-engineering/chat-visual-novel) - ChatVisualNovel - a fully customizable visual novel engine powered by ChatGPT. ChatVisualNovel —— 基于ChatGPT的定制化视觉小说引擎。
 *   [xitanggg/open-resume](https://github.com/xitanggg/open-resume) - OpenResume is a powerful open-source resume builder and resume parser. https://open-resume.com/
 *   [ltyzzzxxx/gpt-web-terminal](https://github.com/ltyzzzxxx/gpt-web-terminal) - ✨ Open ChatGPT with Programmer's Approach! GPT Terminal is a platform that allows you to communicate with GPT in a terminal.
+*   [langgenius/dify](https://github.com/langgenius/dify) - One API for plugins and datasets, one interface for prompt engineering and visual operation, all for creating powerful AI applications.
 *   [ycjcl868/readme-gpt](https://github.com/ycjcl868/readme-gpt) - Generate your Github Readme with OpenAI and Vercel Edge Functions.
 *   [actions/labeler](https://github.com/actions/labeler) - An action for automatically labelling pull requests
 *   [trpc/trpc](https://github.com/trpc/trpc) - 🧙‍♀️  Move Fast and Break Nothing. End-to-end typesafe APIs made easy.
@@ -558,7 +559,7 @@
 *   [reworkd/AgentGPT](https://github.com/reworkd/AgentGPT) - 🤖 Assemble, configure, and deploy autonomous AI Agents in your browser.
 *   [open-telemetry/opentelemetry-demo](https://github.com/open-telemetry/opentelemetry-demo) - This repository contains the OpenTelemetry Astronomy Shop, a microservice-based distributed system intended to illustrate the implementation of OpenTelemetry in a near real-world environment.
 *   [guangzhengli/ChatFiles](https://github.com/guangzhengli/ChatFiles) - Document Chatbot — multiple files. Powered by GPT / Embedding.
-*   [JimmyLv/BibiGPT](https://github.com/JimmyLv/BibiGPT) - BibiGPT v1 · one-Click AI Summary for Audio/Video & Chat with Learning Content: Bilibili | YouTube | Tweet丨TikTok丨Local files | Websites丨Podcasts | Meetings | Lectures, etc. 音视频内容 AI 一键总结 & 对话：哔哩哔哩丨YouTube丨推特丨小红书丨抖音丨网页丨播客丨会议丨本地文件等 (原 BiliGPT 省流神器 & 课代表)
+*   [JimmyLv/BibiGPT](https://github.com/JimmyLv/BibiGPT) - BibiGPT v1 · one-Click AI Summary for Audio/Video & Chat with Learning Content: Bilibili | YouTube | Tweet丨TikTok丨Dropbox丨Google Drive丨Local files | Websites丨Podcasts | Meetings | Lectures, etc. 音视频内容 AI 一键总结 & 对话：哔哩哔哩丨YouTube丨推特丨小红书丨抖音丨快手丨百度网盘丨阿里云盘丨网页丨播客丨会议丨本地文件等 (原 BiliGPT 省流神器 & AI课代表)
 *   [lzwme/chatgpt-sites](https://github.com/lzwme/chatgpt-sites) -  ChatGPT 网站导航。搜集国内可用的 ChatGPT 在线体验免费网站列表。定时任务每日更新
 *   [open-metadata/OpenMetadata](https://github.com/open-metadata/OpenMetadata) - Open Standard for Metadata. A Single place to Discover, Collaborate and Get your data right.
 *   [kubeshop/monokle](https://github.com/kubeshop/monokle) - 🧐 Monokle Desktop empowers you to better create, understand, and deploy YAML manifests with a visual UI that also provides policy validation and cluster insights.
@@ -694,7 +695,6 @@
 ## C
 
 *   [ggerganov/llama.cpp](https://github.com/ggerganov/llama.cpp) - Port of Facebook's LLaMA model in C/C++
-*   [jmorganca/ollama](https://github.com/jmorganca/ollama) - Get up and running with Llama 2 and other large language models locally
 *   [fluent/fluent-bit](https://github.com/fluent/fluent-bit) - Fast and Lightweight Logs and Metrics processor for Linux, BSD, OSX and Windows
 *   [Meituan-Dianping/Logan](https://github.com/Meituan-Dianping/Logan) - Logan is a lightweight case logging system based on mobile platform.
 *   [signalwire/freeswitch](https://github.com/signalwire/freeswitch) - FreeSWITCH is a Software Defined Telecom Stack enabling the digital transformation from proprietary telecom switches to a versatile software implementation that runs on any commodity hardware. From a Raspberry PI to a multi-core server, FreeSWITCH can unlock the telecommunications potential of any device.
