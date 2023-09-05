@@ -570,7 +570,7 @@
 *   [mpociot/chatgpt-vscode](https://github.com/mpociot/chatgpt-vscode) - A VSCode extension that allows you to use ChatGPT
 *   [atian25/yuque-exporter](https://github.com/atian25/yuque-exporter) - export yuque to local markdown
 *   [openblocks-dev/openblocks](https://github.com/openblocks-dev/openblocks) - 🔥 🔥 🔥 The Open Source Retool Alternative
-*   [novuhq/novu](https://github.com/novuhq/novu) - 🔥 The open-source notification infrastructure with fully functional embedded notification center 🚀🚀
+*   [novuhq/novu](https://github.com/novuhq/novu) - The open-source notification infrastructure with fully functional embedded notification center
 *   [satackey/action-docker-layer-caching](https://github.com/satackey/action-docker-layer-caching) - \[CAUTION] This repository is not actively maintained. / Enable Docker layer caching in your GitHub Actions workflow.
 *   [appwrite/appwrite](https://github.com/appwrite/appwrite) - Build Fast. Scale Big. All in One Place. Cloud is now available in public beta. 🌩
 *   [nocodb/nocodb](https://github.com/nocodb/nocodb) - 🔥 🔥 🔥 Open Source Airtable Alternative
