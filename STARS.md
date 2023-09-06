@@ -28,13 +28,13 @@
 *   [Lua](#lua)
 *   [Mustache](#mustache)
 *   [Roff](#roff)
+*   [Jinja](#jinja)
 *   [Kotlin](#kotlin)
 *   [PHP](#php)
 *   [Scala](#scala)
 *   [Groovy](#groovy)
 *   [Ruby](#ruby)
 *   [Dart](#dart)
-*   [Jinja](#jinja)
 *   [Stylus](#stylus)
 *   [Batchfile](#batchfile)
 *   [ActionScript](#actionscript)
@@ -76,7 +76,6 @@
 *   [pengzhile/pandora](https://github.com/pengzhile/pandora) - 潘多拉，一个让你呼吸顺畅的ChatGPT。Pandora, a ChatGPT that helps you breathe smoothly.
 *   [AntonOsika/gpt-engineer](https://github.com/AntonOsika/gpt-engineer) - Specify what you want it to build, the AI asks for clarification, and then builds it.
 *   [Undertone0809/promptulate](https://github.com/Undertone0809/promptulate) - 一个强大的大语言模型自动化与应用开发框架，支持智能决策、消息持久化、外部工具调用、角色预设等功能，开箱即用。 通过promptulate，你可以轻松构建起属于自己的LLM应用程序。
-*   [langgenius/dify](https://github.com/langgenius/dify) - One API for plugins and datasets, one interface for prompt engineering and visual operation, all for creating powerful AI applications.
 *   [THUDM/GLM-130B](https://github.com/THUDM/GLM-130B) - GLM-130B: An Open Bilingual Pre-Trained Model (ICLR 2023)
 *   [facebookresearch/llama](https://github.com/facebookresearch/llama) - Inference code for LLaMA models
 *   [itcharge/LeetCode-Py](https://github.com/itcharge/LeetCode-Py) - ⛽️「算法通关手册」：超详细的「算法与数据结构」基础讲解教程，从零基础开始学习算法知识，800+ 道「LeetCode 题目」详细解析，200 道「大厂面试热门题目」。
@@ -508,7 +507,6 @@
 *   [ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) - 🙃   A delightful community-driven (with 2,100+ contributors) framework for managing your zsh configuration. Includes 300+ optional plugins (rails, git, macOS, hub, docker, homebrew, node, php, python, etc), 140+ themes to spice up your morning, and an auto-update tool so that makes it easy to keep up with the latest updates from the community.
 *   [DaoCloud/public-image-mirror](https://github.com/DaoCloud/public-image-mirror) - 很多镜像都在国外。比如 gcr 。国内下载很慢，需要加速。
 *   [karmada-io/playground](https://github.com/karmada-io/playground) - Karmada interactive online environment
-*   [easzlab/kubeasz](https://github.com/easzlab/kubeasz) - 使用Ansible脚本安装K8S集群，介绍组件交互原理，方便直接，不受国内网络环境影响
 *   [longhorn/longhorn](https://github.com/longhorn/longhorn) - Cloud-Native distributed storage built on and for Kubernetes
 *   [ahmetb/kubectl-aliases](https://github.com/ahmetb/kubectl-aliases) - Programmatically generated handy kubectl aliases.
 *   [MicrosoftDocs/azure-devops-docs](https://github.com/MicrosoftDocs/azure-devops-docs) - This repo is the home of the official Azure DevOps documentation for Microsoft. GitHub Issues filed in this repository should be for problems with the documentation.
@@ -537,6 +535,7 @@
 *   [prompt-engineering/chat-visual-novel](https://github.com/prompt-engineering/chat-visual-novel) - ChatVisualNovel - a fully customizable visual novel engine powered by ChatGPT. ChatVisualNovel —— 基于ChatGPT的定制化视觉小说引擎。
 *   [xitanggg/open-resume](https://github.com/xitanggg/open-resume) - OpenResume is a powerful open-source resume builder and resume parser. https://open-resume.com/
 *   [ltyzzzxxx/gpt-web-terminal](https://github.com/ltyzzzxxx/gpt-web-terminal) - ✨ Open ChatGPT with Programmer's Approach! GPT Terminal is a platform that allows you to communicate with GPT in a terminal.
+*   [langgenius/dify](https://github.com/langgenius/dify) - One API for plugins and datasets, one interface for prompt engineering and visual operation, all for creating powerful AI applications.
 *   [ycjcl868/readme-gpt](https://github.com/ycjcl868/readme-gpt) - Generate your Github Readme with OpenAI and Vercel Edge Functions.
 *   [actions/labeler](https://github.com/actions/labeler) - An action for automatically labelling pull requests
 *   [trpc/trpc](https://github.com/trpc/trpc) - 🧙‍♀️  Move Fast and Break Nothing. End-to-end typesafe APIs made easy.
@@ -795,6 +794,11 @@
 
 *   [pyenv/pyenv](https://github.com/pyenv/pyenv) - Simple Python version management
 
+## Jinja
+
+*   [easzlab/kubeasz](https://github.com/easzlab/kubeasz) - 使用Ansible脚本安装K8S集群，介绍组件交互原理，方便直接，不受国内网络环境影响
+*   [kubernetes-sigs/kubespray](https://github.com/kubernetes-sigs/kubespray) - Deploy a Production Ready Kubernetes Cluster
+
 ## Kotlin
 
 *   [nedphae/contact-center](https://github.com/nedphae/contact-center) - 一个基于 Spring Cloud 的微服务客服系统
@@ -824,10 +828,6 @@
 *   [Solido/awesome-flutter](https://github.com/Solido/awesome-flutter) - An awesome list that curates the best Flutter libraries, tools, tutorials, articles and more.
 *   [biyidev/biyi](https://github.com/biyidev/biyi) - Biyi (比译) is a convenient translation and dictionary app written in Flutter.
 *   [togettoyou/flutter-one-app](https://github.com/togettoyou/flutter-one-app) - 🎊 Flutter 仿「ONE·一个」APP
-
-## Jinja
-
-*   [kubernetes-sigs/kubespray](https://github.com/kubernetes-sigs/kubespray) - Deploy a Production Ready Kubernetes Cluster
 
 ## Stylus
 
