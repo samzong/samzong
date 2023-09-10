@@ -76,7 +76,6 @@
 *   [pengzhile/pandora](https://github.com/pengzhile/pandora) - 潘多拉，一个让你呼吸顺畅的ChatGPT。Pandora, a ChatGPT that helps you breathe smoothly.
 *   [AntonOsika/gpt-engineer](https://github.com/AntonOsika/gpt-engineer) - Specify what you want it to build, the AI asks for clarification, and then builds it.
 *   [Undertone0809/promptulate](https://github.com/Undertone0809/promptulate) - 一个强大的大语言模型自动化与应用开发框架，支持智能决策、消息持久化、外部工具调用、角色预设等功能，开箱即用。 通过promptulate，你可以轻松构建起属于自己的LLM应用程序。
-*   [langgenius/dify](https://github.com/langgenius/dify) - One API for plugins and datasets, one interface for prompt engineering and visual operation, all for creating powerful AI applications.
 *   [THUDM/GLM-130B](https://github.com/THUDM/GLM-130B) - GLM-130B: An Open Bilingual Pre-Trained Model (ICLR 2023)
 *   [facebookresearch/llama](https://github.com/facebookresearch/llama) - Inference code for LLaMA models
 *   [itcharge/LeetCode-Py](https://github.com/itcharge/LeetCode-Py) - ⛽️「算法通关手册」：超详细的「算法与数据结构」基础讲解教程，从零基础开始学习算法知识，800+ 道「LeetCode 题目」详细解析，200 道「大厂面试热门题目」。
@@ -535,6 +534,7 @@
 *   [prompt-engineering/chat-visual-novel](https://github.com/prompt-engineering/chat-visual-novel) - ChatVisualNovel - a fully customizable visual novel engine powered by ChatGPT. ChatVisualNovel —— 基于ChatGPT的定制化视觉小说引擎。
 *   [xitanggg/open-resume](https://github.com/xitanggg/open-resume) - OpenResume is a powerful open-source resume builder and resume parser. https://open-resume.com/
 *   [ltyzzzxxx/gpt-web-terminal](https://github.com/ltyzzzxxx/gpt-web-terminal) - ✨ Open ChatGPT with Programmer's Approach! GPT Terminal is a platform that allows you to communicate with GPT in a terminal.
+*   [langgenius/dify](https://github.com/langgenius/dify) - One API for plugins and datasets, one interface for prompt engineering and visual operation, all for creating powerful AI applications.
 *   [ycjcl868/readme-gpt](https://github.com/ycjcl868/readme-gpt) - Generate your Github Readme with OpenAI and Vercel Edge Functions.
 *   [actions/labeler](https://github.com/actions/labeler) - An action for automatically labelling pull requests
 *   [trpc/trpc](https://github.com/trpc/trpc) - 🧙‍♀️  Move Fast and Break Nothing. End-to-end typesafe APIs made easy.
