@@ -4,11 +4,12 @@
 
 ## Table of Contents
 
-*   [Rust](#rust)
+*   [Dart](#dart)
+*   [JavaScript](#javascript)
 *   [Go](#go)
+*   [Rust](#rust)
 *   [Python](#python)
 *   [C++](#c)
-*   [JavaScript](#javascript)
 *   [miscellaneous](#miscellaneous)
 *   [Shell](#shell)
 *   [TypeScript](#typescript)
@@ -34,28 +35,80 @@
 *   [Scala](#scala)
 *   [Groovy](#groovy)
 *   [Ruby](#ruby)
-*   [Dart](#dart)
 *   [Stylus](#stylus)
 *   [Batchfile](#batchfile)
 *   [ActionScript](#actionscript)
 
-## Rust
+## Dart
 
-*   [bytedance/monoio](https://github.com/bytedance/monoio) - Rust async runtime based on io-uring.
-*   [huggingface/candle](https://github.com/huggingface/candle) - Minimalist ML framework for Rust
-*   [vectordotdev/vector](https://github.com/vectordotdev/vector) - A high-performance observability data pipeline.
-*   [wasmCloud/wasmCloud](https://github.com/wasmCloud/wasmCloud) - wasmCloud allows for simple, secure, distributed application development using WebAssembly actors and capability providers.
-*   [openobserve/openobserve](https://github.com/openobserve/openobserve) - 🚀 10x easier, 🚀 140x lower storage cost, 🚀 high performance,  🚀 petabyte scale - Elasticsearch/Splunk/Datadog alternative for 🚀 (logs, metrics, traces).
-*   [huacnlee/autocorrect](https://github.com/huacnlee/autocorrect) - A linter and formatter to help you to improve copywriting, correct spaces, words, and punctuations between CJK (Chinese, Japanese, Korean).
-*   [lencx/ChatGPT](https://github.com/lencx/ChatGPT) - 🔮 ChatGPT Desktop Application (Mac, Windows and Linux)
-*   [aurae-runtime/aurae](https://github.com/aurae-runtime/aurae) - Distributed systems runtime daemon written in Rust.
-*   [bytecodealliance/wasmtime](https://github.com/bytecodealliance/wasmtime) - A fast and secure runtime for WebAssembly
-*   [surrealdb/surrealdb](https://github.com/surrealdb/surrealdb) - A scalable, distributed, collaborative, document-graph database, for the realtime web
-*   [tauri-apps/tauri](https://github.com/tauri-apps/tauri) - Build smaller, faster, and more secure desktop applications with a web frontend.
-*   [spacedriveapp/spacedrive](https://github.com/spacedriveapp/spacedrive) - Spacedrive is an open source cross-platform file explorer, powered by a virtual distributed filesystem written in Rust.
+*   [mylxsw/aidea](https://github.com/mylxsw/aidea) - AIdea 是一款支持 GPT  以及国产大语言模型通义千问、文心一言等，支持 Stable Diffusion 文生图、图生图、 SDXL1.0、超分辨率、图片上色的全能型 APP。
+*   [kubenav/kubenav](https://github.com/kubenav/kubenav) - kubenav is the navigator for your Kubernetes clusters right in your pocket.
+*   [Solido/awesome-flutter](https://github.com/Solido/awesome-flutter) - An awesome list that curates the best Flutter libraries, tools, tutorials, articles and more.
+*   [biyidev/biyi](https://github.com/biyidev/biyi) - Biyi (比译) is a convenient translation and dictionary app written in Flutter.
+*   [togettoyou/flutter-one-app](https://github.com/togettoyou/flutter-one-app) - 🎊 Flutter 仿「ONE·一个」APP
+
+## JavaScript
+
+*   [daymade/Twitter-Block-Porn](https://github.com/daymade/Twitter-Block-Porn) - 共享黑名单, 一键拉黑所有黄推诈骗犯. Block scammers who sending fake porn comments, and help you improve your experience using Twitter.
+*   [pinterest/snappass](https://github.com/pinterest/snappass) - Share passwords securely
+*   [Ice-Hazymoon/openai-scf-proxy](https://github.com/Ice-Hazymoon/openai-scf-proxy) - 使用腾讯云函数一分钟搭建 OpenAI 免翻墙代理
+*   [josStorer/chatGPTBox](https://github.com/josStorer/chatGPTBox) - Integrating ChatGPT into your browser deeply, everything you need is here
+*   [goodideal/gitlab-bot](https://github.com/goodideal/gitlab-bot) - 将Gitlab的push、tag push、merge request和pipeline推送到企业微信的机器人
+*   [samzong/samzong.github.io](https://github.com/samzong/samzong.github.io) - Work, and reflections on life. Explore cloud native, share experiences, contemplate life.
+*   [purple-force/docsite](https://github.com/purple-force/docsite) - An opensource static website generator
+*   [vercel/next.js](https://github.com/vercel/next.js) - The React Framework
+*   [simonecorsi/mawesome](https://github.com/simonecorsi/mawesome) - 😎 Github action to generate your own awesome list from project you've starred ordered by languages!
+*   [open-telemetry/opentelemetry.io](https://github.com/open-telemetry/opentelemetry.io) - The OpenTelemetry website and documentation
+*   [pavolloffay/kubecon-eu-2023-opentelemetry-kubernetes-tutorial](https://github.com/pavolloffay/kubecon-eu-2023-opentelemetry-kubernetes-tutorial) -
+*   [SeimoIO/website](https://github.com/SeimoIO/website) - SeimoIO's website
+*   [songquanpeng/message-pusher](https://github.com/songquanpeng/message-pusher) - 搭建专属于你的消息推送服务，支持多种消息推送方式，支持 Markdown，基于 Golang 仅单可执行文件，开箱即用
+*   [kubesphere/kube-design](https://github.com/kubesphere/kube-design) - Kube Design for KubeSphere Console
+*   [0hq/WebGPT](https://github.com/0hq/WebGPT) - Run GPT model on the browser with WebGPU. An implementation of GPT inference in less than ~1500 lines of vanilla Javascript.
+*   [leancloud/docs](https://github.com/leancloud/docs) - LeanCloud Documentation
+*   [vinta/pangu.js](https://github.com/vinta/pangu.js) - Paranoid text spacing in JavaScript
+*   [Hackl0us/SS-Rule-Snippet](https://github.com/Hackl0us/SS-Rule-Snippet) - 搜集、整理、维护 Surge / Quantumult (X) / Shadowrocket / Surfboard / clash (Premium) 实用规则。
+*   [cteamx/Thief](https://github.com/cteamx/Thief) - 一款创新跨平台摸鱼神器，支持小说、股票、网页、视频、直播、PDF、游戏等摸鱼模式，为上班族打造的上班必备神器，使用此软件可以让上班倍感轻松，远离 ICU。
+*   [anc95/ChatGPT-CodeReview](https://github.com/anc95/ChatGPT-CodeReview) - 🐥 A code review bot powered by ChatGPT
+*   [PipedreamHQ/pipedream](https://github.com/PipedreamHQ/pipedream) - Connect APIs, remarkably fast.  Free for developers.
+*   [Significant-Gravitas/Auto-GPT](https://github.com/Significant-Gravitas/Auto-GPT) - An experimental open-source attempt to make GPT-4 fully autonomous.
+*   [openai-translator/bob-plugin-openai-translator](https://github.com/openai-translator/bob-plugin-openai-translator) - 基于 ChatGPT API 的文本翻译、文本润色、语法纠错 Bob 插件，让我们一起迎接不需要巴别塔的新时代！Licensed under CC BY-NC-SA 4.0
+*   [douyu/juno](https://github.com/douyu/juno) - Juno 译名朱诺。这个名字来源于古罗马神话中的众神之母。它是斗鱼的微服务管理系统， 如同众神之母一样守护着所有微服务的系统。
+*   [tangly1024/NotionNext](https://github.com/tangly1024/NotionNext) - 使用 NextJS + Notion API 实现的，支持多种部署方案的静态博客，无需服务器、零门槛搭建网站，为Notion和所有创作者设计。 (A static blog built with NextJS and Notion API, supporting multiple deployment options. No server required, zero threshold to set up a website. Designed for Notion and all creators.)
+*   [Postcatlab/postcat](https://github.com/Postcatlab/postcat) - Postcat 是一个可扩展的 API 工具平台。集合基础的 API 管理和测试功能，并且可以通过插件简化你的 API 开发工作，让你可以更快更好地创建 API。An extensible API tool.
+*   [polarismesh/website](https://github.com/polarismesh/website) - source for the polarismesh.cn site
+*   [jgraph/drawio-desktop](https://github.com/jgraph/drawio-desktop) - Official electron build of draw.io
+*   [umami-software/umami](https://github.com/umami-software/umami) - Umami is a simple, fast, privacy-focused alternative to Google Analytics.
+*   [apidoc/apidoc](https://github.com/apidoc/apidoc) - RESTful web API Documentation Generator.
+*   [cskefu/cskefu](https://github.com/cskefu/cskefu) - 🌲 春松客服，开源客服系统
+*   [deathau/markdownload](https://github.com/deathau/markdownload) - A Firefox and Google Chrome extension to clip websites and download them into a readable markdown file.
+*   [sootheslayer/VisualizingStreamingData](https://github.com/sootheslayer/VisualizingStreamingData) - Visuallizing a real time streaming data on web app using node.js socket.io and Apache Kafka
+*   [ToolJet/ToolJet](https://github.com/ToolJet/ToolJet) - Low-code platform for building business applications. Connect to databases, cloud storages, GraphQL, API endpoints, Airtable, Google sheets, OpenAI, etc and build apps using drag and drop application builder. Built using JavaScript/TypeScript. 🚀
+*   [xCss/bing](https://github.com/xCss/bing) - Bing 壁纸 API
+*   [star7th/showdoc](https://github.com/star7th/showdoc) - ShowDoc is a tool greatly applicable for an IT team to share documents online一个非常适合IT团队的在线API文档、技术文档工具
+*   [DIYgod/RSSHub-Radar](https://github.com/DIYgod/RSSHub-Radar) - 🍰 Browser extension that simplifies finding and subscribing RSS and RSSHub
+*   [karmada-io/dashboard](https://github.com/karmada-io/dashboard) - Web UI for Karmada
+*   [volantis-x/hexo-theme-volantis](https://github.com/volantis-x/hexo-theme-volantis) - A Wonderful Theme for Hexo.
+*   [xaoxuu/hexo-theme-stellar](https://github.com/xaoxuu/hexo-theme-stellar) - 内置文档系统的简约商务风Hexo主题，支持丰富的标签和动态数据组件。
+*   [hexojs/hexo](https://github.com/hexojs/hexo) - A fast, simple & powerful blog framework, powered by Node.js.
+*   [vuejs/vuepress](https://github.com/vuejs/vuepress) - 📝 Minimalistic Vue-powered static site generator
+*   [docsifyjs/docsify](https://github.com/docsifyjs/docsify) - 🃏 A magical documentation site generator.
+*   [eip-work/kuboard-press](https://github.com/eip-work/kuboard-press) - Kuboard 是基于 Kubernetes 的微服务管理界面。同时提供 Kubernetes 免费中文教程，入门教程，最新版本的 Kubernetes v1.23.4 安装手册，(k8s install) 在线答疑，持续更新。
+*   [blinkfox/hexo-theme-matery](https://github.com/blinkfox/hexo-theme-matery) - A beautiful hexo blog theme with material design and responsive design.一个基于材料设计和响应式设计而成的全面、美观的Hexo主题。国内访问：http://blinkfox.com
+*   [MrXujiang/h5-Dooring](https://github.com/MrXujiang/h5-Dooring) - H5 Page Maker, H5 Editor, LowCode. Make H5 as easy as building blocks. | 让H5制作像搭积木一样简单, 轻松搭建H5页面, H5网站, PC端网站,LowCode平台.
+*   [chinese-poetry/chinese-poetry](https://github.com/chinese-poetry/chinese-poetry) - The most comprehensive database of Chinese poetry 🧶最全中华古诗词数据库,  唐宋两朝近一万四千古诗人,  接近5.5万首唐诗加26万宋诗.  两宋时期1564位词人，21050首词。
+*   [steedos/steedos-platform](https://github.com/steedos/steedos-platform) - Open-source alternative to Salesforce Low-code Platform 🤖 🎨 🚀 .  华炎魔方低代码平台，元数据驱动，前端 amis，后端 nodejs
+*   [ryanhanwu/How-To-Ask-Questions-The-Smart-Way](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way) - 本文原文由知名 Hacker Eric S. Raymond 所撰寫，教你如何正確的提出技術問題並獲得你滿意的答案。
+*   [zhaoolee/ChromeAppHeroes](https://github.com/zhaoolee/ChromeAppHeroes) - 🌈谷粒-Chrome插件英雄榜, 为优秀的Chrome插件写一本中文说明书, 让Chrome插件英雄们造福人类~  ChromePluginHeroes, Write a Chinese manual for the excellent Chrome plugin, let the Chrome plugin heroes benefit the human~ 公众号「0加1」同步更新
+*   [phodal/moform](https://github.com/phodal/moform) - A Serverlesss form builder
+*   [xiangyuecn/Recorder](https://github.com/xiangyuecn/Recorder) - html5 js 录音 mp3 wav ogg webm amr g711a g711u 格式，支持pc和Android、iOS部分浏览器、Hybrid App（提供Android iOS App源码）、微信，提供ASR语音识别转文字 H5版语音通话聊天示例 DTMF编码解码
+*   [cnodejs/nodeclub](https://github.com/cnodejs/nodeclub) - :baby\_chick:Nodeclub 是使用 Node.js 和 MongoDB 开发的社区系统
+*   [DIYgod/DPlayer](https://github.com/DIYgod/DPlayer) - :lollipop: Wow, such a lovely HTML5 danmaku video player
+*   [TevinLi/amWiki](https://github.com/TevinLi/amWiki) - amWiki 是一款由 JS 开发、依赖 Atom 或 Nodejs-Npm 的 Markdown 轻量级前端化开源文库系统
+*   [sqlpad/sqlpad](https://github.com/sqlpad/sqlpad) - Web-based SQL editor. Legacy project in maintenance mode.
 
 ## Go
 
+*   [webmeshproj/webmesh](https://github.com/webmeshproj/webmesh) - A simple, distributed, zero-configuration WireGuard mesh solution
 *   [datashim-io/datashim](https://github.com/datashim-io/datashim) - A kubernetes based framework for hassle free handling of datasets
 *   [stakater/Reloader](https://github.com/stakater/Reloader) - A Kubernetes controller to watch changes in ConfigMap and Secrets and do rolling upgrades on Pods with their associated Deployment, StatefulSet, DaemonSet and DeploymentConfig – \[✩Star] if you're using it!
 *   [kubeflow/arena](https://github.com/kubeflow/arena) - A CLI for Kubeflow.
@@ -162,6 +215,7 @@
 *   [kurator-dev/kurator](https://github.com/kurator-dev/kurator) - Unified resource orchestration, unified scheduling, unified traffic management and unified telemetry for distributed cloud
 *   [tair-opensource/RedisShake](https://github.com/tair-opensource/RedisShake) - RedisShake is a Redis data processing and migration tool.
 *   [numaproj/numaflow](https://github.com/numaproj/numaflow) - Kubernetes-native platform to run massively parallel data/streaming jobs
+*   [alibaba/higress](https://github.com/alibaba/higress) - Next-generation Cloud Native Gateway | 下一代云原生网关
 *   [nytlabs/streamtools](https://github.com/nytlabs/streamtools) - tools for working with streams of data
 *   [caddyserver/caddy](https://github.com/caddyserver/caddy) - Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS
 *   [komodorio/helm-dashboard](https://github.com/komodorio/helm-dashboard) - The missing UI for Helm - visualize your releases
@@ -226,6 +280,21 @@
 *   [openflagr/flagr](https://github.com/openflagr/flagr) - Flagr is a feature flagging, A/B testing and dynamic configuration microservice
 *   [caixw/apidoc](https://github.com/caixw/apidoc) - RESTful API 文档生成工具，支持 Go、Java、Swift、JavaScript、Rust、PHP、Python、Typescript、Kotlin 和 Ruby 等大部分语言。
 
+## Rust
+
+*   [bytedance/monoio](https://github.com/bytedance/monoio) - Rust async runtime based on io-uring.
+*   [huggingface/candle](https://github.com/huggingface/candle) - Minimalist ML framework for Rust
+*   [vectordotdev/vector](https://github.com/vectordotdev/vector) - A high-performance observability data pipeline.
+*   [wasmCloud/wasmCloud](https://github.com/wasmCloud/wasmCloud) - wasmCloud allows for simple, secure, distributed application development using WebAssembly actors and capability providers.
+*   [openobserve/openobserve](https://github.com/openobserve/openobserve) - 🚀 10x easier, 🚀 140x lower storage cost, 🚀 high performance,  🚀 petabyte scale - Elasticsearch/Splunk/Datadog alternative for 🚀 (logs, metrics, traces).
+*   [huacnlee/autocorrect](https://github.com/huacnlee/autocorrect) - A linter and formatter to help you to improve copywriting, correct spaces, words, and punctuations between CJK (Chinese, Japanese, Korean).
+*   [lencx/ChatGPT](https://github.com/lencx/ChatGPT) - 🔮 ChatGPT Desktop Application (Mac, Windows and Linux)
+*   [aurae-runtime/aurae](https://github.com/aurae-runtime/aurae) - Distributed systems runtime daemon written in Rust.
+*   [bytecodealliance/wasmtime](https://github.com/bytecodealliance/wasmtime) - A fast and secure runtime for WebAssembly
+*   [surrealdb/surrealdb](https://github.com/surrealdb/surrealdb) - A scalable, distributed, collaborative, document-graph database, for the realtime web
+*   [tauri-apps/tauri](https://github.com/tauri-apps/tauri) - Build smaller, faster, and more secure desktop applications with a web frontend.
+*   [spacedriveapp/spacedrive](https://github.com/spacedriveapp/spacedrive) - Spacedrive is an open source cross-platform file explorer, powered by a virtual distributed filesystem written in Rust.
+
 ## Python
 
 *   [pytorch/pytorch](https://github.com/pytorch/pytorch) - Tensors and Dynamic neural networks in Python with strong GPU acceleration
@@ -257,6 +326,7 @@
 *   [python-gitlab/python-gitlab](https://github.com/python-gitlab/python-gitlab) - A python wrapper for the GitLab API.
 *   [danswer-ai/danswer](https://github.com/danswer-ai/danswer) - Ask Questions in natural language and get Answers backed by private sources. Connects to tools like Slack, GitHub, Confluence, etc.
 *   [reactive-python/reactpy](https://github.com/reactive-python/reactpy) - It's React, but in Python
+*   [geekan/MetaGPT](https://github.com/geekan/MetaGPT) - 🌟 The Multi-Agent Framework: Given one line Requirement, return PRD, Design, Tasks, Repo
 *   [THUDM/ChatGLM2-6B](https://github.com/THUDM/ChatGLM2-6B) - ChatGLM2-6B: An Open Bilingual Chat LLM | 开源双语对话语言模型
 *   [s0md3v/roop](https://github.com/s0md3v/roop) - one-click face swap
 *   [Stability-AI/stablediffusion](https://github.com/Stability-AI/stablediffusion) - High-Resolution Image Synthesis with Latent Diffusion Models
@@ -270,7 +340,7 @@
 *   [GoogleCloudPlatform/microservices-demo](https://github.com/GoogleCloudPlatform/microservices-demo) - Sample cloud-first application with 10 microservices showcasing Kubernetes, Istio, and gRPC.
 *   [kovidgoyal/kitty](https://github.com/kovidgoyal/kitty) - Cross-platform, fast, feature-rich, GPU based terminal
 *   [python-poetry/poetry-plugin-export](https://github.com/python-poetry/poetry-plugin-export) - Poetry plugin to export the dependencies to various formats
-*   [jina-ai/jina](https://github.com/jina-ai/jina) - 🔮 Multimodal AI services & pipelines with cloud-native stack: gRPC, Kubernetes, Docker, OpenTelemetry, Prometheus, Jaeger, etc.
+*   [jina-ai/jina](https://github.com/jina-ai/jina) - ☁️ Build multimodal AI applications with cloud-native stack
 *   [jimporter/mike](https://github.com/jimporter/mike) - Manage multiple versions of your MkDocs-powered documentation via Git
 *   [chatchat-space/Langchain-Chatchat](https://github.com/chatchat-space/Langchain-Chatchat) - Langchain-Chatchat（原Langchain-ChatGLM）基于 Langchain 与 ChatGLM 等语言模型的本地知识库问答 | Langchain-Chatchat (formerly langchain-ChatGLM), local knowledge based LLM (like ChatGLM) QA app with langchain
 *   [Aqua-Dream/Tieba\_Spider](https://github.com/Aqua-Dream/Tieba_Spider) - 百度贴吧爬虫(基于scrapy和mysql)
@@ -363,7 +433,6 @@
 *   [ageitgey/face\_recognition](https://github.com/ageitgey/face_recognition) - The world's simplest facial recognition api for Python and the command line
 *   [jorgebastida/awslogs](https://github.com/jorgebastida/awslogs) - AWS CloudWatch logs for Humans™
 *   [twisted/klein](https://github.com/twisted/klein) - werkzeug + twisted.web
-*   [luong-komorebi/Awesome-Linux-Software](https://github.com/luong-komorebi/Awesome-Linux-Software) - 🐧 A list of awesome Linux softwares
 
 ## C++
 
@@ -375,68 +444,9 @@
 *   [redpanda-data/redpanda](https://github.com/redpanda-data/redpanda) - Redpanda is a streaming data platform for developers. Kafka API compatible. 10x faster. No ZooKeeper. No JVM!
 *   [pixie-io/pixie](https://github.com/pixie-io/pixie) - Instant Kubernetes-Native Application Observability
 *   [higress-group/higress](https://github.com/higress-group/higress) - Next-generation Cloud Native Gateway
-*   [alibaba/higress](https://github.com/alibaba/higress) - Next-generation Cloud Native Gateway | 下一代云原生网关
 *   [tindy2013/subconverter](https://github.com/tindy2013/subconverter) - Utility to convert between various subscription format
 *   [canonical/multipass](https://github.com/canonical/multipass) - Multipass orchestrates virtual Ubuntu instances
 *   [envoyproxy/envoy](https://github.com/envoyproxy/envoy) - Cloud-native high-performance edge/middle/service proxy
-
-## JavaScript
-
-*   [pinterest/snappass](https://github.com/pinterest/snappass) - Share passwords securely
-*   [Ice-Hazymoon/openai-scf-proxy](https://github.com/Ice-Hazymoon/openai-scf-proxy) - 使用腾讯云函数一分钟搭建 OpenAI 免翻墙代理
-*   [josStorer/chatGPTBox](https://github.com/josStorer/chatGPTBox) - Integrating ChatGPT into your browser deeply, everything you need is here
-*   [goodideal/gitlab-bot](https://github.com/goodideal/gitlab-bot) - 将Gitlab的push、tag push、merge request和pipeline推送到企业微信的机器人
-*   [samzong/samzong.github.io](https://github.com/samzong/samzong.github.io) - Work, and reflections on life. Explore cloud native, share experiences, contemplate life.
-*   [purple-force/docsite](https://github.com/purple-force/docsite) - An opensource static website generator
-*   [vercel/next.js](https://github.com/vercel/next.js) - The React Framework
-*   [simonecorsi/mawesome](https://github.com/simonecorsi/mawesome) - 😎 Github action to generate your own awesome list from project you've starred ordered by languages!
-*   [open-telemetry/opentelemetry.io](https://github.com/open-telemetry/opentelemetry.io) - The OpenTelemetry website and documentation
-*   [pavolloffay/kubecon-eu-2023-opentelemetry-kubernetes-tutorial](https://github.com/pavolloffay/kubecon-eu-2023-opentelemetry-kubernetes-tutorial) -
-*   [SeimoIO/website](https://github.com/SeimoIO/website) - SeimoIO's website
-*   [songquanpeng/message-pusher](https://github.com/songquanpeng/message-pusher) - 搭建专属于你的消息推送服务，支持多种消息推送方式，支持 Markdown，基于 Golang 仅单可执行文件，开箱即用
-*   [kubesphere/kube-design](https://github.com/kubesphere/kube-design) - Kube Design for KubeSphere Console
-*   [0hq/WebGPT](https://github.com/0hq/WebGPT) - Run GPT model on the browser with WebGPU. An implementation of GPT inference in less than ~1500 lines of vanilla Javascript.
-*   [leancloud/docs](https://github.com/leancloud/docs) - LeanCloud Documentation
-*   [vinta/pangu.js](https://github.com/vinta/pangu.js) - Paranoid text spacing in JavaScript
-*   [Hackl0us/SS-Rule-Snippet](https://github.com/Hackl0us/SS-Rule-Snippet) - 搜集、整理、维护 Surge / Quantumult (X) / Shadowrocket / Surfboard / clash (Premium) 实用规则。
-*   [cteamx/Thief](https://github.com/cteamx/Thief) - 一款创新跨平台摸鱼神器，支持小说、股票、网页、视频、直播、PDF、游戏等摸鱼模式，为上班族打造的上班必备神器，使用此软件可以让上班倍感轻松，远离 ICU。
-*   [anc95/ChatGPT-CodeReview](https://github.com/anc95/ChatGPT-CodeReview) - 🐥 A code review bot powered by ChatGPT
-*   [PipedreamHQ/pipedream](https://github.com/PipedreamHQ/pipedream) - Connect APIs, remarkably fast.  Free for developers.
-*   [Significant-Gravitas/Auto-GPT](https://github.com/Significant-Gravitas/Auto-GPT) - An experimental open-source attempt to make GPT-4 fully autonomous.
-*   [openai-translator/bob-plugin-openai-translator](https://github.com/openai-translator/bob-plugin-openai-translator) - 基于 ChatGPT API 的文本翻译、文本润色、语法纠错 Bob 插件，让我们一起迎接不需要巴别塔的新时代！Licensed under CC BY-NC-SA 4.0
-*   [douyu/juno](https://github.com/douyu/juno) - Juno 译名朱诺。这个名字来源于古罗马神话中的众神之母。它是斗鱼的微服务管理系统， 如同众神之母一样守护着所有微服务的系统。
-*   [tangly1024/NotionNext](https://github.com/tangly1024/NotionNext) - 使用 NextJS + Notion API 实现的，支持多种部署方案的静态博客，无需服务器、零门槛搭建网站，为Notion和所有创作者设计。 (A static blog built with NextJS and Notion API, supporting multiple deployment options. No server required, zero threshold to set up a website. Designed for Notion and all creators.)
-*   [Postcatlab/postcat](https://github.com/Postcatlab/postcat) - Postcat 是一个可扩展的 API 工具平台。集合基础的 API 管理和测试功能，并且可以通过插件简化你的 API 开发工作，让你可以更快更好地创建 API。An extensible API tool.
-*   [polarismesh/website](https://github.com/polarismesh/website) - source for the polarismesh.cn site
-*   [jgraph/drawio-desktop](https://github.com/jgraph/drawio-desktop) - Official electron build of draw.io
-*   [umami-software/umami](https://github.com/umami-software/umami) - Umami is a simple, fast, privacy-focused alternative to Google Analytics.
-*   [apidoc/apidoc](https://github.com/apidoc/apidoc) - RESTful web API Documentation Generator.
-*   [cskefu/cskefu](https://github.com/cskefu/cskefu) - 🌲 春松客服，开源客服系统
-*   [deathau/markdownload](https://github.com/deathau/markdownload) - A Firefox and Google Chrome extension to clip websites and download them into a readable markdown file.
-*   [sootheslayer/VisualizingStreamingData](https://github.com/sootheslayer/VisualizingStreamingData) - Visuallizing a real time streaming data on web app using node.js socket.io and Apache Kafka
-*   [ToolJet/ToolJet](https://github.com/ToolJet/ToolJet) - Low-code platform for building business applications. Connect to databases, cloud storages, GraphQL, API endpoints, Airtable, Google sheets, OpenAI, etc and build apps using drag and drop application builder. Built using JavaScript/TypeScript. 🚀
-*   [xCss/bing](https://github.com/xCss/bing) - Bing 壁纸 API
-*   [star7th/showdoc](https://github.com/star7th/showdoc) - ShowDoc is a tool greatly applicable for an IT team to share documents online一个非常适合IT团队的在线API文档、技术文档工具
-*   [DIYgod/RSSHub-Radar](https://github.com/DIYgod/RSSHub-Radar) - 🍰 Browser extension that simplifies finding and subscribing RSS and RSSHub
-*   [karmada-io/dashboard](https://github.com/karmada-io/dashboard) - Web UI for Karmada
-*   [volantis-x/hexo-theme-volantis](https://github.com/volantis-x/hexo-theme-volantis) - A Wonderful Theme for Hexo.
-*   [xaoxuu/hexo-theme-stellar](https://github.com/xaoxuu/hexo-theme-stellar) - 内置文档系统的简约商务风Hexo主题，支持丰富的标签和动态数据组件。
-*   [hexojs/hexo](https://github.com/hexojs/hexo) - A fast, simple & powerful blog framework, powered by Node.js.
-*   [vuejs/vuepress](https://github.com/vuejs/vuepress) - 📝 Minimalistic Vue-powered static site generator
-*   [docsifyjs/docsify](https://github.com/docsifyjs/docsify) - 🃏 A magical documentation site generator.
-*   [eip-work/kuboard-press](https://github.com/eip-work/kuboard-press) - Kuboard 是基于 Kubernetes 的微服务管理界面。同时提供 Kubernetes 免费中文教程，入门教程，最新版本的 Kubernetes v1.23.4 安装手册，(k8s install) 在线答疑，持续更新。
-*   [blinkfox/hexo-theme-matery](https://github.com/blinkfox/hexo-theme-matery) - A beautiful hexo blog theme with material design and responsive design.一个基于材料设计和响应式设计而成的全面、美观的Hexo主题。国内访问：http://blinkfox.com
-*   [MrXujiang/h5-Dooring](https://github.com/MrXujiang/h5-Dooring) - H5 Page Maker, H5 Editor, LowCode. Make H5 as easy as building blocks. | 让H5制作像搭积木一样简单, 轻松搭建H5页面, H5网站, PC端网站,LowCode平台.
-*   [chinese-poetry/chinese-poetry](https://github.com/chinese-poetry/chinese-poetry) - The most comprehensive database of Chinese poetry 🧶最全中华古诗词数据库,  唐宋两朝近一万四千古诗人,  接近5.5万首唐诗加26万宋诗.  两宋时期1564位词人，21050首词。
-*   [steedos/steedos-platform](https://github.com/steedos/steedos-platform) - Open-source alternative to Salesforce Low-code Platform 🤖 🎨 🚀 .  华炎魔方低代码平台，元数据驱动，前端 amis，后端 nodejs
-*   [ryanhanwu/How-To-Ask-Questions-The-Smart-Way](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way) - 本文原文由知名 Hacker Eric S. Raymond 所撰寫，教你如何正確的提出技術問題並獲得你滿意的答案。
-*   [zhaoolee/ChromeAppHeroes](https://github.com/zhaoolee/ChromeAppHeroes) - 🌈谷粒-Chrome插件英雄榜, 为优秀的Chrome插件写一本中文说明书, 让Chrome插件英雄们造福人类~  ChromePluginHeroes, Write a Chinese manual for the excellent Chrome plugin, let the Chrome plugin heroes benefit the human~ 公众号「0加1」同步更新
-*   [phodal/moform](https://github.com/phodal/moform) - A Serverlesss form builder
-*   [xiangyuecn/Recorder](https://github.com/xiangyuecn/Recorder) - html5 js 录音 mp3 wav ogg webm amr g711a g711u 格式，支持pc和Android、iOS部分浏览器、Hybrid App（提供Android iOS App源码）、微信，提供ASR语音识别转文字 H5版语音通话聊天示例 DTMF编码解码
-*   [cnodejs/nodeclub](https://github.com/cnodejs/nodeclub) - :baby\_chick:Nodeclub 是使用 Node.js 和 MongoDB 开发的社区系统
-*   [DIYgod/DPlayer](https://github.com/DIYgod/DPlayer) - :lollipop: Wow, such a lovely HTML5 danmaku video player
-*   [TevinLi/amWiki](https://github.com/TevinLi/amWiki) - amWiki 是一款由 JS 开发、依赖 Atom 或 Nodejs-Npm 的 Markdown 轻量级前端化开源文库系统
-*   [sqlpad/sqlpad](https://github.com/sqlpad/sqlpad) - Web-based SQL editor. Legacy project in maintenance mode.
 
 ## miscellaneous
 
@@ -524,7 +534,6 @@
 *   [jaywcjlove/mysql-tutorial](https://github.com/jaywcjlove/mysql-tutorial) - MySQL入门教程（MySQL tutorial book）
 *   [opendigg/awesome-github-wechat-weapp](https://github.com/opendigg/awesome-github-wechat-weapp) - 微信小程序开源项目库汇总
 *   [justjavac/awesome-wechat-weapp](https://github.com/justjavac/awesome-wechat-weapp) - 微信小程序开发资源汇总 :100:
-*   [TonnyL/Awesome\_APIs](https://github.com/TonnyL/Awesome_APIs) - :octocat: A collection of APIs
 
 ## Shell
 
@@ -680,7 +689,6 @@
 *   [crossoverJie/JCSprout](https://github.com/crossoverJie/JCSprout) - 👨‍🎓 Java Core Sprout : basic, concurrent, algorithm
 *   [wenzewoo/ExcelKit](https://github.com/wenzewoo/ExcelKit) - Excel导入导出工具（简单、好用且轻量级的海量Excel文件导入导出解决方案.）ISSUES/PR请前往：https://gitee.com/wuwenze/ExcelKit
 *   [knightliao/disconf](https://github.com/knightliao/disconf) - Distributed Configuration Management Platform(分布式配置管理平台)
-*   [wucao/JDeploy](https://github.com/wucao/JDeploy) - JDeploy自动化部署平台
 
 ## Jupyter Notebook
 
@@ -735,7 +743,6 @@
 ## HTML
 
 *   [Asabeneh/10-days-of-git-and-github](https://github.com/Asabeneh/10-days-of-git-and-github) - Some video lessons on YouTube: This videos may help too: https://www.youtube.com/channel/UC7PNRuno1rzYPb1xLa4yktw
-*   [geekan/MetaGPT](https://github.com/geekan/MetaGPT) - 🌟 The Multi-Agent Framework: Given one line Requirement, return PRD, Design, Tasks, Repo
 *   [vesoft-inc/nebula-docs-cn](https://github.com/vesoft-inc/nebula-docs-cn) - Repository for the Chinese documentations
 *   [davideuler/architecture.of.internet-product](https://github.com/davideuler/architecture.of.internet-product) - 互联网公司技术架构，微信/淘宝/微博/腾讯/阿里/美团点评/百度/Google/Facebook/Amazon/eBay的架构，欢迎PR补充
 *   [goproxy/goproxy.cn](https://github.com/goproxy/goproxy.cn) - The most trusted Go module proxy in China.
@@ -821,13 +828,6 @@
 ## Ruby
 
 *   [fluent/fluentd](https://github.com/fluent/fluentd) - Fluentd: Unified Logging Layer (project under CNCF)
-
-## Dart
-
-*   [kubenav/kubenav](https://github.com/kubenav/kubenav) - kubenav is the navigator for your Kubernetes clusters right in your pocket.
-*   [Solido/awesome-flutter](https://github.com/Solido/awesome-flutter) - An awesome list that curates the best Flutter libraries, tools, tutorials, articles and more.
-*   [biyidev/biyi](https://github.com/biyidev/biyi) - Biyi (比译) is a convenient translation and dictionary app written in Flutter.
-*   [togettoyou/flutter-one-app](https://github.com/togettoyou/flutter-one-app) - 🎊 Flutter 仿「ONE·一个」APP
 
 ## Stylus
 
