@@ -11,8 +11,3 @@ intro = (f"🔭 I'm currently working as a PM at [@DaoCloud](https://www.daoclou
 
 print(intro)
 ```
-
-## [Contribution PR size history](https://ossinsight-lite-hbbcgg1s2-samzong.vercel.app/)
-
-[![Contribution PR size history](https://ossinsight-lite-hbbcgg1s2-samzong.vercel.app/widgets/contribution-pull-request-size-history/thumbnail.png)](https://ossinsight-lite-hbbcgg1s2-samzong.vercel.app/widgets/contribution-pull-request-size-history)
-
