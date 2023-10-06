@@ -11,3 +11,5 @@ intro = (f"🔭 I'm currently working as a PM at [@DaoCloud](https://www.daoclou
 
 print(intro)
 ```
+
+![Samzong'Github Status](https://github-readme-stats.vercel.app/api?username=samzong&count_private=true&theme=shadow_green&include_all_commits=true&hide_title=true&show_icons=true&hide_border=true)
