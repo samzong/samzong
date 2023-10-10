@@ -43,6 +43,7 @@
 
 ## miscellaneous
 
+*   [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) - Master programming by recreating your favorite technologies from scratch.
 *   [hzxuzhonghu/kmesh](https://github.com/hzxuzhonghu/kmesh) - High Performance ServiceMesh Data Plane Based on Programmable Kernel
 *   [mawrkus/pull-request-review-guide](https://github.com/mawrkus/pull-request-review-guide) - 🧘💻🧘  Guidelines for better, faster pull request reviews
 *   [iomesh/charts](https://github.com/iomesh/charts) - IOMesh Helm Charts Repo
@@ -854,7 +855,6 @@
 *   [TeamStuQ/skill-map](https://github.com/TeamStuQ/skill-map) - 程序员技能图谱
 *   [phodal/growth-in-action](https://github.com/phodal/growth-in-action) - 全栈增长工程师实战
 *   [umbrae/jsonlintdotcom](https://github.com/umbrae/jsonlintdotcom) - Source code for jsonlint.com
-*   [lifesinger/blog](https://github.com/lifesinger/blog) - 岁月如歌
 
 ## SCSS
 
