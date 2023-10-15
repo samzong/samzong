@@ -407,7 +407,7 @@
 *   [tiangolo/typer](https://github.com/tiangolo/typer) - Typer, build great CLIs. Easy to code. Based on Python type hints.
 *   [pypa/virtualenv](https://github.com/pypa/virtualenv) - Virtual Python Environment builder
 *   [arc53/DocsGPT](https://github.com/arc53/DocsGPT) - GPT-powered chat for documentation, chat with your documents
-*   [LlmKira/Openaibot](https://github.com/LlmKira/Openaibot) - 🤔使用插件系统的链式架构消息平台| Chain Driven Node Runner| 🪄 Send Message everywhere |🔖 Chatgpt Plugin Support | 🌻 sh & docker
+*   [LlmKira/Openaibot](https://github.com/LlmKira/Openaibot) - 🌻 使用插件系统的链式架构消息平台 🤔| Chain Driven Node Runner| 🪄 Send Message everywhere |🔖 Chatgpt Plugin Support | 🌻 sh & docker
 *   [cyclone-robotics/feishu-python-sdk](https://github.com/cyclone-robotics/feishu-python-sdk) - 一个用于和飞书开放平台交互的python库
 *   [linkedin/oncall](https://github.com/linkedin/oncall) - Oncall is a calendar tool designed for scheduling and managing on-call shifts. It can be used as source of dynamic ownership info for paging systems like http://iris.claims.
 *   [locustio/locust](https://github.com/locustio/locust) - Write scalable load tests in plain Python 🚗💨
