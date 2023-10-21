@@ -538,7 +538,7 @@
 
 *   [opengauss-mirror/openGauss-server](https://github.com/opengauss-mirror/openGauss-server) - openGauss kernel
 *   [MegEngine/MegEngine](https://github.com/MegEngine/MegEngine) - MegEngine 是一个快速、可拓展、易于使用且支持自动求导的深度学习框架
-*   [timeplus-io/proton](https://github.com/timeplus-io/proton) - a unified streaming and historical data processing engine in a single binary, powered by ClickHouse
+*   [timeplus-io/proton](https://github.com/timeplus-io/proton) - A unified streaming and historical data processing engine in one single binary, powered by ClickHouse
 *   [tensorflow/tensorflow](https://github.com/tensorflow/tensorflow) - An Open Source Machine Learning Framework for Everyone
 *   [ztxz16/fastllm](https://github.com/ztxz16/fastllm) - 纯c++的全平台llm加速库，支持python调用，chatglm-6B级模型单卡可达10000+token / s，支持glm, llama, moss基座，手机端流畅运行
 *   [PaddlePaddle/Paddle](https://github.com/PaddlePaddle/Paddle) - PArallel Distributed Deep LEarning: Machine Learning Framework from Industrial Practice （『飞桨』核心框架，深度学习&机器学习高性能单机、分布式训练和跨平台部署）
@@ -830,7 +830,6 @@
 
 *   [cocktailpeanut/dalai](https://github.com/cocktailpeanut/dalai) - The simplest way to run LLaMA on your local machine
 *   [SwiftGGTeam/the-swift-programming-language-in-chinese](https://github.com/SwiftGGTeam/the-swift-programming-language-in-chinese) - 中文版 Apple 官方 Swift 教程《The Swift Programming Language》
-*   [ParisNeo/lollms-webui](https://github.com/ParisNeo/lollms-webui) - Lord of Large Language Models Web User Interface
 *   [cn/constitution](https://github.com/cn/constitution) - 中华人民共和国宪法
 *   [gustavoquinalha/jekyll-help-center-theme](https://github.com/gustavoquinalha/jekyll-help-center-theme) - Simple and responsive Jekyll theme for help center.
 *   [jschyz/lottery](https://github.com/jschyz/lottery) - 游侠客5周年年会抽奖！ --  手机号摇奖
@@ -851,6 +850,7 @@
 *   [chamerling/gitlab-teams](https://github.com/chamerling/gitlab-teams) - 🦊 Follow merge requests (\&more) like a boss 🦊
 *   [vuejs/create-vue](https://github.com/vuejs/create-vue) - 🛠️ The recommended way to start a Vite-powered Vue project
 *   [XPoet/picx](https://github.com/XPoet/picx) - 🏞️ PicX 是一款基于 GitHub API 开发的图床工具，提供图片上传托管、生成图片链接和常用图片工具箱服务。
+*   [ParisNeo/lollms-webui](https://github.com/ParisNeo/lollms-webui) - Lord of Large Language Models Web User Interface
 *   [Chanzhaoyu/chatgpt-web](https://github.com/Chanzhaoyu/chatgpt-web) - 用 Express 和  Vue3 搭建的 ChatGPT 演示网页
 *   [202252197/ChatGPT\_JCM](https://github.com/202252197/ChatGPT_JCM) - OpenAI管理界面，聚合了OpenAI的所有接口进行界面操作(所有模型、图片、音频、微调、文件)等，支持Markdown格式(公式、图表，表格)等，GPT4接口官方只是在申请阶段，后期会一点一点的将OpenAI接口进行接入大家支持一下，微信群号在下方，右上角点个Star，我会一直更新下去，大家一起学习，一起加油，一起努力，一起成长。
 *   [zzetao/awesome-github-profile](https://github.com/zzetao/awesome-github-profile) - 🌐  A website of awesome Github Profile READMEs
