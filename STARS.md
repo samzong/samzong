@@ -43,6 +43,7 @@
 
 ## Python
 
+*   [langchain-ai/chat-langchain](https://github.com/langchain-ai/chat-langchain) -
 *   [milvus-io/bootcamp](https://github.com/milvus-io/bootcamp) - Dealing with all unstructured data, such as reverse image search, audio search, molecular search, video analysis, question and answer systems, NLP, etc.
 *   [Lightning-AI/lit-llama](https://github.com/Lightning-AI/lit-llama) - Implementation of the LLaMA language model based on nanoGPT. Supports flash attention, Int8 and GPTQ 4bit quantization, LoRA and LLaMA-Adapter fine-tuning, pre-training. Apache 2.0-licensed.
 *   [lm-sys/FastChat](https://github.com/lm-sys/FastChat) - An open platform for training, serving, and evaluating large language models. Release repo for Vicuna and Chatbot Arena.
@@ -72,7 +73,7 @@
 *   [open-compass/opencompass](https://github.com/open-compass/opencompass) - OpenCompass is an LLM evaluation platform, supporting a wide range of models (LLaMA, LLaMa2, ChatGLM2, ChatGPT, Claude, etc) over 50+ datasets.
 *   [haonan-li/CMMLU](https://github.com/haonan-li/CMMLU) - CMMLU: Measuring massive multitask language understanding in Chinese
 *   [THUDM/ChatGLM-6B](https://github.com/THUDM/ChatGLM-6B) - ChatGLM-6B: An Open Bilingual Dialogue Language Model | 开源双语对话语言模型
-*   [oobabooga/text-generation-webui](https://github.com/oobabooga/text-generation-webui) - A Gradio web UI for Large Language Models. Supports transformers, GPTQ, AWQ, llama.cpp (GGUF), Llama models.
+*   [oobabooga/text-generation-webui](https://github.com/oobabooga/text-generation-webui) - A Gradio web UI for Large Language Models. Supports transformers, GPTQ, AWQ, EXL2, llama.cpp (GGUF), Llama models.
 *   [FlagAlpha/Llama2-Chinese](https://github.com/FlagAlpha/Llama2-Chinese) - Llama中文社区，最好的中文Llama大模型，完全开源可商用
 *   [PanQiWei/AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) - An easy-to-use LLMs quantization package with user-friendly apis, based on GPTQ algorithm.
 *   [qwopqwop200/GPTQ-for-LLaMa](https://github.com/qwopqwop200/GPTQ-for-LLaMa) - 4 bits quantization of LLaMA using GPTQ
@@ -132,7 +133,7 @@
 *   [tiangolo/typer](https://github.com/tiangolo/typer) - Typer, build great CLIs. Easy to code. Based on Python type hints.
 *   [pypa/virtualenv](https://github.com/pypa/virtualenv) - Virtual Python Environment builder
 *   [arc53/DocsGPT](https://github.com/arc53/DocsGPT) - GPT-powered chat for documentation, chat with your documents
-*   [LlmKira/Openaibot](https://github.com/LlmKira/Openaibot) - 🌻 多平台链式插件 AI Bot，以复刻 ChatGpt 架构 🍓|⛓ Self-driven Chain Runner | 🪄 Send Message everywhere |🔖 Chatgpt Plugin Support | 🌻 sh & docker | 🧀 Discord/Slack/Kook/Telegram
+*   [LlmKira/Openaibot](https://github.com/LlmKira/Openaibot) - ⚡️ 多平台链式插件 AI Bot，以复刻 ChatGpt 架构 🍓|⛓ Self-driven Chain Runner | 🪄 Send Message everywhere |🔖 Chatgpt Plugin Support | 🌻 sh & docker | 🧀 Discord/Slack/Kook/Telegram
 *   [cyclone-robotics/feishu-python-sdk](https://github.com/cyclone-robotics/feishu-python-sdk) - 一个用于和飞书开放平台交互的python库
 *   [linkedin/oncall](https://github.com/linkedin/oncall) - Oncall is a calendar tool designed for scheduling and managing on-call shifts. It can be used as source of dynamic ownership info for paging systems like http://iris.claims.
 *   [locustio/locust](https://github.com/locustio/locust) - Write scalable load tests in plain Python 🚗💨
@@ -204,10 +205,10 @@
 *   [moxiegushi/pokeGAN](https://github.com/moxiegushi/pokeGAN) - Creats new kinds of pokemons using WGAN!
 *   [zhujinhe/collection-of-zabbix-templates](https://github.com/zhujinhe/collection-of-zabbix-templates) - 一堆zabbix模板和笔记
 *   [crazw/webkvmmgr](https://github.com/crazw/webkvmmgr) - KVM Manager with Django
-*   [lzjun567/zhihu-api](https://github.com/lzjun567/zhihu-api) - Zhihu API for Humans
 
 ## miscellaneous
 
+*   [ByteByteGoHq/system-design-101](https://github.com/ByteByteGoHq/system-design-101) - Explain complex systems using visuals and simple terms. Help you prepare for system design interviews.
 *   [phodal/prompt-patterns](https://github.com/phodal/prompt-patterns) - Prompt 编写模式：如何将思维框架赋予机器，以设计模式的形式来思考 prompt
 *   [mojicians/awesome-mojo](https://github.com/mojicians/awesome-mojo) - A curated list of awesome Mojo 🔥 frameworks, libraries, software and resources
 *   [immersive-translate/immersive-translate](https://github.com/immersive-translate/immersive-translate) - 沉浸式双语网页翻译扩展 , 支持输入框翻译， 鼠标悬停翻译， PDF, Epub, 字幕文件, TXT 文件翻译 - Immersive Dual Web Page Translation Extension
@@ -942,7 +943,6 @@
 ## Swift
 
 *   [Lax/Learn-iOS-Swift-by-Examples](https://github.com/Lax/Learn-iOS-Swift-by-Examples) - 精心收集并分类整理的Swift开发学习资源，包括Apple官方提供的示例代码和文档，以及github上的项目和国内外开发者的技术博客。欢迎提交pull-request一起维护。https://t.me/SwiftCN QQ交流群 32958950 申请请注明开发经验
-*   [dongqihouse/AE86](https://github.com/dongqihouse/AE86) - 种子搜索器
 
 ## Objective-C
 
