@@ -96,7 +96,7 @@
 *   [Stability-AI/stablediffusion](https://github.com/Stability-AI/stablediffusion) - High-Resolution Image Synthesis with Latent Diffusion Models
 *   [pengzhile/pandora](https://github.com/pengzhile/pandora) - 潘多拉，一个让你呼吸顺畅的ChatGPT。Pandora, a ChatGPT that helps you breathe smoothly.
 *   [AntonOsika/gpt-engineer](https://github.com/AntonOsika/gpt-engineer) - Specify what you want it to build, the AI asks for clarification, and then builds it.
-*   [Undertone0809/promptulate](https://github.com/Undertone0809/promptulate) - A large language model automation and application development framework.
+*   [Undertone0809/promptulate](https://github.com/Undertone0809/promptulate) - A large language model automation and Autonomous Language Agents development framework.
 *   [THUDM/GLM-130B](https://github.com/THUDM/GLM-130B) - GLM-130B: An Open Bilingual Pre-Trained Model (ICLR 2023)
 *   [facebookresearch/llama](https://github.com/facebookresearch/llama) - Inference code for LLaMA models
 *   [itcharge/LeetCode-Py](https://github.com/itcharge/LeetCode-Py) - ⛽️「算法通关手册」：超详细的「算法与数据结构」基础讲解教程，从零基础开始学习算法知识，800+ 道「LeetCode 题目」详细解析，200 道「大厂面试热门题目」。
@@ -467,7 +467,7 @@
 *   [Fish-pro/fast](https://github.com/Fish-pro/fast) - Fast is a Kubernetes CNI based on eBPF implementation
 *   [k-cloud-labs/kinitiras](https://github.com/k-cloud-labs/kinitiras) - A programmable rule engine for k8s admission webhook
 *   [k-cloud-labs/kluster-capacity](https://github.com/k-cloud-labs/kluster-capacity) - Cluster capacity analysis tool for capacity estimation、scheduler simulation、cluster compression、fragmentation etc.
-*   [spidernet-io/egressgateway](https://github.com/spidernet-io/egressgateway) - EgressGateway provides network egress capabilities for Kubernetes clusters.
+*   [spidernet-io/egressgateway](https://github.com/spidernet-io/egressgateway) - network egress policy for Kubernetes
 *   [gohugoio/hugo](https://github.com/gohugoio/hugo) - The world’s fastest framework for building websites.
 *   [OT-CONTAINER-KIT/redis-operator](https://github.com/OT-CONTAINER-KIT/redis-operator) - A golang based redis operator that will make/oversee Redis standalone/cluster/replication/sentinel mode setup on top of the Kubernetes.
 *   [kubeclipper/kubeclipper](https://github.com/kubeclipper/kubeclipper) - Manage kubernetes in the most light and convenient way ☸️
