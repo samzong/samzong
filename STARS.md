@@ -44,6 +44,7 @@
 
 ## Python
 
+*   [microsoft/promptflow](https://github.com/microsoft/promptflow) - Build high-quality LLM apps - from prototyping, testing to production deployment and monitoring.
 *   [01-ai/Yi](https://github.com/01-ai/Yi) - A series of large language models trained from scratch by developers @01-ai
 *   [bigscience-workshop/petals](https://github.com/bigscience-workshop/petals) - 🌸 Run LLMs at home, BitTorrent-style. Fine-tuning and inference up to 10x faster than offloading
 *   [tensorchord/modelz-llm](https://github.com/tensorchord/modelz-llm) - OpenAI compatible API for LLMs and embeddings (LLaMA, Vicuna, ChatGLM and many others)
@@ -246,7 +247,7 @@
 *   [Fish-pro/fast](https://github.com/Fish-pro/fast) - Fast is a Kubernetes CNI based on eBPF implementation
 *   [k-cloud-labs/kinitiras](https://github.com/k-cloud-labs/kinitiras) - A programmable rule engine for k8s admission webhook
 *   [k-cloud-labs/kluster-capacity](https://github.com/k-cloud-labs/kluster-capacity) - Cluster capacity analysis tool for capacity estimation、scheduler simulation、cluster compression、fragmentation etc.
-*   [spidernet-io/egressgateway](https://github.com/spidernet-io/egressgateway) - network egress policy for Kubernetes
+*   [spidernet-io/egressgateway](https://github.com/spidernet-io/egressgateway) - Network egress policy for Kubernetes
 *   [gohugoio/hugo](https://github.com/gohugoio/hugo) - The world’s fastest framework for building websites.
 *   [OT-CONTAINER-KIT/redis-operator](https://github.com/OT-CONTAINER-KIT/redis-operator) - A golang based redis operator that will make/oversee Redis standalone/cluster/replication/sentinel mode setup on top of the Kubernetes.
 *   [kubeclipper/kubeclipper](https://github.com/kubeclipper/kubeclipper) - Manage kubernetes in the most light and convenient way ☸️
@@ -951,4 +952,3 @@
 ## Objective-C
 
 *   [TKkk-iOSer/WeChatPlugin-MacOS](https://github.com/TKkk-iOSer/WeChatPlugin-MacOS) - 微信小助手
-*   [Cenmrev/V2RayX](https://github.com/Cenmrev/V2RayX) - GUI for v2ray-core on macOS
