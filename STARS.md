@@ -14,6 +14,7 @@
 *   [Go](#go)
 *   [Jupyter Notebook](#jupyter-notebook)
 *   [JavaScript](#javascript)
+*   [Markdown](#markdown)
 *   [Rust](#rust)
 *   [Dart](#dart)
 *   [Shell](#shell)
@@ -384,10 +385,9 @@
 *   [prompt-engineering/click-prompt](https://github.com/prompt-engineering/click-prompt) - ClickPrompt - Streamline your prompt design, with ClickPrompt, you can easily view, share, and run these prompts with just one click.  ClickPrompt 用于一键轻松查看、分享和执行您的 Prompt。
 *   [ztjhz/BetterChatGPT](https://github.com/ztjhz/BetterChatGPT) - An amazing UI for OpenAI's ChatGPT (Website + Windows + MacOS + Linux)
 *   [jupyterlab/jupyterlab-desktop](https://github.com/jupyterlab/jupyterlab-desktop) - JupyterLab desktop application, based on Electron.
-*   [nolebase/nolebase](https://github.com/nolebase/nolebase) - A place to record memories, knowledge and ideas | 记录回忆，知识和畅想的地方
 *   [Lark-Base-Team/js-sdk-learn-demo](https://github.com/Lark-Base-Team/js-sdk-learn-demo) - JS SDK Demo
 *   [lobehub/lobe-cli-toolbox](https://github.com/lobehub/lobe-cli-toolbox) -  🪀 Lobe CLI Toolbox - AI CLI Toolbox, enhancing git commit and i18n workflow efficiency
-*   [lobehub/lobe-chat](https://github.com/lobehub/lobe-chat) - 🤖 Lobe Chat - an open-source, extensible (Function Calling), high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
+*   [lobehub/lobe-chat](https://github.com/lobehub/lobe-chat) - 🤖 Lobe Chat - an open-source, vision supported, extensible, high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
 *   [whyour/qinglong](https://github.com/whyour/qinglong) - 支持 Python3、JavaScript、Shell、Typescript 的定时任务管理平台（Timed task management platform supporting Python3, JavaScript, Shell, Typescript）
 *   [FlowiseAI/Flowise](https://github.com/FlowiseAI/Flowise) - Drag & drop UI to build your customized LLM flow
 *   [vdutts7/constitutionGPT](https://github.com/vdutts7/constitutionGPT) - AI chat over the US Constitution 📜 💬 🇺🇸
@@ -401,7 +401,7 @@
 *   [yuque-helper/yuque2book](https://github.com/yuque-helper/yuque2book) - export yuque repo to a book 将你的语雀文档导出的工具
 *   [kuizuo/blog](https://github.com/kuizuo/blog) - 愧怍的个人博客
 *   [star-history/star-history](https://github.com/star-history/star-history) - The missing star history graph of GitHub repos - https://star-history.com
-*   [StanGirard/quivr](https://github.com/StanGirard/quivr) -  🧠 Your supercharged Second Brain 🧠 Your personal productivity assistant to chat with your files (PDF, CSV)  & apps using GPT 3.5 / 4 turbo, Private, Anthropic, VertexAI, LLMs that you can share with users !  Alternative to OpenAI GPTs
+*   [StanGirard/quivr](https://github.com/StanGirard/quivr) -  🧠 Your supercharged Second Brain 🧠 Your personal productivity assistant to chat with your dumped files (PDF, CSV)  & apps using GPT 3.5 / 4 turbo, Private, Anthropic, VertexAI, LLMs that you can share with users !  Alternative to OpenAI GPTs
 *   [n8n-io/n8n](https://github.com/n8n-io/n8n) - Free and source-available fair-code licensed workflow automation tool. Easily automate tasks across different services.
 *   [n8n-io/n8n-nodes-starter](https://github.com/n8n-io/n8n-nodes-starter) - Example starter module for custom n8n nodes.
 *   [prompt-engineering/chat-visual-novel](https://github.com/prompt-engineering/chat-visual-novel) - ChatVisualNovel - a fully customizable visual novel engine powered by ChatGPT. ChatVisualNovel —— 基于ChatGPT的定制化视觉小说引擎。
@@ -734,6 +734,10 @@
 *   [liutian/light-push](https://github.com/liutian/light-push) - 轻量级推送服务和实时在线监控平台，同时用于开发即时通信系统，基于node的socket.io，支持web、android、ios客户端，支持移动端离线推送，可进行分布式部署
 *   [lrsjng/h5ai](https://github.com/lrsjng/h5ai) - HTTP web server index for Apache httpd, lighttpd and nginx.
 *   [GoogleCloudPlatform/PerfKitExplorer](https://github.com/GoogleCloudPlatform/PerfKitExplorer) - PerfKit Explorer is a dashboarding and performance analysis tool built with Google technologies and easily extensible. PerfKit Explorer is licensed under the Apache 2 license terms. Please make sure to read, understand and agree to the terms of the LICENSE and CONTRIBUTING files before proceeding.
+
+## Markdown
+
+*   [nolebase/nolebase](https://github.com/nolebase/nolebase) - A place to record memories, knowledge and ideas | 记录回忆，知识和畅想的地方
 
 ## Rust
 
