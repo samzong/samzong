@@ -387,7 +387,7 @@
 *   [jupyterlab/jupyterlab-desktop](https://github.com/jupyterlab/jupyterlab-desktop) - JupyterLab desktop application, based on Electron.
 *   [Lark-Base-Team/js-sdk-learn-demo](https://github.com/Lark-Base-Team/js-sdk-learn-demo) - JS SDK Demo
 *   [lobehub/lobe-cli-toolbox](https://github.com/lobehub/lobe-cli-toolbox) -  🪀 Lobe CLI Toolbox - AI CLI Toolbox, enhancing git commit and i18n workflow efficiency
-*   [lobehub/lobe-chat](https://github.com/lobehub/lobe-chat) - 🤖 Lobe Chat - an open-source, vision supported, extensible, high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
+*   [lobehub/lobe-chat](https://github.com/lobehub/lobe-chat) - 🤖 Lobe Chat - an open-source, vision supported, extensible, high-performance chat client. It supports one-click free deployment of your private ChatGPT/LLM web application.
 *   [whyour/qinglong](https://github.com/whyour/qinglong) - 支持 Python3、JavaScript、Shell、Typescript 的定时任务管理平台（Timed task management platform supporting Python3, JavaScript, Shell, Typescript）
 *   [FlowiseAI/Flowise](https://github.com/FlowiseAI/Flowise) - Drag & drop UI to build your customized LLM flow
 *   [vdutts7/constitutionGPT](https://github.com/vdutts7/constitutionGPT) - AI chat over the US Constitution 📜 💬 🇺🇸
@@ -407,7 +407,7 @@
 *   [prompt-engineering/chat-visual-novel](https://github.com/prompt-engineering/chat-visual-novel) - ChatVisualNovel - a fully customizable visual novel engine powered by ChatGPT. ChatVisualNovel —— 基于ChatGPT的定制化视觉小说引擎。
 *   [xitanggg/open-resume](https://github.com/xitanggg/open-resume) - OpenResume is a powerful open-source resume builder and resume parser. https://open-resume.com/
 *   [ltyzzzxxx/gpt-web-terminal](https://github.com/ltyzzzxxx/gpt-web-terminal) - ✨ Open ChatGPT with Programmer's Approach! GPT Terminal is a platform that allows you to communicate with GPT in a terminal.
-*   [langgenius/dify](https://github.com/langgenius/dify) - The next-gen development platform - Easily build and operate generative AI applications.  Create Assistants API and GPTs based on any LLMs.
+*   [langgenius/dify](https://github.com/langgenius/dify) - An Open-Source Assistants API and GPTs alternative. Dify.AI is an LLM application development platform. It integrates the concepts of Backend as a Service and LLMOps, covering the core tech stack required for building generative AI-native applications, including a built-in RAG engine.
 *   [ycjcl868/readme-gpt](https://github.com/ycjcl868/readme-gpt) - Generate your Github Readme with OpenAI and Vercel Edge Functions.
 *   [actions/labeler](https://github.com/actions/labeler) - An action for automatically labelling pull requests
 *   [trpc/trpc](https://github.com/trpc/trpc) - 🧙‍♀️  Move Fast and Break Nothing. End-to-end typesafe APIs made easy.
