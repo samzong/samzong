@@ -4,6 +4,7 @@
 
 ## Table of Contents
 
+*   [Smarty](#smarty)
 *   [Go](#go)
 *   [PHP](#php)
 *   [TypeScript](#typescript)
@@ -39,8 +40,13 @@
 *   [Batchfile](#batchfile)
 *   [ActionScript](#actionscript)
 
+## Smarty
+
+*   [deployKF/deployKF](https://github.com/deployKF/deployKF) - deployKF builds world-class data and machine learning platforms on any Kubernetes cluster, in any cloud or environment.
+
 ## Go
 
+*   [armadaproject/armada](https://github.com/armadaproject/armada) - A multi-cluster batch queuing system for high-throughput workloads on Kubernetes.
 *   [metal-stack/csi-lvm](https://github.com/metal-stack/csi-lvm) - kubernetes csi for bare metal deployments, uses local storage
 *   [matryer/xbar](https://github.com/matryer/xbar) - Put the output from any script or program into your macOS Menu Bar (the BitBar reboot)
 *   [dragonflyoss/Dragonfly2](https://github.com/dragonflyoss/Dragonfly2) - Dragonfly is an open source P2P-based file distribution and image acceleration system. It is hosted by the Cloud Native Computing Foundation (CNCF) as an Incubating Level Project.
@@ -674,7 +680,6 @@
 *   [home-assistant/core](https://github.com/home-assistant/core) - :house\_with\_garden: Open source home automation that puts local control and privacy first.
 *   [ageitgey/face\_recognition](https://github.com/ageitgey/face_recognition) - The world's simplest facial recognition api for Python and the command line
 *   [jorgebastida/awslogs](https://github.com/jorgebastida/awslogs) - AWS CloudWatch logs for Humans™
-*   [twisted/klein](https://github.com/twisted/klein) - werkzeug + twisted.web
 
 ## C++
 
@@ -836,7 +841,6 @@
 *   [harmonycloud/zeus](https://github.com/harmonycloud/zeus) - A middleware platform based on the stable k8s architecture, which can realize automatic expansion and contraction, fault self-healing, automatic backup and recovery, intelligent monitoring, etc.
 *   [alibaba/otter](https://github.com/alibaba/otter) - 阿里巴巴分布式数据库同步系统(解决中美异地机房)
 *   [alibaba/canal](https://github.com/alibaba/canal) - 阿里巴巴 MySQL binlog 增量订阅&消费组件
-*   [dataease/dataease](https://github.com/dataease/dataease) - 人人可用的开源数据可视化分析工具。
 *   [keycloak/keycloak](https://github.com/keycloak/keycloak) - Open Source Identity and Access Management For Modern Applications and Services
 *   [strimzi/strimzi-kafka-operator](https://github.com/strimzi/strimzi-kafka-operator) - Apache Kafka® running on Kubernetes
 *   [datahub-project/datahub](https://github.com/datahub-project/datahub) - The Metadata Platform for the Modern Data Stack
@@ -854,7 +858,6 @@
 *   [messenger4j/messenger4j](https://github.com/messenger4j/messenger4j) - A Java library for building Chatbots on the Facebook Messenger Platform - easy and fast.
 *   [Twitter4J/Twitter4J](https://github.com/Twitter4J/Twitter4J) - Twitter4J is an open-source Java library for the Twitter API.
 *   [crossoverJie/JCSprout](https://github.com/crossoverJie/JCSprout) - 👨‍🎓 Java Core Sprout : basic, concurrent, algorithm
-*   [wenzewoo/ExcelKit](https://github.com/wenzewoo/ExcelKit) - Excel导入导出工具（简单、好用且轻量级的海量Excel文件导入导出解决方案.）ISSUES/PR请前往：https://gitee.com/wuwenze/ExcelKit
 
 ## CSS
 
@@ -876,6 +879,7 @@
 *   [ParisNeo/lollms-webui](https://github.com/ParisNeo/lollms-webui) - Lord of Large Language Models Web User Interface
 *   [Chanzhaoyu/chatgpt-web](https://github.com/Chanzhaoyu/chatgpt-web) - 用 Express 和  Vue3 搭建的 ChatGPT 演示网页
 *   [202252197/ChatGPT\_JCM](https://github.com/202252197/ChatGPT_JCM) - OpenAI管理界面，聚合了OpenAI的所有接口进行界面操作(所有模型、图片、音频、微调、文件)等，支持Markdown格式(公式、图表，表格)等，GPT4接口官方只是在申请阶段，后期会一点一点的将OpenAI接口进行接入大家支持一下，微信群号在下方，右上角点个Star，我会一直更新下去，大家一起学习，一起加油，一起努力，一起成长。
+*   [dataease/dataease](https://github.com/dataease/dataease) - 人人可用的开源数据可视化分析工具。
 *   [zzetao/awesome-github-profile](https://github.com/zzetao/awesome-github-profile) - 🌐  A website of awesome Github Profile READMEs
 *   [requarks/wiki](https://github.com/requarks/wiki) - Wiki.js | A modern and powerful wiki app built on Node.js
 *   [eip-work/kuboard-spray](https://github.com/eip-work/kuboard-spray) - 使用图形化的界面离线安装、维护、升级高可用的 K8S 集群
