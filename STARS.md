@@ -403,7 +403,7 @@
 
 ## PHP
 
-*   [pandora-next/deploy](https://github.com/pandora-next/deploy) - Pandora Cloud + Pandora Server + Shared Chat + BackendAPI Proxy + Chat2API = PandoraNext. New GPTs(Gizmo) UI, All in one!
+*   [pandora-next/deploy](https://github.com/pandora-next/deploy) - Pandora Cloud + Pandora Server + Shared Chat + BackendAPI Proxy + Chat2API + Signup Free = PandoraNext. New GPTs(Gizmo) UI, All in one!
 *   [filegator/filegator](https://github.com/filegator/filegator) - Powerful Multi-User File Manager
 *   [phacility/phabricator](https://github.com/phacility/phabricator) - Effective June 1, 2021: Phabricator is no longer actively maintained.
 
@@ -437,7 +437,7 @@
 *   [n8n-io/n8n-nodes-starter](https://github.com/n8n-io/n8n-nodes-starter) - Example starter module for custom n8n nodes.
 *   [prompt-engineering/chat-visual-novel](https://github.com/prompt-engineering/chat-visual-novel) - ChatVisualNovel - a fully customizable visual novel engine powered by ChatGPT. ChatVisualNovel —— 基于ChatGPT的定制化视觉小说引擎。
 *   [xitanggg/open-resume](https://github.com/xitanggg/open-resume) - OpenResume is a powerful open-source resume builder and resume parser. https://open-resume.com/
-*   [ltyzzzxxx/gpt-web-terminal](https://github.com/ltyzzzxxx/gpt-web-terminal) - ✨ Open ChatGPT with Programmer's Approach! GPT Terminal is a platform that allows you to communicate with GPT in a terminal.
+*   [tychozzz/gpt-web-terminal](https://github.com/tychozzz/gpt-web-terminal) - ✨ Open ChatGPT with Programmer's Approach! GPT Terminal is a platform that allows you to communicate with GPT in a terminal.
 *   [langgenius/dify](https://github.com/langgenius/dify) - An Open-Source Assistants API and GPTs alternative. Dify.AI is an LLM application development platform. It integrates the concepts of Backend as a Service and LLMOps, covering the core tech stack required for building generative AI-native applications, including a built-in RAG engine.
 *   [ycjcl868/readme-gpt](https://github.com/ycjcl868/readme-gpt) - Generate your Github Readme with OpenAI and Vercel Edge Functions.
 *   [actions/labeler](https://github.com/actions/labeler) - An action for automatically labelling pull requests
