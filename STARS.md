@@ -4,10 +4,11 @@
 
 ## Table of Contents
 
-*   [Rust](#rust)
+*   [C++](#c)
 *   [Python](#python)
-*   [C](#c)
-*   [C++](#c-1)
+*   [Jupyter Notebook](#jupyter-notebook)
+*   [Rust](#rust)
+*   [C](#c-1)
 *   [TypeScript](#typescript)
 *   [HTML](#html)
 *   [JavaScript](#javascript)
@@ -22,7 +23,6 @@
 *   [PHP](#php)
 *   [C#](#c-2)
 *   [SCSS](#scss)
-*   [Jupyter Notebook](#jupyter-notebook)
 *   [Markdown](#markdown)
 *   [Shell](#shell)
 *   [Dart](#dart)
@@ -43,27 +43,32 @@
 *   [ActionScript](#actionscript)
 *   [Objective-C](#objective-c)
 
-## Rust
+## C++
 
-*   [YiNNx/cmd-wrapped](https://github.com/YiNNx/cmd-wrapped) - Find out what the past year looks like in commandline!
-*   [atuinsh/atuin](https://github.com/atuinsh/atuin) - ✨ Magical shell history
-*   [heqingpan/rnacos](https://github.com/heqingpan/rnacos) - Nacos server re-implemented in Rust.
-*   [dora-rs/dora](https://github.com/dora-rs/dora) - dora goal is to be a low latency, composable, and distributed data flow.
-*   [kdash-rs/kdash](https://github.com/kdash-rs/kdash) - A simple and fast dashboard for Kubernetes
-*   [bytedance/monoio](https://github.com/bytedance/monoio) - Rust async runtime based on io-uring.
-*   [huggingface/candle](https://github.com/huggingface/candle) - Minimalist ML framework for Rust
-*   [vectordotdev/vector](https://github.com/vectordotdev/vector) - A high-performance observability data pipeline.
-*   [wasmCloud/wasmCloud](https://github.com/wasmCloud/wasmCloud) - wasmCloud allows for simple, secure, distributed application development using WebAssembly actors and capability providers.
-*   [openobserve/openobserve](https://github.com/openobserve/openobserve) - 🚀 10x easier, 🚀 140x lower storage cost, 🚀 high performance,  🚀 petabyte scale - Elasticsearch/Splunk/Datadog alternative for 🚀 (logs, metrics, traces, RUM, Error tracking, Session replay).
-*   [huacnlee/autocorrect](https://github.com/huacnlee/autocorrect) - A linter and formatter to help you to improve copywriting, correct spaces, words, and punctuations between CJK (Chinese, Japanese, Korean).
-*   [lencx/ChatGPT](https://github.com/lencx/ChatGPT) - 🔮 ChatGPT Desktop Application (Mac, Windows and Linux)
-*   [aurae-runtime/aurae](https://github.com/aurae-runtime/aurae) - Distributed systems runtime daemon written in Rust.
-*   [bytecodealliance/wasmtime](https://github.com/bytecodealliance/wasmtime) - A fast and secure runtime for WebAssembly
-*   [surrealdb/surrealdb](https://github.com/surrealdb/surrealdb) - A scalable, distributed, collaborative, document-graph database, for the realtime web
-*   [tauri-apps/tauri](https://github.com/tauri-apps/tauri) - Build smaller, faster, and more secure desktop applications with a web frontend.
+*   [Oneflow-Inc/oneflow](https://github.com/Oneflow-Inc/oneflow) - OneFlow is a deep learning framework designed to be user-friendly, scalable and efficient.
+*   [NVIDIA/TensorRT](https://github.com/NVIDIA/TensorRT) - NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.
+*   [Mozilla-Ocho/llamafile](https://github.com/Mozilla-Ocho/llamafile) - Distribute and run LLMs with a single file.
+*   [ml-explore/mlx](https://github.com/ml-explore/mlx) - MLX: An array framework for Apple silicon
+*   [mudler/LocalAI](https://github.com/mudler/LocalAI) - :robot: The free, Open Source OpenAI alternative. Self-hosted, community-driven and local-first. Drop-in replacement for OpenAI running on consumer-grade hardware. No GPU required. Runs ggml, gguf, GPTQ, onnx, TF compatible models: llama, llama2, rwkv, whisper, vicuna, koala, cerebras, falcon, dolly, starcoder, and many others
+*   [opengauss-mirror/openGauss-server](https://github.com/opengauss-mirror/openGauss-server) - openGauss kernel
+*   [MegEngine/MegEngine](https://github.com/MegEngine/MegEngine) - MegEngine 是一个快速、可拓展、易于使用且支持自动求导的深度学习框架
+*   [timeplus-io/proton](https://github.com/timeplus-io/proton) - A streaming SQL engine, a fast and lightweight alternative to Apache Flink, 🚀 powered by ClickHouse.
+*   [tensorflow/tensorflow](https://github.com/tensorflow/tensorflow) - An Open Source Machine Learning Framework for Everyone
+*   [ztxz16/fastllm](https://github.com/ztxz16/fastllm) - 纯c++的全平台llm加速库，支持python调用，chatglm-6B级模型单卡可达10000+token / s，支持glm, llama, moss基座，手机端流畅运行
+*   [PaddlePaddle/Paddle](https://github.com/PaddlePaddle/Paddle) - PArallel Distributed Deep LEarning: Machine Learning Framework from Industrial Practice （『飞桨』核心框架，深度学习&机器学习高性能单机、分布式训练和跨平台部署）
+*   [ByConity/ByConity](https://github.com/ByConity/ByConity) - ByConity is an open source cloud data warehouse
+*   [modelbox-ai/modelbox](https://github.com/modelbox-ai/modelbox) - A high performance, high expansion, easy to use framework for AI application. 为AI应用的开发者提供一套统一的高性能、易用的编程框架，快速基于AI全栈服务、开发跨端边云的AI行业应用，支持GPU，NPU加速。
+*   [redpanda-data/redpanda](https://github.com/redpanda-data/redpanda) - Redpanda is a streaming data platform for developers. Kafka API compatible. 10x faster. No ZooKeeper. No JVM!
+*   [pixie-io/pixie](https://github.com/pixie-io/pixie) - Instant Kubernetes-Native Application Observability
+*   [higress-group/higress](https://github.com/higress-group/higress) - Next-generation Cloud Native Gateway
+*   [tindy2013/subconverter](https://github.com/tindy2013/subconverter) - Utility to convert between various subscription format
+*   [canonical/multipass](https://github.com/canonical/multipass) - Multipass orchestrates virtual Ubuntu instances
+*   [envoyproxy/envoy](https://github.com/envoyproxy/envoy) - Cloud-native high-performance edge/middle/service proxy
+*   [yangyangwithgnu/hardseed](https://github.com/yangyangwithgnu/hardseed) - SEX IS ZERO (0), so, who wanna be the ONE (1), aha?
 
 ## Python
 
+*   [pypy/pypy](https://github.com/pypy/pypy) - PyPy is a very fast and compliant implementation of the Python language.
 *   [pytorch/torchx](https://github.com/pytorch/torchx) - TorchX is a universal job launcher for PyTorch applications. TorchX is designed to have fast iteration time for training/research and support for E2E production ML pipelines when you're ready.
 *   [django/django](https://github.com/django/django) - The Web framework for perfectionists with deadlines.
 *   [pallets/flask](https://github.com/pallets/flask) - The Python micro framework for building web applications.
@@ -248,7 +253,40 @@
 *   [seanlook/mypumpkin](https://github.com/seanlook/mypumpkin) - 把mysqldump封装成并发导出，同时可并发导入
 *   [X-Mars/Zabbix-Alert-WeChat](https://github.com/X-Mars/Zabbix-Alert-WeChat) - zabbix 企业微信、飞书、钉钉等告警脚本
 *   [seanlook/px-table-checksum](https://github.com/seanlook/px-table-checksum) - MySQL非主从环境下数据一致性校验及修复程序
-*   [ly0/baidupcsapi](https://github.com/ly0/baidupcsapi) - 百度网盘api
+
+## Jupyter Notebook
+
+*   [vanna-ai/vanna](https://github.com/vanna-ai/vanna) - 🤖 Chat with your SQL database 📊. Accurate Text-to-SQL Generation via LLMs using RAG 🔄.
+*   [liltom-eth/llama2-webui](https://github.com/liltom-eth/llama2-webui) - Run any Llama 2 locally with gradio UI on GPU or CPU from anywhere (Linux/Windows/Mac). Use `llama2-wrapper` as your local llama2 backend for Generative Agents/Apps.
+*   [unit-mesh/unit-minions](https://github.com/unit-mesh/unit-minions) - 《AI 研发提效研究：自己动手训练 LoRA》，包含 Llama  （Alpaca LoRA）模型、ChatGLM （ChatGLM Tuning）相关 Lora 的训练。训练内容：用户故事生成、测试代码生成、代码辅助生成、文本转 SQL、文本生成代码……
+*   [microsoft/autogen](https://github.com/microsoft/autogen) - Enable Next-Gen Large Language Model Applications. Join our Discord: https://discord.gg/pAbnFJrkgZ
+*   [intel-analytics/BigDL](https://github.com/intel-analytics/BigDL) - Accelerate LLM with low-bit (FP4 / INT4 / FP8 / INT8) optimizations using bigdl-llm
+*   [camenduru/text-generation-webui-colab](https://github.com/camenduru/text-generation-webui-colab) - A colab gradio web UI for running Large Language Models
+*   [CompVis/stable-diffusion](https://github.com/CompVis/stable-diffusion) - A latent text-to-image diffusion model
+*   [modularml/mojo](https://github.com/modularml/mojo) - The Mojo Programming Language
+*   [run-llama/llama-hub](https://github.com/run-llama/llama-hub) - A library of data loaders for LLMs made by the community -- to be used with LlamaIndex and/or LangChain
+*   [leisurelicht/wtfpython-cn](https://github.com/leisurelicht/wtfpython-cn) - wtfpython的中文翻译/施工结束/ 能力有限，欢迎帮我改进翻译
+*   [ben1234560/AiLearning-Theory-Applying](https://github.com/ben1234560/AiLearning-Theory-Applying) - 快速上手Ai理论及应用实战：基础知识、ML、DL、NLP-BERT、竞赛。含大量注释及数据集，力求每一位能看懂并复现。
+*   [lijin-THU/notes-python](https://github.com/lijin-THU/notes-python) - 中文 Python 笔记
+
+## Rust
+
+*   [YiNNx/cmd-wrapped](https://github.com/YiNNx/cmd-wrapped) - Find out what the past year looks like in command line!
+*   [atuinsh/atuin](https://github.com/atuinsh/atuin) - ✨ Magical shell history
+*   [heqingpan/rnacos](https://github.com/heqingpan/rnacos) - Nacos server re-implemented in Rust.
+*   [dora-rs/dora](https://github.com/dora-rs/dora) - dora goal is to be a low latency, composable, and distributed data flow.
+*   [kdash-rs/kdash](https://github.com/kdash-rs/kdash) - A simple and fast dashboard for Kubernetes
+*   [bytedance/monoio](https://github.com/bytedance/monoio) - Rust async runtime based on io-uring.
+*   [huggingface/candle](https://github.com/huggingface/candle) - Minimalist ML framework for Rust
+*   [vectordotdev/vector](https://github.com/vectordotdev/vector) - A high-performance observability data pipeline.
+*   [wasmCloud/wasmCloud](https://github.com/wasmCloud/wasmCloud) - wasmCloud allows for simple, secure, distributed application development using WebAssembly actors and capability providers.
+*   [openobserve/openobserve](https://github.com/openobserve/openobserve) - 🚀 10x easier, 🚀 140x lower storage cost, 🚀 high performance,  🚀 petabyte scale - Elasticsearch/Splunk/Datadog alternative for 🚀 (logs, metrics, traces, RUM, Error tracking, Session replay).
+*   [huacnlee/autocorrect](https://github.com/huacnlee/autocorrect) - A linter and formatter to help you to improve copywriting, correct spaces, words, and punctuations between CJK (Chinese, Japanese, Korean).
+*   [lencx/ChatGPT](https://github.com/lencx/ChatGPT) - 🔮 ChatGPT Desktop Application (Mac, Windows and Linux)
+*   [aurae-runtime/aurae](https://github.com/aurae-runtime/aurae) - Distributed systems runtime daemon written in Rust.
+*   [bytecodealliance/wasmtime](https://github.com/bytecodealliance/wasmtime) - A fast and secure runtime for WebAssembly
+*   [surrealdb/surrealdb](https://github.com/surrealdb/surrealdb) - A scalable, distributed, collaborative, document-graph database, for the realtime web
+*   [tauri-apps/tauri](https://github.com/tauri-apps/tauri) - Build smaller, faster, and more secure desktop applications with a web frontend.
 
 ## C
 
@@ -267,28 +305,6 @@
 *   [kingToolbox/WindTerm](https://github.com/kingToolbox/WindTerm) - A professional cross-platform SSH/Sftp/Shell/Telnet/Serial terminal.
 *   [Foundry376/Mailspring](https://github.com/Foundry376/Mailspring) - :love\_letter: A beautiful, fast and fully open source mail client for Mac, Windows and Linux.
 *   [Gnucash/gnucash](https://github.com/Gnucash/gnucash) - GnuCash Double-Entry Accounting Program.
-
-## C++
-
-*   [NVIDIA/TensorRT](https://github.com/NVIDIA/TensorRT) - NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.
-*   [Mozilla-Ocho/llamafile](https://github.com/Mozilla-Ocho/llamafile) - Distribute and run LLMs with a single file.
-*   [ml-explore/mlx](https://github.com/ml-explore/mlx) - MLX: An array framework for Apple silicon
-*   [mudler/LocalAI](https://github.com/mudler/LocalAI) - :robot: The free, Open Source OpenAI alternative. Self-hosted, community-driven and local-first. Drop-in replacement for OpenAI running on consumer-grade hardware. No GPU required. Runs ggml, gguf, GPTQ, onnx, TF compatible models: llama, llama2, rwkv, whisper, vicuna, koala, cerebras, falcon, dolly, starcoder, and many others
-*   [opengauss-mirror/openGauss-server](https://github.com/opengauss-mirror/openGauss-server) - openGauss kernel
-*   [MegEngine/MegEngine](https://github.com/MegEngine/MegEngine) - MegEngine 是一个快速、可拓展、易于使用且支持自动求导的深度学习框架
-*   [timeplus-io/proton](https://github.com/timeplus-io/proton) - A unified streaming SQL processing engine which can connect to historical data processing in one single binary, powered by ClickHouse.
-*   [tensorflow/tensorflow](https://github.com/tensorflow/tensorflow) - An Open Source Machine Learning Framework for Everyone
-*   [ztxz16/fastllm](https://github.com/ztxz16/fastllm) - 纯c++的全平台llm加速库，支持python调用，chatglm-6B级模型单卡可达10000+token / s，支持glm, llama, moss基座，手机端流畅运行
-*   [PaddlePaddle/Paddle](https://github.com/PaddlePaddle/Paddle) - PArallel Distributed Deep LEarning: Machine Learning Framework from Industrial Practice （『飞桨』核心框架，深度学习&机器学习高性能单机、分布式训练和跨平台部署）
-*   [ByConity/ByConity](https://github.com/ByConity/ByConity) - ByConity is an open source cloud data warehouse
-*   [modelbox-ai/modelbox](https://github.com/modelbox-ai/modelbox) - A high performance, high expansion, easy to use framework for AI application. 为AI应用的开发者提供一套统一的高性能、易用的编程框架，快速基于AI全栈服务、开发跨端边云的AI行业应用，支持GPU，NPU加速。
-*   [redpanda-data/redpanda](https://github.com/redpanda-data/redpanda) - Redpanda is a streaming data platform for developers. Kafka API compatible. 10x faster. No ZooKeeper. No JVM!
-*   [pixie-io/pixie](https://github.com/pixie-io/pixie) - Instant Kubernetes-Native Application Observability
-*   [higress-group/higress](https://github.com/higress-group/higress) - Next-generation Cloud Native Gateway
-*   [tindy2013/subconverter](https://github.com/tindy2013/subconverter) - Utility to convert between various subscription format
-*   [canonical/multipass](https://github.com/canonical/multipass) - Multipass orchestrates virtual Ubuntu instances
-*   [envoyproxy/envoy](https://github.com/envoyproxy/envoy) - Cloud-native high-performance edge/middle/service proxy
-*   [yangyangwithgnu/hardseed](https://github.com/yangyangwithgnu/hardseed) - SEX IS ZERO (0), so, who wanna be the ONE (1), aha?
 
 ## TypeScript
 
@@ -492,7 +508,6 @@
 *   [liutian/light-push](https://github.com/liutian/light-push) - 轻量级推送服务和实时在线监控平台，同时用于开发即时通信系统，基于node的socket.io，支持web、android、ios客户端，支持移动端离线推送，可进行分布式部署
 *   [lrsjng/h5ai](https://github.com/lrsjng/h5ai) - HTTP web server index for Apache httpd, lighttpd and nginx.
 *   [GoogleCloudPlatform/PerfKitExplorer](https://github.com/GoogleCloudPlatform/PerfKitExplorer) - PerfKit Explorer is a dashboarding and performance analysis tool built with Google technologies and easily extensible. PerfKit Explorer is licensed under the Apache 2 license terms. Please make sure to read, understand and agree to the terms of the LICENSE and CONTRIBUTING files before proceeding.
-*   [P233/3-Jekyll](https://github.com/P233/3-Jekyll) - This repo is no longer maintained.
 
 ## Go
 
@@ -821,7 +836,6 @@
 *   [qinjx/30min\_guides](https://github.com/qinjx/30min_guides) - 覃健祥的学习笔记，各种几十分钟入门的文档
 *   [jobbole/ProgrammingProjectList](https://github.com/jobbole/ProgrammingProjectList) - 程序员练手小项目
 *   [chenryn/ELKstack-guide-cn](https://github.com/chenryn/ELKstack-guide-cn) - ELK Stack 中文指南
-*   [zhujinhe/tomcat-zabbix-template](https://github.com/zhujinhe/tomcat-zabbix-template) - tomcat-zabbix-template with macros
 
 ## Swift
 
@@ -917,20 +931,6 @@
 *   [rootsongjc/cloud-native-library](https://github.com/rootsongjc/cloud-native-library) - 云原生资料库 - https://lib.jimmysong.io
 *   [kubesphere/website](https://github.com/kubesphere/website) - KubeSphere website and documentation 3.x
 *   [higress-group/higress-group.github.io](https://github.com/higress-group/higress-group.github.io) - Higress Official Website
-
-## Jupyter Notebook
-
-*   [liltom-eth/llama2-webui](https://github.com/liltom-eth/llama2-webui) - Run any Llama 2 locally with gradio UI on GPU or CPU from anywhere (Linux/Windows/Mac). Use `llama2-wrapper` as your local llama2 backend for Generative Agents/Apps.
-*   [unit-mesh/unit-minions](https://github.com/unit-mesh/unit-minions) - 《AI 研发提效研究：自己动手训练 LoRA》，包含 Llama  （Alpaca LoRA）模型、ChatGLM （ChatGLM Tuning）相关 Lora 的训练。训练内容：用户故事生成、测试代码生成、代码辅助生成、文本转 SQL、文本生成代码……
-*   [microsoft/autogen](https://github.com/microsoft/autogen) - Enable Next-Gen Large Language Model Applications. Join our Discord: https://discord.gg/pAbnFJrkgZ
-*   [intel-analytics/BigDL](https://github.com/intel-analytics/BigDL) - Accelerate LLM with low-bit (FP4 / INT4 / FP8 / INT8) optimizations using bigdl-llm
-*   [camenduru/text-generation-webui-colab](https://github.com/camenduru/text-generation-webui-colab) - A colab gradio web UI for running Large Language Models
-*   [CompVis/stable-diffusion](https://github.com/CompVis/stable-diffusion) - A latent text-to-image diffusion model
-*   [modularml/mojo](https://github.com/modularml/mojo) - The Mojo Programming Language
-*   [run-llama/llama-hub](https://github.com/run-llama/llama-hub) - A library of data loaders for LLMs made by the community -- to be used with LlamaIndex and/or LangChain
-*   [leisurelicht/wtfpython-cn](https://github.com/leisurelicht/wtfpython-cn) - wtfpython的中文翻译/施工结束/ 能力有限，欢迎帮我改进翻译
-*   [ben1234560/AiLearning-Theory-Applying](https://github.com/ben1234560/AiLearning-Theory-Applying) - 快速上手Ai理论及应用实战：基础知识、ML、DL、NLP-BERT、竞赛。含大量注释及数据集，力求每一位能看懂并复现。
-*   [lijin-THU/notes-python](https://github.com/lijin-THU/notes-python) - 中文 Python 笔记
 
 ## Markdown
 
