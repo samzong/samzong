@@ -826,7 +826,6 @@
 *   [hexojs/awesome-hexo](https://github.com/hexojs/awesome-hexo) - A curated list of awesome things related to Hexo
 *   [1c7/chinese-independent-developer](https://github.com/1c7/chinese-independent-developer) - 👩🏿‍💻👨🏾‍💻👩🏼‍💻👨🏽‍💻👩🏻‍💻中国独立开发者项目列表 -- 分享大家都在做什么
 *   [shockerli/go-awesome](https://github.com/shockerli/go-awesome) - Go 语言优秀资源整理，为项目落地加速🏃
-*   [nikitavoloboev/my-mac](https://github.com/nikitavoloboev/my-mac) - Apps/tools I use on macOS
 *   [jackfrued/Python-Core-50-Courses](https://github.com/jackfrued/Python-Core-50-Courses) - Python语言基础50课
 *   [taowen/awesome-lowcode](https://github.com/taowen/awesome-lowcode) - 国内低代码平台从业者交流
 *   [haiiiiiyun/awesome-django-cn](https://github.com/haiiiiiyun/awesome-django-cn) - Django 优秀资源大全。
@@ -969,6 +968,7 @@
 *   [cloudnativeto/community](https://github.com/cloudnativeto/community) - 云原生社区资料库 - https://cloudnative.to/community/
 *   [goharbor/harbor-arm](https://github.com/goharbor/harbor-arm) - Build Harbor for arm architecture.
 *   [taizilongxu/interview\_python](https://github.com/taizilongxu/interview_python) - 关于Python的面试题
+*   [nikitavoloboev/config](https://github.com/nikitavoloboev/config) - Apps/CLIs/configs I use on macOS/iOS. Fish, Karabiner, Cursor..
 *   [liquanzhou/ops\_doc](https://github.com/liquanzhou/ops_doc) - 运维简洁实用手册
 *   [metral/nanokube](https://github.com/metral/nanokube) - a local, all-in-one k8s cluster for dev & testing
 
