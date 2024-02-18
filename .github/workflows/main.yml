@@ -16,6 +16,6 @@ jobs:
           api-token: ${{ secrets.API_TOKEN }}
           template-path: "template/TEMPLATE.ejs"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-email: ${{ secrets.USER_EMAIL }}
-          github-name: ${{ github.repository_owner }}
+          github-email: 'github-actions[bot]@users.noreply.github.com'
+          github-name: 'github-actions[bot]'
           output-filename: STARS.md
