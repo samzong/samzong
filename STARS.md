@@ -326,7 +326,7 @@
 *   [Stability-AI/stablediffusion](https://github.com/Stability-AI/stablediffusion) - High-Resolution Image Synthesis with Latent Diffusion Models
 *   [pengzhile/pandora](https://github.com/pengzhile/pandora) - 潘多拉，一个让你呼吸顺畅的ChatGPT。Pandora, a ChatGPT that helps you breathe smoothly.
 *   [gpt-engineer-org/gpt-engineer](https://github.com/gpt-engineer-org/gpt-engineer) - Specify what you want it to build, the AI asks for clarification, and then builds it.
-*   [Undertone0809/promptulate](https://github.com/Undertone0809/promptulate) - A large language model automation and Autonomous Language Agents development framework. Build your LLM Agent Application in a pythonic way!
+*   [Undertone0809/promptulate](https://github.com/Undertone0809/promptulate) - 🚀Large language model automation and Autonomous Language Agents development framework. Build your LLM Agent Application in a pythonic way!
 *   [langgenius/dify](https://github.com/langgenius/dify) - An Open-Source Assistants API and GPTs alternative. Dify.AI is an LLM application development platform. It integrates the concepts of Backend as a Service and LLMOps, covering the core tech stack required for building generative AI-native applications, including a built-in RAG engine.
 *   [THUDM/GLM-130B](https://github.com/THUDM/GLM-130B) - GLM-130B: An Open Bilingual Pre-Trained Model (ICLR 2023)
 *   [facebookresearch/llama](https://github.com/facebookresearch/llama) - Inference code for LLaMA models
