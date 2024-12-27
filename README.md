@@ -4,12 +4,17 @@
 import llm
 from cloudnative import kubernetes
 
-intro = (f"🔭 I'm currently working as a PM at [@DaoCloud](https://www.daocloud.io)\n"
-         f"🌱 I'm experienced in Cloud Native technologies, architecture design and product management.\n"
-         f"🔥 I'm focus on LLM infrastructure & CloudNative technologies.\n"
-         f"👯 I'm looking to collaborate on LLM and [CNCF projects](https://landscape.cncf.io/)\n"
-         f"💬 I usually handle GitHub issues with off-hours.")
-
+intro = (f"👋 Hi there! I'm currently a Product Manager at [@DaoCloud](https://www.daocloud.io). \n"
+         f"🚀 I'm passionate about bridging Large Language Models (LLMs) and Cloud Native technologies,\n"
+         f"    with a focus on scalable AI infrastructure, MLOps, and real-world product delivery.\n"
+         f"💡 My background spans architecture design, Kubernetes-based deployments,\n"
+         f"    and end-to-end product management.\n"
+         f"🤝 I'm looking to collaborate on innovative LLM use cases, infrastructure automation,\n"
+         f"    and [CNCF projects](https://landscape.cncf.io/).\n"
+         f"🎯 In my spare time, I prototype AI solutions, contribute to open-source discussions,\n"
+         f"    and handle GitHub issues. Let's build something amazing together!\n"
+         f"📫 Feel free to reach out via GitHub Issues or Pull Requests.")
+         
 print(intro)
 ```
 
