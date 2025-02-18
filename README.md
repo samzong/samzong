@@ -1,6 +1,8 @@
 ## Hi, Friends. 👋  <img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=samzong.samzong">
 
+<!--
 <a href="https://gitroll.io/profile/uOTPL76orkvMXMX94yV85g2Ij5Gc2" target="_blank"><img src="https://gitroll.io/api/badges/profiles/v1/uOTPL76orkvMXMX94yV85g2Ij5Gc2?theme=light" alt="GitRoll Profile Badge"/></a>
+-->
 
 ```python
 import llm
