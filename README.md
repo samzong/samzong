@@ -1,4 +1,4 @@
-## Hi, Friends. 👋 
+## Hi, Friends. 👋
 
 ```python
 import llm
@@ -18,8 +18,4 @@ intro = (f"👋 Hi there! I'm currently a Product Manager at [@DaoCloud](https:/
 print(intro)
 ```
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/samzong/samzong/dist/github-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/samzong/samzong/dist/github-snake.svg" />
-  <img alt="github-snake" src="https://raw.githubusercontent.com/samzong/samzong/dist/github-snake.svg" />
-</picture>
+<a href="https://trendshift.io/developers/7531" target="_blank"><img src="https://trendshift.io/api/badge/developers/7531" alt="samzong | Trendshift" style="width: 240px; height: 56px;" width="240" height="56"/></a>
