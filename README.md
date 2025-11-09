@@ -1,4 +1,4 @@
-## Hi, Friends. 👋
+## Hi, I'm Samzong(船长) 👋
 
 ```python
 import llm
@@ -10,7 +10,7 @@ intro = (f"👋 Hi there! I'm currently a TPM at [@DaoCloud](https://daocloud.io
          f"💡 My background spans architecture design, Kubernetes, LLMs,\n"
          f"    and end-to-end product management.\n"
          f"🤝 I'm looking to collaborate on innovative LLM use cases, infrastructure automation,\n"
-         f"    and [CNCF projects](https://landscape.cncf.io/).\n"
+         f"    and [CNCF projects](https://landscape.cncf.io).\n"
          f"🎯 In my spare time, I prototype AI solutions, contribute to open-source projects,\n"
          f"    and handle GitHub issues. Let's build something amazing together!\n"
          f"📫 Reach me via GitHub Issues or Pull Requests.")
