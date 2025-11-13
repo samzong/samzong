@@ -24,6 +24,7 @@ declare -a IMAGES=(
 RUN=false
 SKIP_KIND=false
 SKIP_IMAGES=false
+SKIP_MIRROR_REWRITE=false
 SKIP_MONITOR_PATCH=false
 
 usage() {
@@ -34,6 +35,7 @@ Options:
   --run                        Execute the full simulator deployment flow.
   --skip-kind                  Skip kind cluster creation (assumes existing cluster).
   --skip-images                Skip docker pull + kind load steps.
+  --skip-mirror-rewrite        Skip rewriting upstream registries to local mirrors.
   --skip-monitor-disable       Keep default PodMonitor/ServiceMonitor settings.
   -h, --help                   Show this help message and exit.
 
@@ -46,6 +48,7 @@ while [[ $# -gt 0 ]]; do
     --run) RUN=true ; shift ;;
     --skip-kind) SKIP_KIND=true ; shift ;;
     --skip-images) SKIP_IMAGES=true ; shift ;;
+    --skip-mirror-rewrite) SKIP_MIRROR_REWRITE=true ; shift ;;
     --skip-monitor-disable) SKIP_MONITOR_PATCH=true ; shift ;;
     -h|--help) usage ; exit 0 ;;
     *) echo "Unknown flag $1" >&2 ; usage ; exit 1 ;;
@@ -113,6 +116,20 @@ patch_monitoring_flags() {
   yq -i '.inferenceExtension.monitoring.prometheus.enabled = false' "$SIM_DIR/gaie-sim/values.yaml"
 }
 
+rewrite_mirrors() {
+  if $SKIP_MIRROR_REWRITE; then
+    echo "[rewrite] skipping registry rewrite"
+    return
+  fi
+  echo "[rewrite] swapping upstream registries"
+  find "$SIM_DIR" -name '*.yaml' -print0 \
+    | xargs -0 sed -i '' 's#gcr\\.io#gcr.m.daocloud.io#g'
+  find "$SIM_DIR" -name '*.yaml' -print0 \
+    | xargs -0 sed -i '' 's#ghcr\\.io#ghcr.m.daocloud.io#g'
+  find "$SIM_DIR" -name '*.yaml' -print0 \
+    | xargs -0 sed -i '' 's#registry\\.k8s\\.io#k8s.m.daocloud.io#g'
+}
+
 install_sim_stack() {
   kubectl get ns "$NAMESPACE" >/dev/null 2>&1 || kubectl create namespace "$NAMESPACE"
   (cd "$SIM_DIR" && helmfile apply -n "$NAMESPACE")
@@ -134,6 +151,7 @@ main() {
   load_images
   install_crds
   deploy_istio
+  rewrite_mirrors
   patch_monitoring_flags
   install_sim_stack
   verify_stack
