@@ -134,3 +134,4 @@ dmypy.json
 node_modules
 *repo_month.csv
 *tables.md
+bin/
