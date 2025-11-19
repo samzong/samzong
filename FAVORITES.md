@@ -49,7 +49,7 @@
 [Brewfile](./Brewfile)
 
 > [!NOTE]
-> I use `brew` to manage CLI tools, `brew cask` to manage GUI tools, and `mas` to manage App Store apps.
+> I use `brew` to manage CLI tools, `brew <> --cask` to manage GUI tools, and `mas` to manage App Store apps.
 
 ```bash
 # backup
