@@ -8,17 +8,18 @@ and name the directory with date, title, language, and venue.
 
 Here is a list of my public talks in reverse chronological order.
 
-| Date | Topic | Language | Venue | Slides | Video |
-|---|---|---|---|---|---|
-| 2025-11-30 | hami-meetup | zh | offline | - | - |
-| 2025-11-15 | kcd-hangzhou | zh | offline | - | - |
-| 2025-10-20 | intro-karmada | zh | offline | - | - |
-| 2025-09-18 | enhancing-gpu-computing-efficiency | zh | offline | - | - |
-| 2025-09-08 | intro-vllm-and-kueue | zh | offline | - | - |
-| 2025-03-15 | kcd-beijing | zh | offline | [pptx](./2025-03-15-kcd-beijing-zh-offline/slides/KCD-2025-Infernece-v0.0.1.pptx) | - |
-| 2022-11-12 | karmada | zh | online | [pdf](./2022-11-12-karmada-zh-online/slides/multi-cloud-orchestration-meetup-2022-11-12.pdf) | - |
+| Date       | Topic                              | Language | Venue   | Slides                                                                                       | Video |
+| ---------- | ---------------------------------- | -------- | ------- | -------------------------------------------------------------------------------------------- | ----- |
+| 2025-11-30 | hami-meetup                        | zh       | offline | -                                                                                            | -     |
+| 2025-11-15 | kcd-hangzhou                       | zh       | offline | -                                                                                            | -     |
+| 2025-10-20 | intro-karmada                      | zh       | offline | -                                                                                            | -     |
+| 2025-09-18 | enhancing-gpu-computing-efficiency | zh       | offline | -                                                                                            | -     |
+| 2025-09-08 | intro-vllm-and-kueue               | zh       | offline | -                                                                                            | -     |
+| 2025-03-15 | kcd-beijing                        | zh       | offline | [pptx](./2025-03-15-kcd-beijing-zh-offline/slides/KCD-2025-Infernece-v0.0.1.pptx)            | -     |
+| 2022-11-12 | karmada                            | zh       | online  | [pdf](./2022-11-12-karmada-zh-online/slides/multi-cloud-orchestration-meetup-2022-11-12.pdf) | -     |
 
 ## Naming Rules
+
 - Use ASCII, lowercase, kebab-case for directories and files.
 - Event directory format: `YYYY-MM-DD-title-lang-venue` (e.g., `2025-11-15-kcd-hangzhou-zh-offline`).
 - `lang`: `en` or `zh`; `venue`: `online` or `offline`.
@@ -26,6 +27,7 @@ Here is a list of my public talks in reverse chronological order.
 - Prefer `.pdf` for archival; keep `.pptx/.key` optionally.
 
 ## Create
+
 - Create `YYYY-MM-DD-title/` and add:
 - `outline.md`: talk outline and key points
 - `slides/`: slide exports (`.pdf/.pptx/.key`), prefer `.pdf` for archival
