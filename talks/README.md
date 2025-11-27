@@ -1,12 +1,6 @@
-# Talks
-
-Document every public talk I give, including preparation materials, final slides, demo code,
-
-and name the directory with date, title, language, and venue.
-
 ## Public Talks
 
-Here is a list of my public talks in reverse chronological order.
+Here is a list of my public talks and preparation materials in reverse chronological order. For the detailed preparation materials, please refer to the corresponding directory.
 
 | Date       | Topic                              | Language | Venue   | Slides                                                                                       | Video |
 | ---------- | ---------------------------------- | -------- | ------- | -------------------------------------------------------------------------------------------- | ----- |
@@ -28,6 +22,7 @@ Here is a list of my public talks in reverse chronological order.
 - Prefer `.pdf` for archival; keep `.pptx/.key` optionally.
 
 ## Create
+
 - Create `YYYY-MM-DD-title/` and add:
 - `outline.md`: talk outline and key points
 - `slides/`: slide exports (`.pdf/.pptx/.key`), prefer `.pdf` for archival
@@ -35,4 +30,3 @@ Here is a list of my public talks in reverse chronological order.
 - `demo/`: sample code or demo data
 - `scripts/`: helper scripts (environment setup, generation)
 - `notes/`: planning materials for preparation; no privacy or sensitive data
-
