@@ -18,6 +18,7 @@ API_ROOT = "https://api.github.com"
 # Global configuration and stats
 API_CONFIG = {"verbose": False}
 API_STATS = {"count": 0}
+USER_DETAILS_CACHE: Dict[str, Optional[str]] = {}
 
 
 def now_utc() -> dt.datetime:
@@ -95,6 +96,21 @@ def read_json(opener: urllib.request.OpenerDirector, url: str, timeout: int = 15
                 return None
             time.sleep(1.5 * (i + 1))
     return None
+
+
+def get_user_company(opener: urllib.request.OpenerDirector, login: str) -> Optional[str]:
+    if login in USER_DETAILS_CACHE:
+        return USER_DETAILS_CACHE[login]
+    
+    data = read_json(opener, f"{API_ROOT}/users/{login}")
+    company = None
+    if data and data.get("company"):
+        company = data["company"].strip()
+        if company.startswith("@"):
+            company = company[1:].strip()
+            
+    USER_DETAILS_CACHE[login] = company
+    return company
 
 
 def paged_get(opener: urllib.request.OpenerDirector, url: str, per_page: int = 100) -> List[Dict]:
@@ -198,7 +214,7 @@ def tally_items(items: List[Dict]) -> Dict[str, int]:
     return counts
 
 
-def tally_active(commit_counts: Dict[str, int], issues: List[Dict], prs: List[Dict], since_dt: dt.datetime) -> List[Dict]:
+def tally_active(commit_counts: Dict[str, int], issues: List[Dict], prs: List[Dict], since_dt: dt.datetime, limit: int = 10) -> List[Dict]:
     issue_counts: Dict[str, int] = {}
     pr_counts: Dict[str, int] = {}
     for i in issues:
@@ -231,7 +247,7 @@ def tally_active(commit_counts: Dict[str, int], issues: List[Dict], prs: List[Di
             "score": score,
         })
     rows.sort(key=lambda r: r["score"], reverse=True)
-    return rows[:10]
+    return rows[:limit]
 
 
 def ratio(numerator: int, denominator: int) -> float:
@@ -421,7 +437,7 @@ def plot_pr_trends(weeks: List[dt.datetime], prs: List[Dict], owner: str, repo: 
     return prs_png
 
 
-def plot_top_devs_trends(weeks: List[dt.datetime], commits: List[Dict], issues: List[Dict], prs: List[Dict], summary: Dict, owner: str, repo: str) -> str:
+def plot_top_devs_trends(weeks: List[dt.datetime], commits: List[Dict], issues: List[Dict], prs: List[Dict], summary: Dict, owner: str, repo: str, opener: urllib.request.OpenerDirector) -> str:
     top_logins = [row["login"] for row in summary.get("active_devs_top", [])]
 
     # commits per login
@@ -475,7 +491,11 @@ def plot_top_devs_trends(weeks: List[dt.datetime], commits: List[Dict], issues: 
             pi = prs_by_week_login.get(ln, {}).get(w, 0)
             ii = issues_by_week_login.get(ln, {}).get(w, 0)
             vals.append(c * 3 + pi * 2 + ii)
-        series[ln] = vals
+        
+        # Add company to label
+        company = get_user_company(opener, ln)
+        label = f"{ln} ({company})" if company else ln
+        series[label] = vals
 
     top_png = os.path.join(".", "top_devs_weekly.png")
     plot_lines(weeks, series, f"Top Devs Weekly Score ({owner}/{repo})", "score", top_png)
@@ -492,6 +512,7 @@ def main() -> int:
     )
     parser.add_argument("--repo", help="owner/repo")
     parser.add_argument("--days", type=int, default=30)
+    parser.add_argument("--top", type=int, default=10, help="number of top developers to show")
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--plot", action="store_true", help="generate PNG charts into current directory")
     parser.add_argument("--verbose", action="store_true", help="print detailed logs during execution")
@@ -569,7 +590,7 @@ def main() -> int:
         summary["latest_release_days_ago"] = (now_utc() - ltp).days if ltp else None
     else:
         summary["latest_release_days_ago"] = None
-    summary["active_devs_top"] = tally_active(commit_counts, issues, prs, since_dt)
+    summary["active_devs_top"] = tally_active(commit_counts, issues, prs, since_dt, limit=args.top)
 
     if args.json:
         print(json.dumps(summary, ensure_ascii=False, indent=2))
@@ -578,7 +599,9 @@ def main() -> int:
         if summary.get("active_devs_top"):
             print("Active developers (Top):")
             for row in summary["active_devs_top"]:
-                print(f"  {row['login']}: commits={row['commits']} prs={row['opened_prs']} issues={row['opened_issues']} score={row['score']}")
+                company = get_user_company(opener, row['login'])
+                company_str = f" ({company})" if company else ""
+                print(f"  {row['login']}{company_str}: commits={row['commits']} prs={row['opened_prs']} issues={row['opened_issues']} score={row['score']}")
     
     print(f"Total GitHub API calls: {API_STATS['count']}", file=sys.stderr)
 
@@ -589,7 +612,7 @@ def main() -> int:
         
         issues_png = plot_issue_trends(weeks, issues, owner, repo)
         prs_png = plot_pr_trends(weeks, prs, owner, repo)
-        top_png = plot_top_devs_trends(weeks, commits, issues, prs, summary, owner, repo)
+        top_png = plot_top_devs_trends(weeks, commits, issues, prs, summary, owner, repo, opener)
         
         print(f"Built charts: {issues_png}, {prs_png}, {top_png}")
     else:

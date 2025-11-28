@@ -60,6 +60,7 @@ python tools/analyze_github_repo.py --repo <owner/repo> --plot
 
 Options:
 - `--days N` set window length (default: 30)
+- `--top N` set number of top developers (default: 10)
 - `--json` print structured summary
 - `--plot` generate PNG charts
 
