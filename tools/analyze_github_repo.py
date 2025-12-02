@@ -383,7 +383,7 @@ def plot_issue_trends(weeks: List[dt.datetime], issues: List[Dict], owner: str, 
         bucket_increment(iss_closed, parse_dt(i.get("closed_at")))
     created_vals = [iss_created.get(w, 0) for w in weeks]
     closed_vals = [iss_closed.get(w, 0) for w in weeks]
-    issues_png = os.path.join(".", "issues_trend.png")
+    issues_png = os.path.join(".", f"{owner}_{repo}_issues_trend.png")
     plot_lines(weeks, {"issues_created": created_vals, "issues_closed": closed_vals},
                f"Issues Weekly Trend ({owner}/{repo})", "count", issues_png)
     return issues_png
@@ -398,7 +398,7 @@ def plot_pr_trends(weeks: List[dt.datetime], prs: List[Dict], owner: str, repo: 
         bucket_increment(prs_merged, parse_dt(p.get("merged_at")))
     prc_vals = [prs_created.get(w, 0) for w in weeks]
     prm_vals = [prs_merged.get(w, 0) for w in weeks]
-    prs_png = os.path.join(".", "prs_trend.png")
+    prs_png = os.path.join(".", f"{owner}_{repo}_prs_trend.png")
 
     import matplotlib.pyplot as plt
     x = [w.date().isoformat() for w in weeks]
@@ -497,7 +497,7 @@ def plot_top_devs_trends(weeks: List[dt.datetime], commits: List[Dict], issues: 
         label = f"{ln} ({company})" if company else ln
         series[label] = vals
 
-    top_png = os.path.join(".", "top_devs_weekly.png")
+    top_png = os.path.join(".", f"{owner}_{repo}_top_devs_weekly.png")
     plot_lines(weeks, series, f"Top Devs Weekly Score ({owner}/{repo})", "score", top_png)
     return top_png
 
