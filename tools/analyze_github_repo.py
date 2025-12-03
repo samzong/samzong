@@ -523,7 +523,21 @@ def main() -> int:
     # Immediate dependency check for plotting
     if args.plot:
         try:
-            import matplotlib  # noqa: F401
+            import matplotlib.pyplot as plt
+            # Configure fonts for CJK support (macOS, Windows, Linux)
+            plt.rcParams['font.sans-serif'] = [
+                'Arial Unicode MS',   # macOS
+                'PingFang SC',        # macOS
+                'Heiti SC',           # macOS
+                'SimHei',             # Windows
+                'Microsoft YaHei',    # Windows
+                'SimSun',             # Windows
+                'WenQuanYi Micro Hei',# Linux
+                'Droid Sans Fallback',# Linux
+                'Noto Sans CJK SC',   # Linux
+                'sans-serif'
+            ]
+            plt.rcParams['axes.unicode_minus'] = False
         except Exception:
             print("matplotlib not found; please install via 'pip install matplotlib' to enable plotting", file=sys.stderr)
             return 2
