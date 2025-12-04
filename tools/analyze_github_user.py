@@ -4,12 +4,16 @@ Analyze GitHub user activity: PRs, Issues, and monthly distribution
 """
 
 import json
+import argparse
+import os
 import subprocess
 import sys
 import csv
 from collections import defaultdict
 from datetime import datetime
 from typing import Dict, List, Tuple
+from concurrent.futures import ThreadPoolExecutor, as_completed
+MAX_WORKERS = int(os.getenv("GH_MAX_WORKERS", "16"))
 
 def check_gh_auth():
     """Check if gh CLI is authenticated and print status"""
@@ -78,6 +82,38 @@ def run_gh_api(query: str, is_graphql: bool = False) -> dict:
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}", file=sys.stderr)
         return {}
+
+def graphql_search_all(query: str) -> List[dict]:
+    results: List[dict] = []
+    cursor = None
+    while True:
+        if cursor:
+            modified_query = query.replace('first: 100', f'first: 100, after: "{cursor}"')
+        else:
+            modified_query = query
+        data = run_gh_api(modified_query, is_graphql=True)
+        if not data or 'data' not in data:
+            break
+        search_data = data['data'].get('search', {})
+        nodes = search_data.get('nodes', [])
+        results.extend(nodes)
+        page_info = search_data.get('pageInfo', {})
+        if not page_info.get('hasNextPage', False):
+            break
+        cursor = page_info.get('endCursor')
+    return results
+
+def fetch_prs_type(query: str, label: str) -> List[dict]:
+    nodes = graphql_search_all(query)
+    for pr in nodes:
+        pr['activity_type'] = label
+    return nodes
+
+def fetch_issues_type(query: str, label: str) -> List[dict]:
+    nodes = graphql_search_all(query)
+    for issue in nodes:
+        issue['activity_type'] = label
+    return nodes
 
 def get_user_info(username: str) -> Dict:
     """Get user information"""
@@ -175,31 +211,14 @@ def get_all_prs(username: str) -> List[dict]:
     }}
     '''
     
-    # Fetch all PRs
-    for query_type, query in [('author', query_author), ('comments', query_comments), ('reviews', query_reviews)]:
-        cursor = None
-        while True:
-            if cursor:
-                # Add pagination
-                modified_query = query.replace('first: 100', f'first: 100, after: "{cursor}"')
-            else:
-                modified_query = query
-            
-            data = run_gh_api(modified_query, is_graphql=True)
-            if not data or 'data' not in data:
-                break
-                
-            search_data = data['data'].get('search', {})
-            nodes = search_data.get('nodes', [])
-            
-            for pr in nodes:
-                pr['activity_type'] = query_type
-                all_prs.append(pr)
-            
-            page_info = search_data.get('pageInfo', {})
-            if not page_info.get('hasNextPage', False):
-                break
-            cursor = page_info.get('endCursor')
+    queries = [('author', query_author), ('comments', query_comments), ('reviews', query_reviews)]
+    with ThreadPoolExecutor(max_workers=min(len(queries), MAX_WORKERS)) as ex:
+        futs = {ex.submit(fetch_prs_type, q, t): t for t, q in queries}
+        for fut in as_completed(futs):
+            try:
+                all_prs.extend(fut.result())
+            except Exception:
+                pass
     
     return all_prs
 
@@ -261,30 +280,14 @@ def get_all_issues(username: str) -> List[dict]:
     }}
     '''
     
-    # Fetch all Issues
-    for query_type, query in [('author', query_author), ('comments', query_comments)]:
-        cursor = None
-        while True:
-            if cursor:
-                modified_query = query.replace('first: 100', f'first: 100, after: "{cursor}"')
-            else:
-                modified_query = query
-            
-            data = run_gh_api(modified_query, is_graphql=True)
-            if not data or 'data' not in data:
-                break
-                
-            search_data = data['data'].get('search', {})
-            nodes = search_data.get('nodes', [])
-            
-            for issue in nodes:
-                issue['activity_type'] = query_type
-                all_issues.append(issue)
-            
-            page_info = search_data.get('pageInfo', {})
-            if not page_info.get('hasNextPage', False):
-                break
-            cursor = page_info.get('endCursor')
+    queries = [('author', query_author), ('comments', query_comments)]
+    with ThreadPoolExecutor(max_workers=min(len(queries), MAX_WORKERS)) as ex:
+        futs = {ex.submit(fetch_issues_type, q, t): t for t, q in queries}
+        for fut in as_completed(futs):
+            try:
+                all_issues.extend(fut.result())
+            except Exception:
+                pass
     
     return all_issues
 
@@ -747,15 +750,21 @@ def print_report(username: str, created_at: str, analysis: Dict):
     print(f"Total Activity: {total_prs_authored + total_prs_commented + total_prs_reviewed + total_issues_authored + total_issues_commented}")
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python analyze_github_user.py <github_username>")
-        sys.exit(1)
-    
-    # Check if gh CLI is installed and authenticated
+    parser = argparse.ArgumentParser(
+        description="Analyze GitHub user activity: PRs, Issues, and monthly distribution",
+        epilog=(
+            "Environment variables:\n"
+            "  GH_MAX_WORKERS  Max threads for concurrent requests\n"
+            "  GITHUB_TOKEN    Token used by gh CLI"
+        ),
+    )
+    parser.add_argument("username", help="GitHub username")
+    args = parser.parse_args()
+
     check_gh_auth()
     print()
-    
-    username = sys.argv[1]
+
+    username = args.username
     
     print(f"Fetching user information for {username}...")
     user_info = get_user_info(username)
@@ -776,4 +785,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
