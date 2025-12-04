@@ -11,6 +11,7 @@ import urllib.request
 import urllib.error
 import ssl
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 API_ROOT = "https://api.github.com"
@@ -19,6 +20,7 @@ API_ROOT = "https://api.github.com"
 API_CONFIG = {"verbose": False}
 API_STATS = {"count": 0}
 USER_DETAILS_CACHE: Dict[str, Optional[str]] = {}
+MAX_WORKERS = int(os.getenv("GH_MAX_WORKERS", "16"))
 
 
 def now_utc() -> dt.datetime:
@@ -170,7 +172,6 @@ def fetch_prs(opener: urllib.request.OpenerDirector, owner: str, repo: str, sinc
             chunk = read_json(opener, url)
             if not isinstance(chunk, list) or not chunk:
                 break
-            # early stop when updated_at older than window
             stop = False
             for p in chunk:
                 try:
@@ -189,7 +190,12 @@ def fetch_prs(opener: urllib.request.OpenerDirector, owner: str, repo: str, sinc
                 break
         return items
 
-    return collect("open") + collect("closed")
+    with ThreadPoolExecutor(max_workers=min(2, MAX_WORKERS)) as ex:
+        fut_open = ex.submit(collect, "open")
+        fut_closed = ex.submit(collect, "closed")
+        open_items = fut_open.result()
+        closed_items = fut_closed.result()
+    return open_items + closed_items
 
 
 def tally_commits(commits: List[Dict]) -> Dict[str, int]:
@@ -483,6 +489,17 @@ def plot_top_devs_trends(weeks: List[dt.datetime], commits: List[Dict], issues: 
         d[wk] = d.get(wk, 0) + 1
 
     # build series
+    company_map: Dict[str, Optional[str]] = {}
+    if top_logins:
+        with ThreadPoolExecutor(max_workers=min(MAX_WORKERS, len(top_logins))) as ex:
+            futs = {ex.submit(get_user_company, opener, ln): ln for ln in top_logins}
+            for fut in as_completed(futs):
+                ln = futs[fut]
+                try:
+                    company_map[ln] = fut.result()
+                except Exception:
+                    company_map[ln] = None
+
     series: Dict[str, List[int]] = {}
     for ln in top_logins:
         vals: List[int] = []
@@ -491,9 +508,7 @@ def plot_top_devs_trends(weeks: List[dt.datetime], commits: List[Dict], issues: 
             pi = prs_by_week_login.get(ln, {}).get(w, 0)
             ii = issues_by_week_login.get(ln, {}).get(w, 0)
             vals.append(c * 3 + pi * 2 + ii)
-        
-        # Add company to label
-        company = get_user_company(opener, ln)
+        company = company_map.get(ln)
         label = f"{ln} ({company})" if company else ln
         series[label] = vals
 
@@ -612,8 +627,19 @@ def main() -> int:
         print_report(owner, repo, summary)
         if summary.get("active_devs_top"):
             print("Active developers (Top):")
+            top_logins = [row['login'] for row in summary["active_devs_top"]]
+            company_map: Dict[str, Optional[str]] = {}
+            if top_logins:
+                with ThreadPoolExecutor(max_workers=min(MAX_WORKERS, len(top_logins))) as ex:
+                    futs = {ex.submit(get_user_company, opener, ln): ln for ln in top_logins}
+                    for fut in as_completed(futs):
+                        ln = futs[fut]
+                        try:
+                            company_map[ln] = fut.result()
+                        except Exception:
+                            company_map[ln] = None
             for row in summary["active_devs_top"]:
-                company = get_user_company(opener, row['login'])
+                company = company_map.get(row['login'])
                 company_str = f" ({company})" if company else ""
                 print(f"  {row['login']}{company_str}: commits={row['commits']} prs={row['opened_prs']} issues={row['opened_issues']} score={row['score']}")
     
