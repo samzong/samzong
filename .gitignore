@@ -140,3 +140,6 @@ bin/
 *_issues_trend.png
 *_prs_trend.png
 *_top_devs_weekly.png
+
+# report files
+*_milestone_*.md

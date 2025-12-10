@@ -490,21 +490,18 @@ def evaluate_pr_status(env: Dict[str, str], owner: str, repo: str, milestone_num
 
 def make_md_link_issue(owner: str, repo: str, issue: Dict[str, Any]) -> str:
     num = int(issue.get("number"))
-    url = f"https://github.com/{owner}/{repo}/issues/{num}"
-    title = (issue.get("title") or "").strip()
-    return f"[#{num}]({url}) — {title}"
+    return f"#{num}"
 
 
 def make_md_link_pr(owner: str, repo: str, pr: Dict[str, Any]) -> str:
     num = int(pr.get("number"))
-    url = f"https://github.com/{owner}/{repo}/pull/{num}"
-    title = (pr.get("title") or "").strip()
-    return f"[#{num}]({url}) — {title}"
+    return f"#{num}"
 
 
 def build_markdown(owner: str, repo: str, stats: Dict[str, Any], unassigned: Dict[str, Any], stalled: Dict[str, Any], pr_status: Dict[str, Any]) -> str:
     lines: List[str] = []
-    lines.append(f"# Milestone {stats.get('title')} — Progress Report ({owner}/{repo})")
+    date_str = dt.datetime.now().strftime("%m/%d")
+    lines.append(f"# Milestone {stats.get('title')} - {date_str}")
     lines.append("## Milestone Statistics")
     lines.append(f"- Total: {stats.get('total')}")
     lines.append(f"- Open: {stats.get('open')}")
