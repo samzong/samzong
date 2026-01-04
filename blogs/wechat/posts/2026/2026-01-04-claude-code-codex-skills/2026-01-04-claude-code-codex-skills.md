@@ -1,6 +1,4 @@
-# Claude Code 和 Codex 的 Skills：让 AI Coding Agent 真正"懂"你的工作流
-
-> 当 AI 不再只是补全代码，而是成为一个能理解项目规范、执行完整工作流程的队友
+# Agent Skills：让 AI Coding Agent 真正"懂"你的工作流
 
 ## 前言
 
@@ -25,7 +23,9 @@ Vibe Coding 一直在解决的几个问题：项目规范，使用新语言规�
 
 Agent Skills（下面简称 Skills） 可以简单理解是给 Claude Code 和 Codex 提供的一种"技能包"，最开始由 Claude 推出，后来 Codex 也支持了。
 
-**它不是对话上下文里的 prompt，而是一个持久化的、结构化的工作流定义。**当任务触发特定场景时，AI 会自动加载对应的 Skill，按照预设流程执行。
+![](https://fastly.jsdelivr.net/gh/bucketio/img10@main/2026/01/05/1767545401723-5118be54-403e-45fe-8b8a-e6803450fb26.png)
+
+**它不是对话上下文里的 prompt，而是一个持久化的、结构化的工作流定义。** 当任务触发特定场景时，AI 会自动加载对应的 Skill，按照预设流程执行。
 
 ## Claude Code 的 Skills
 
@@ -84,17 +84,14 @@ Skill 的触发方式：
 - 引用管理（inline、numbered、footnote）
 
 **文件组织建议**：
-```
-~/writing/article-name/
-├── outline.md          # 大纲
-├── research.md         # 研究材料
-├── draft-v1.md         # 初稿
-├── draft-v2.md         # 修订稿
-├── final.md            # 定稿
-└── sources/            # 参考资料
+```bash
+~/.codex/skills ls
+brainstorming            doc-coauthoring          github-issue-reader      requesting-code-review   wechat-tech-article
+clig-eval-prompt         doc-consistency-reviewer local                    systematic-debugging
+content-research-writer  gh-pr-review             receiving-code-review    test-driven-development
 ```
 
-## doc-consistency-reviewer - 文档一致性审计
+## doc-consistency-reviewer
 
 > **用途**：检查文档和代码/配置之间的不一致。
 
@@ -107,7 +104,7 @@ Skill 的触发方式：
 
 ---
 
-## systematic-debugging - 系统化调试
+## systematic-debugging
 
 > **用途**：遇到 bug 时，强制走结构化调试流程。
 
@@ -128,7 +125,7 @@ NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
 
 ---
 
-## test-driven-development - 测试驱动开发
+## test-driven-development
 
 > **用途**：任何功能实现或 bug 修复前，先写失败测试。
 
@@ -151,9 +148,9 @@ TDD 的争议很大，但这个 Skill 说得很清楚：**"I'll test after" 和 
 
 ---
 
-# 我开发的 2 个 Skills
+# 我开发的 Skills
 
-## clig-eval-prompt - DevOps CLI 评审
+## clig-eval-prompt
 
 因为写 CLI 工具挺多的，所以我开发了这个 Skill。每次评审 CLI 项目时都要手动参照这份指南，效率很低。
 
@@ -168,7 +165,7 @@ TDD 的争议很大，但这个 Skill 说得很清楚：**"I'll test after" 和 
 - H 配置/环境变量/安全（10%）：XDG 规范、敏感信息处理
 
 **使用方式**：
-```
+```md
 使用 clig-eval-prompt 评审 my-cli-tool
 ```
 
@@ -176,7 +173,7 @@ Skill 会自动加载 `references/prompt.md` 中的标准 prompt 并执行评审
 
 ---
 
-## gh-pr-review - GitHub PR 评审
+## gh-pr-review
 
 > **背景**：作为项目 maintainer，评审 PR 是日常工作。但每次都要手动看 diff、检查 CI、写评论，很繁琐。
 
@@ -207,26 +204,19 @@ Skill 会自动加载 `references/prompt.md` 中的标准 prompt 并执行评审
 
 Claude Code 和 Codex 的 Skills 机制，让我从"一个人和 AI 聊天"变成了"一个人带着一套经过验证的工作流在执行"。
 
-## 好的 Skill 设计应该是"约束"而非"自由"
+> 好的 Skill 设计应该是"约束"而非"自由"
 
 好的 Skill 应该是高度结构化的——**强制走特定流程、禁止跳过关键步骤、明确定义输出格式**。AI 擅长执行明确指令，不擅长"看情况判断"。
 
-## 社区 Skills 是起点，自定义 Skills 才是终点
+> 社区 Skills 是起点，自定义 Skills 才是终点
 
 我最开始用的 Skills 大部分来自社区或官方示例。它们解决的是通用问题。
 
-但真正提效的是那 2 个我自己开发的 Skills——**它们是针对我自己的工作场景、我自己的项目规范定制的**。
+但真正提效的是那 2 个我自己开发的 Skills：**它们是针对我自己的工作场景、我自己的项目规范定制的**。
 
 如果你只是用别人的 Skills，那只是"用上了这个功能"；只有当你开始写自己的 Skills，才算真正"掌握了这个能力"。
 
-## Skills 是"AI Agent 的 SOP"
-
-如果你在做自动化、做 Agent，Skills 就是给 Agent 定义的 SOP（标准作业程序）。
-
-**没有 SOP 的 Agent 是危险的。** 它可能用错误的方式实现正确的目标，或者用正确的方式实现错误的目标。Skills 让 Agent 的行为可预测、可审计、可改进。
-
-
-Claude Code 和 Codex 的 Skills 机制，让我从"一个人和 AI 聊天"变成了"一个人带着一套经过验证的工作流在执行"。
+---
 
 **AI 不是替代人类，而是放大人类的能力。** 我的观点还是 AI 会让你产生 10x 乃至更高的加速度，而不是取代你。
 
