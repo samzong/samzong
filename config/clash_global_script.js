@@ -79,5 +79,33 @@ function main(config, profileName) {
   );
   config.rules = [...newRules, ...existingRules];
 
+  // Define internal DNS policy group
+  // Format: { "DNS Server IP": ["Domain1", "Domain2", ...] }
+  // Last Write Wins
+  const nameserverPolicyConfig = {
+    "10.64.46.101": [
+      "*.corp.example.com", // Your internal domain suffix
+      "geosite:private", // Hostnames without suffix
+    ],
+  };
+
+  // Ensure objects exist
+  if (!config.dns) config.dns = {};
+  if (!config.dns["nameserver-policy"]) config.dns["nameserver-policy"] = {};
+  if (!config.dns.nameserver) config.dns.nameserver = [];
+
+  // Iterate through configuration to apply policies
+  Object.entries(nameserverPolicyConfig).forEach(([dnsIP, domains]) => {
+    // 1. Add nameserver (if needed)
+    if (!config.dns.nameserver.includes(dnsIP)) {
+      config.dns.nameserver.unshift(dnsIP);
+    }
+
+    // 2. Set nameserver-policy
+    domains.forEach((domain) => {
+      config.dns["nameserver-policy"][domain] = dnsIP;
+    });
+  });
+
   return config;
 }
