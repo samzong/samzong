@@ -54,6 +54,58 @@ PRIORITY_ORDER = [
     "glossary.md",
 ]
 
+LANGUAGE_ALIASES = {
+    "en": "en",
+    "en-us": "en",
+    "english": "en",
+    "zh": "zh",
+    "zh-cn": "zh",
+    "zh-hans": "zh",
+    "cn": "zh",
+    "chinese": "zh",
+}
+
+TRANSLATIONS = {
+    "overview": {"zh": "\u6982\u89c8"},
+    "getting-started": {"zh": "\u5feb\u901f\u5f00\u59cb"},
+    "getting-started/quickstart": {"zh": "\u5feb\u901f\u4e0a\u624b"},
+    "architecture": {"zh": "\u67b6\u6784"},
+    "architecture/overview": {"zh": "\u67b6\u6784\u6982\u89c8"},
+    "core-components": {"zh": "\u6838\u5fc3\u7ec4\u4ef6"},
+    "core-components/overview": {"zh": "\u7ec4\u4ef6\u603b\u89c8"},
+    "development": {"zh": "\u5f00\u53d1"},
+    "development/overview": {"zh": "\u5f00\u53d1\u6307\u5357"},
+    "getting-started/overview": {"zh": "\u5f00\u59cb\u603b\u89c8"},
+    "application-lifecycle": {"zh": "\u5e94\u7528\u751f\u547d\u5468\u671f"},
+    "application-lifecycle/bootstrap": {"zh": "\u542f\u52a8\u6d41\u7a0b"},
+    "user-inference": {"zh": "\u7528\u6237\u7406\u89e3"},
+    "user-inference/ux-model": {"zh": "UX \u6a21\u578b"},
+    "api-reference": {"zh": "API \u53c2\u8003"},
+    "api-reference/overview": {"zh": "API \u603b\u89c8"},
+    "plugins": {"zh": "\u63d2\u4ef6"},
+    "plugins/overview": {"zh": "\u63d2\u4ef6\u6982\u89c8"},
+    "build-and-release": {"zh": "\u6784\u5efa\u4e0e\u53d1\u5e03"},
+    "build-and-release/ci-cd": {"zh": "CI/CD"},
+    "build-and-release/release-process": {"zh": "\u53d1\u5e03\u6d41\u7a0b"},
+    "data": {"zh": "\u6570\u636e"},
+    "data/domain-model": {"zh": "\u9886\u57df\u6a21\u578b"},
+    "data/storage-layout": {"zh": "\u5b58\u50a8\u5e03\u5c40"},
+    "security": {"zh": "\u5b89\u5168"},
+    "security/auth-authz": {"zh": "\u8ba4\u8bc1\u4e0e\u6388\u6743"},
+    "security/threat-model": {"zh": "\u5a01\u80c1\u6a21\u578b"},
+    "observability": {"zh": "\u53ef\u89c2\u6d4b\u6027"},
+    "observability/logging-metrics-tracing": {"zh": "\u65e5\u5fd7\u3001\u6307\u6807\u4e0e\u8ffd\u8e2a"},
+    "observability/runbook": {"zh": "\u8fd0\u8425\u624b\u518c"},
+    "performance": {"zh": "\u6027\u80fd"},
+    "performance/bottlenecks": {"zh": "\u74f6\u9888\u5206\u6790"},
+    "performance/scaling-strategy": {"zh": "\u62c9\u5e73\u7b56\u7565"},
+    "integrations": {"zh": "\u96c6\u6210"},
+    "integrations/external-services": {"zh": "\u5916\u90e8\u670d\u52a1"},
+    "troubleshooting": {"zh": "\u6545\u969c\u6392\u67e5"},
+    "troubleshooting/common-issues": {"zh": "\u5e38\u89c1\u95ee\u9898"},
+    "glossary": {"zh": "\u672f\u8bed\u8868"},
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Bootstrap codewiki output")
@@ -66,7 +118,40 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Only regenerate sidebar from current codewiki",
     )
+    parser.add_argument(
+        "--language",
+        default="en",
+        help="Language code for sidebar/nav labels (e.g. en, zh, zh-CN)",
+    )
     return parser.parse_args()
+
+
+def normalize_language(value: str | None) -> str:
+    if not value:
+        return "en"
+    key = value.strip().lower()
+    return LANGUAGE_ALIASES.get(key, key or "en")
+
+
+def _normalize_slug(value: str) -> str:
+    return value.strip("/").lower()
+
+
+def display_text(slug: str, raw_name: str, language: str) -> str:
+    slug_key = _normalize_slug(slug)
+    raw_key = _normalize_slug(raw_name)
+    if slug_key:
+        lang_map = TRANSLATIONS.get(slug_key)
+        if lang_map:
+            translated = lang_map.get(language)
+            if translated:
+                return translated
+    lang_map = TRANSLATIONS.get(raw_key)
+    if lang_map:
+        translated = lang_map.get(language)
+        if translated:
+            return translated
+    return titleize(raw_name)
 
 
 def safe_copy_file(src: Path, dst: Path, force: bool) -> None:
@@ -160,7 +245,7 @@ def titleize(name: str) -> str:
     return " ".join(word.capitalize() for word in name.split())
 
 
-def build_sidebar(out_dir: Path) -> list[dict]:
+def build_sidebar(out_dir: Path, language: str) -> list[dict]:
     def _build_items(dir_path: Path, is_root: bool = False) -> list[dict]:
         """Recursively build sidebar items for a directory."""
         items: list[dict] = []
@@ -174,17 +259,28 @@ def build_sidebar(out_dir: Path) -> list[dict]:
             if file_path.name == "index.md":
                 continue
             rel = file_path.relative_to(out_dir).as_posix()
-            items.append({"text": titleize(file_path.stem), "link": f"/{rel[:-3]}"})
+            slug = rel[:-3]
+            items.append({
+                "text": display_text(slug, file_path.stem, language),
+                "link": f"/{slug}",
+                "_slug": slug,
+            })
 
         # Add subdirectories (recurse)
         for subdir in subdirs:
             sub_items = _build_items(subdir)
-            if sub_items:
-                items.append({
-                    "text": titleize(subdir.name),
-                    "items": sub_items,
-                    "collapsed": not is_root,
-                })
+            if not sub_items:
+                continue
+            if len(sub_items) == 1 and "items" not in sub_items[0]:
+                items.append(sub_items[0])
+                continue
+            slug = subdir.relative_to(out_dir).as_posix()
+            items.append({
+                "text": display_text(slug, subdir.name, language),
+                "items": sub_items,
+                "collapsed": not is_root,
+                "_slug": slug,
+            })
 
         return items
 
@@ -192,18 +288,26 @@ def build_sidebar(out_dir: Path) -> list[dict]:
 
     # Reorder by priority
     def priority_key(item: dict) -> tuple[int, str]:
+        slug = _normalize_slug(item.get("_slug") or item.get("link", "").lstrip("/"))
         text = item.get("text", "")
-        if text == "Overview":
-            return (0, text)
+        if slug == "overview":
+            return (0, slug)
         for idx, name in enumerate(PRIORITY_ORDER, start=1):
-            if text == titleize(name.replace(".md", "")):
-                return (idx, text)
-            if text.replace(" ", "-").lower() == name:
-                return (idx, text)
-        return (len(PRIORITY_ORDER) + 1, text)
+            normalized = _normalize_slug(name.replace(".md", ""))
+            if slug == normalized or slug == _normalize_slug(name):
+                return (idx, slug)
+        return (len(PRIORITY_ORDER) + 1, slug or text)
 
     items.sort(key=priority_key)
-    return items
+
+    def _strip_meta(entries: list[dict]) -> list[dict]:
+        for entry in entries:
+            entry.pop("_slug", None)
+            if "items" in entry:
+                _strip_meta(entry["items"])
+        return entries
+
+    return _strip_meta(items)
 
 
 def write_sidebar(out_dir: Path, sidebar: list[dict]) -> None:
@@ -214,7 +318,7 @@ def write_sidebar(out_dir: Path, sidebar: list[dict]) -> None:
     sidebar_path.write_text(content, encoding="utf-8")
 
 
-def replace_project_name(out_dir: Path, repo_root: Path) -> None:
+def replace_project_name(out_dir: Path, repo_root: Path, language: str) -> None:
     config_path = out_dir / ".vitepress" / "config.mjs"
     if not config_path.exists():
         return
@@ -222,18 +326,21 @@ def replace_project_name(out_dir: Path, repo_root: Path) -> None:
     project_name = repo_root.name
     if "__PROJECT_NAME__" in text:
         text = text.replace("__PROJECT_NAME__", project_name)
-        config_path.write_text(text, encoding="utf-8")
+    nav_label = display_text("overview", "Overview", language)
+    text = re.sub(r'text:\s*"Overview"', f'text: "{nav_label}"', text)
+    config_path.write_text(text, encoding="utf-8")
 
 
 def main() -> None:
     args = parse_args()
+    language = normalize_language(args.language)
     repo_root = Path(args.repo_root).resolve()
     out_dir = Path(args.out_dir)
     if not out_dir.is_absolute():
         out_dir = (repo_root / out_dir).resolve()
 
     if args.refresh_sidebar:
-        sidebar = build_sidebar(out_dir)
+        sidebar = build_sidebar(out_dir, language)
         write_sidebar(out_dir, sidebar)
         return
 
@@ -242,8 +349,8 @@ def main() -> None:
     write_required_files(out_dir, args.force)
     if not args.no_copy_images:
         copy_referenced_images(repo_root, out_dir, args.force)
-    replace_project_name(out_dir, repo_root)
-    sidebar = build_sidebar(out_dir)
+    replace_project_name(out_dir, repo_root, language)
+    sidebar = build_sidebar(out_dir, language)
     write_sidebar(out_dir, sidebar)
 
 

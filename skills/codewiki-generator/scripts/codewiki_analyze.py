@@ -108,6 +108,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--analyze-only", action="store_true", help="Only write metadata outputs")
     parser.add_argument("--no-write-docs", action="store_true", help="Skip doc generation")
     parser.add_argument("--refresh-sidebar", action="store_true", help="Refresh sidebar after generation")
+    parser.add_argument("--language", default="en", help="Language code passed to bootstrap/sidebar")
     return parser.parse_args()
 
 
@@ -737,7 +738,7 @@ def write_quality_report(out_dir: Path, plan: dict[str, Any]) -> None:
     (out_dir / "quality-report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def run_bootstrap(repo_root: Path, out_dir: Path, force: bool) -> None:
+def run_bootstrap(repo_root: Path, out_dir: Path, force: bool, language: str) -> None:
     cmd = [
         sys.executable,
         str(SCRIPT_DIR / "codewiki_bootstrap.py"),
@@ -745,13 +746,15 @@ def run_bootstrap(repo_root: Path, out_dir: Path, force: bool) -> None:
         str(repo_root),
         "--out-dir",
         str(out_dir),
+        "--language",
+        language,
     ]
     if force:
         cmd.append("--force")
     subprocess.run(cmd, check=False)
 
 
-def refresh_sidebar(repo_root: Path, out_dir: Path) -> None:
+def refresh_sidebar(repo_root: Path, out_dir: Path, language: str) -> None:
     cmd = [
         sys.executable,
         str(SCRIPT_DIR / "codewiki_bootstrap.py"),
@@ -760,6 +763,8 @@ def refresh_sidebar(repo_root: Path, out_dir: Path) -> None:
         "--out-dir",
         str(out_dir),
         "--refresh-sidebar",
+        "--language",
+        language,
     ]
     subprocess.run(cmd, check=False)
 
@@ -772,7 +777,7 @@ def main() -> None:
         out_dir = (repo_root / out_dir).resolve()
 
     if not args.no_bootstrap:
-        run_bootstrap(repo_root, out_dir, force=args.force)
+        run_bootstrap(repo_root, out_dir, force=args.force, language=args.language)
 
     meta = analyze_repo(repo_root)
     rules = _load_evidence_rules()
@@ -786,7 +791,7 @@ def main() -> None:
         write_quality_report(out_dir, plan)
 
     if args.refresh_sidebar:
-        refresh_sidebar(repo_root, out_dir)
+        refresh_sidebar(repo_root, out_dir, language=args.language)
 
 
 if __name__ == "__main__":
