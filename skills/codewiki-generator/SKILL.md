@@ -84,6 +84,22 @@ Alternative (no install):
 npx -p vitepress -p vitepress-plugin-mermaid -p mermaid vitepress dev codewiki
 ```
 
+### Strong mode (DeepWiki-style, evidence-driven)
+Use the strong analyzer to generate docs + metadata in one pass:
+
+```
+python3 <skill-root>/scripts/codewiki_analyze.py \
+  --repo-root <repo-root> \
+  --out-dir codewiki \
+  --force \
+  --refresh-sidebar
+```
+
+Outputs:
+- `codewiki/.meta/` with `deps.json`, `entrypoints.json`, `evidence.json`, `doc_plan.json`
+- `codewiki/quality-report.md` with coverage and low-confidence pages
+- Evidence-scored conditional modules
+
 ## Quality Bar (non-negotiable)
 - **Visual First**: prefer diagrams over walls of text.
 - **Insightful**: explain design intent, not just mechanics.

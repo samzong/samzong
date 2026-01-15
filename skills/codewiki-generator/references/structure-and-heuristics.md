@@ -30,6 +30,15 @@ Always produce these pages (content adapts to project complexity):
 - Observability: `otel`, `prometheus`, `metrics`, `tracing`, structured logging
 - Security: `auth`, `oauth`, `jwt`, `rbac`, `policy`
 
+## Evidence scoring (strong mode)
+Strong mode uses `references/evidence-rules.json` to score each module.
+- **Included**: score >= threshold
+- **Candidate**: score >= candidate_threshold
+- **Excluded**: below candidate_threshold
+
+The analyzer writes `codewiki/.meta/evidence.json` and `doc_plan.json` so you can
+audit why modules were included or skipped.
+
 ## Granularity rules
 - If a module has multiple meaningful sub-systems, split into multiple docs.
 - Prefer fewer, deeper docs for small repos; prefer multiple focused docs for large repos.

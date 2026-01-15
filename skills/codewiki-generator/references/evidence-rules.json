@@ -1,0 +1,131 @@
+{
+  "modules": {
+    "ui-app": {
+      "threshold": 60,
+      "candidate_threshold": 40,
+      "signals": [
+        {"type": "dependency", "pattern": "react", "weight": 40},
+        {"type": "dependency", "pattern": "vue", "weight": 40},
+        {"type": "dependency", "pattern": "svelte", "weight": 40},
+        {"type": "dependency", "pattern": "next", "weight": 30},
+        {"type": "dependency", "pattern": "nuxt", "weight": 30},
+        {"type": "path_glob", "pattern": "**/src/App.*", "weight": 20},
+        {"type": "path_glob", "pattern": "ios/**", "weight": 20},
+        {"type": "path_glob", "pattern": "android/**", "weight": 20},
+        {"type": "content_regex", "pattern": "reactdom|createapp|createRoot", "weight": 20}
+      ]
+    },
+    "api": {
+      "threshold": 60,
+      "candidate_threshold": 40,
+      "signals": [
+        {"type": "path_glob", "pattern": "**/openapi.*", "weight": 40},
+        {"type": "path_glob", "pattern": "**/swagger.*", "weight": 30},
+        {"type": "path_glob", "pattern": "**/routes/**", "weight": 20},
+        {"type": "path_glob", "pattern": "**/controllers/**", "weight": 20},
+        {"type": "path_glob", "pattern": "**/proto/**", "weight": 20},
+        {"type": "dependency", "pattern": "express", "weight": 20},
+        {"type": "dependency", "pattern": "koa", "weight": 20},
+        {"type": "dependency", "pattern": "fastapi", "weight": 20},
+        {"type": "dependency", "pattern": "flask", "weight": 20},
+        {"type": "dependency", "pattern": "gin", "weight": 20},
+        {"type": "dependency", "pattern": "echo", "weight": 20},
+        {"type": "dependency", "pattern": "axum", "weight": 20},
+        {"type": "dependency", "pattern": "actix", "weight": 20}
+      ]
+    },
+    "plugins": {
+      "threshold": 60,
+      "candidate_threshold": 40,
+      "signals": [
+        {"type": "path_glob", "pattern": "**/plugins/**", "weight": 30},
+        {"type": "path_glob", "pattern": "**/extensions/**", "weight": 30},
+        {"type": "path_glob", "pattern": "**/hooks/**", "weight": 20},
+        {"type": "content_regex", "pattern": "plugin|extension point|hook", "weight": 20}
+      ]
+    },
+    "build-and-release": {
+      "threshold": 50,
+      "candidate_threshold": 30,
+      "signals": [
+        {"type": "path_glob", "pattern": ".github/workflows/**", "weight": 25},
+        {"type": "path_glob", "pattern": ".gitlab-ci.yml", "weight": 20},
+        {"type": "path_glob", "pattern": "Jenkinsfile", "weight": 20},
+        {"type": "path_glob", "pattern": "Makefile", "weight": 20},
+        {"type": "path_glob", "pattern": "Dockerfile", "weight": 20}
+      ]
+    },
+    "data": {
+      "threshold": 60,
+      "candidate_threshold": 40,
+      "signals": [
+        {"type": "path_glob", "pattern": "**/migrations/**", "weight": 30},
+        {"type": "path_glob", "pattern": "**/schema.sql", "weight": 30},
+        {"type": "path_glob", "pattern": "**/models/**", "weight": 20},
+        {"type": "path_glob", "pattern": "**/entities/**", "weight": 20},
+        {"type": "dependency", "pattern": "sqlalchemy", "weight": 20},
+        {"type": "dependency", "pattern": "gorm", "weight": 20},
+        {"type": "dependency", "pattern": "diesel", "weight": 20},
+        {"type": "dependency", "pattern": "prisma", "weight": 20}
+      ]
+    },
+    "security": {
+      "threshold": 60,
+      "candidate_threshold": 40,
+      "signals": [
+        {"type": "content_regex", "pattern": "jwt|oauth|rbac|authz|openid", "weight": 30},
+        {"type": "dependency", "pattern": "jsonwebtoken", "weight": 20},
+        {"type": "dependency", "pattern": "oauthlib", "weight": 20},
+        {"type": "dependency", "pattern": "casbin", "weight": 20},
+        {"type": "path_glob", "pattern": "**/auth/**", "weight": 20}
+      ]
+    },
+    "observability": {
+      "threshold": 60,
+      "candidate_threshold": 40,
+      "signals": [
+        {"type": "content_regex", "pattern": "opentelemetry|otel|tracing|metrics|prometheus", "weight": 30},
+        {"type": "dependency", "pattern": "opentelemetry", "weight": 20},
+        {"type": "dependency", "pattern": "prometheus", "weight": 20},
+        {"type": "content_regex", "pattern": "logger|logrus|zap|slog", "weight": 20}
+      ]
+    },
+    "performance": {
+      "threshold": 50,
+      "candidate_threshold": 30,
+      "signals": [
+        {"type": "content_regex", "pattern": "benchmark|profiling|perf|latency", "weight": 25},
+        {"type": "path_glob", "pattern": "**/benchmarks/**", "weight": 25},
+        {"type": "dependency", "pattern": "redis", "weight": 20}
+      ]
+    },
+    "integrations": {
+      "threshold": 50,
+      "candidate_threshold": 30,
+      "signals": [
+        {"type": "path_glob", "pattern": "**/integrations/**", "weight": 30},
+        {"type": "dependency", "pattern": "aws-sdk", "weight": 20},
+        {"type": "dependency", "pattern": "gcp", "weight": 20},
+        {"type": "dependency", "pattern": "azure", "weight": 20},
+        {"type": "dependency", "pattern": "stripe", "weight": 20}
+      ]
+    },
+    "troubleshooting": {
+      "threshold": 40,
+      "candidate_threshold": 20,
+      "signals": [
+        {"type": "path_glob", "pattern": "**/troubleshooting/**", "weight": 25},
+        {"type": "path_glob", "pattern": "**/runbook/**", "weight": 20},
+        {"type": "content_regex", "pattern": "error code|panic|exception", "weight": 20}
+      ]
+    },
+    "glossary": {
+      "threshold": 30,
+      "candidate_threshold": 10,
+      "signals": [
+        {"type": "path_glob", "pattern": "**/glossary.*", "weight": 20},
+        {"type": "content_regex", "pattern": "domain model|entity|aggregate", "weight": 15}
+      ]
+    }
+  }
+}

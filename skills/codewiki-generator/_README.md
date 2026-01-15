@@ -24,6 +24,44 @@ npm --prefix codewiki install
 npm --prefix codewiki run docs:dev
 ```
 
+## Strong Mode (Evidence-driven)
+
+```bash
+python <skill-root>/scripts/codewiki_analyze.py \
+    --repo-root <target-repo> \
+    --out-dir codewiki \
+    --force \
+    --refresh-sidebar
+```
+
+Outputs:
+- `codewiki/.meta/` (deps, entrypoints, evidence, doc plan)
+- `codewiki/quality-report.md`
+
+## How It Works (Evidence Scoring)
+
+Strong mode converts code evidence into a doc plan with scores and confidence levels.
+
+- Evidence rules live in `references/evidence-rules.json` and define weighted signals
+- Each module gets a score and status: `included`, `candidate`, or `excluded`
+- Candidate pages are generated but clearly marked as low-confidence
+- Metadata and quality reports make the decision process auditable
+
+```mermaid
+flowchart TD
+    A[Scan repo] --> B[Collect signals]
+    B --> C[Score modules]
+    C --> D{Score level}
+    D -->|Included| E[Include module pages]
+    D -->|Candidate| F[Generate candidate pages]
+    D -->|Excluded| G[Skip module pages]
+    E --> H[Build doc plan]
+    F --> H
+    H --> I[Write docs and diagrams]
+    I --> J[Quality report]
+    J --> K[Refresh sidebar]
+```
+
 ## Generated Structure
 
 ```
@@ -40,6 +78,6 @@ codewiki/
 
 **Required**: overview, getting-started, architecture, core-components, development
 
-**Conditional** (needs code evidence): api-reference, plugins, build-and-release, security, observability, etc.
+**Conditional** (evidence-scored): api-reference, plugins, build-and-release, security, observability, etc.
 
 See [structure-and-heuristics.md](references/structure-and-heuristics.md) for details.
