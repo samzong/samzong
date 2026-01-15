@@ -96,6 +96,7 @@ class RepoMeta:
     entrypoints: list[str]
     top_dirs: list[str]
     tech_stack: list[str]
+    symbols: list[dict[str, Any]]
 
 
 def parse_args() -> argparse.Namespace:
@@ -116,6 +117,10 @@ def _run(cmd: list[str], cwd: Path | None = None) -> tuple[int, str]:
         return proc.returncode, proc.stdout.strip()
     except FileNotFoundError:
         return 127, ""
+
+
+def _has_cmd(name: str) -> bool:
+    return shutil.which(name) is not None
 
 
 def _iter_repo_files(repo_root: Path) -> list[Path]:
@@ -365,6 +370,52 @@ def _tech_stack(meta: RepoMeta) -> list[str]:
     return _dedupe(stack)[:12]
 
 
+def _extract_symbols_ctags(repo_root: Path) -> list[dict[str, Any]]:
+    if not _has_cmd("ctags"):
+        return []
+    cmd = [
+        "ctags",
+        "--output-format=json",
+        "--fields=+n",
+        "--extras=+q",
+        "--sort=no",
+        "--languages=Python,Go,Rust,JavaScript,TypeScript,Swift",
+        "--exclude=.git",
+        "--exclude=node_modules",
+        "--exclude=dist",
+        "--exclude=build",
+        "--exclude=target",
+        "--exclude=codewiki",
+        "-R",
+        ".",
+    ]
+    code, output = _run(cmd, cwd=repo_root)
+    if code != 0 or not output:
+        return []
+    symbols: list[dict[str, Any]] = []
+    for line in output.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            data = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        path = data.get("path")
+        if not path:
+            continue
+        symbol = {
+            "name": data.get("name"),
+            "kind": data.get("kind"),
+            "path": path,
+            "line": data.get("line"),
+        }
+        symbols.append(symbol)
+        if len(symbols) >= 3000:
+            break
+    return symbols
+
+
 def _load_evidence_rules() -> dict[str, Any]:
     data = _load_json(EVIDENCE_RULES_PATH)
     if not data:
@@ -419,8 +470,33 @@ def analyze_repo(repo_root: Path) -> RepoMeta:
     commands = _detect_commands(repo_root)
     entrypoints = _detect_entrypoints(files, repo_root)
     top_dirs = _top_level_dirs(repo_root)
-    tech_stack = _tech_stack(RepoMeta(repo_root, files, rel_files, languages, deps, commands, entrypoints, top_dirs, []))
-    return RepoMeta(repo_root, files, rel_files, languages, deps, commands, entrypoints, top_dirs, tech_stack)
+    symbols = _extract_symbols_ctags(repo_root)
+    tech_stack = _tech_stack(
+        RepoMeta(
+            repo_root,
+            files,
+            rel_files,
+            languages,
+            deps,
+            commands,
+            entrypoints,
+            top_dirs,
+            [],
+            symbols,
+        )
+    )
+    return RepoMeta(
+        repo_root,
+        files,
+        rel_files,
+        languages,
+        deps,
+        commands,
+        entrypoints,
+        top_dirs,
+        tech_stack,
+        symbols,
+    )
 
 
 def score_modules(meta: RepoMeta, rules: dict[str, Any]) -> dict[str, Any]:
@@ -485,6 +561,7 @@ def build_doc_plan(meta: RepoMeta, module_scores: dict[str, Any]) -> dict[str, A
         "commands": meta.commands,
         "top_dirs": meta.top_dirs,
         "tech_stack": meta.tech_stack,
+        "symbol_count": len(meta.symbols),
         "module_scores": module_scores,
         "pages": pages,
     }
@@ -553,6 +630,10 @@ def generate_docs(out_dir: Path, plan: dict[str, Any], meta: RepoMeta, force: bo
     project = plan["repo"]
     externals = [d for d in sorted(meta.deps) if d in {"redis", "postgres", "mysql", "kafka", "s3", "stripe"}]
     components = meta.top_dirs or ["src", "app", "core"]
+    key_symbols = [
+        s for s in meta.symbols
+        if s.get("kind") in {"class", "function", "method", "struct", "interface"}
+    ]
 
     for page in plan["pages"]:
         page_path = out_dir / page["path"]
@@ -570,7 +651,18 @@ def generate_docs(out_dir: Path, plan: dict[str, Any], meta: RepoMeta, force: bo
         elif page["template"] == "architecture":
             content = f"# {title}\n\n{related}\n\n## Design Rationale\n{intro}\n- [Why this architecture exists]\n\n## Component Diagram\n" + _render_component_graph(project, components) + "\n\n## Data Flow\n" + _render_mermaid_context(project, externals) + "\n\n## Tech Debt Notes\n- [Debt 1]\n"
         elif page["template"] == "components":
+            symbol_lines = []
+            for sym in key_symbols[:12]:
+                name = sym.get("name") or "[symbol]"
+                path = sym.get("path") or "path/to/file"
+                line = sym.get("line")
+                if line:
+                    symbol_lines.append(f"- `{name}` ({path}:{line})")
+                else:
+                    symbol_lines.append(f"- `{name}` ({path})")
             content = f"# {title}\n\n{related}\n\n## Component Dictionary\n{intro}\n- {project}: [responsibility]\n" + "\n".join(f"- {comp}: [responsibility]" for comp in components[:8]) + "\n\n## Relationship Graph\n" + _render_component_graph(project, components) + "\n"
+            if symbol_lines:
+                content += "\n## Key Symbols\n" + "\n".join(symbol_lines) + "\n"
         elif page["template"] == "quickstart":
             steps = plan.get("commands") or ["[command]"]
             content = f"# {title}\n\n{related}\n\n## Prerequisites\n{intro}\n- [toolchain]\n\n## Steps\n" + "\n".join(f"1. `{cmd}`" for cmd in steps[:6]) + "\n\n## Expected Output\n- [what success looks like]\n"
@@ -621,7 +713,7 @@ def generate_docs(out_dir: Path, plan: dict[str, Any], meta: RepoMeta, force: bo
 def write_meta(out_dir: Path, meta: RepoMeta, plan: dict[str, Any]) -> None:
     meta_dir = out_dir / ".meta"
     meta_dir.mkdir(parents=True, exist_ok=True)
-    (meta_dir / "symbols.json").write_text("{}\n", encoding="utf-8")
+    (meta_dir / "symbols.json").write_text(json.dumps(meta.symbols, indent=2) + "\n", encoding="utf-8")
     (meta_dir / "deps.json").write_text(json.dumps(sorted(meta.deps), indent=2) + "\n", encoding="utf-8")
     (meta_dir / "entrypoints.json").write_text(json.dumps(meta.entrypoints, indent=2) + "\n", encoding="utf-8")
     (meta_dir / "evidence.json").write_text(json.dumps(plan.get("module_scores"), indent=2) + "\n", encoding="utf-8")
@@ -629,7 +721,9 @@ def write_meta(out_dir: Path, meta: RepoMeta, plan: dict[str, Any]) -> None:
 
 
 def write_quality_report(out_dir: Path, plan: dict[str, Any]) -> None:
-    lines = ["# Quality Report", "", "## Module Coverage"]
+    lines = ["# Quality Report", ""]
+    lines.append(f"## Symbols\n- Extracted symbols: {plan.get('symbol_count', 0)}")
+    lines.append("\n## Module Coverage")
     for module, score in plan["module_scores"].items():
         lines.append(f"- **{module}**: {score['status']} (score {score['score']}, confidence {score['confidence']})")
     lines.append("\n## Low-Confidence Pages")

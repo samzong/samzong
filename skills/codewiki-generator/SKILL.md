@@ -96,7 +96,7 @@ python3 <skill-root>/scripts/codewiki_analyze.py \
 ```
 
 Outputs:
-- `codewiki/.meta/` with `deps.json`, `entrypoints.json`, `evidence.json`, `doc_plan.json`
+- `codewiki/.meta/` with `deps.json`, `entrypoints.json`, `evidence.json`, `doc_plan.json`, `symbols.json` (ctags if available)
 - `codewiki/quality-report.md` with coverage and low-confidence pages
 - Evidence-scored conditional modules
 

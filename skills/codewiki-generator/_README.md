@@ -35,8 +35,13 @@ python <skill-root>/scripts/codewiki_analyze.py \
 ```
 
 Outputs:
-- `codewiki/.meta/` (deps, entrypoints, evidence, doc plan)
+- `codewiki/.meta/` (deps, entrypoints, evidence, doc plan, symbols)
 - `codewiki/quality-report.md`
+
+Optional (for deeper symbols):
+```bash
+brew install universal-ctags
+```
 
 ## How It Works (Evidence Scoring)
 
@@ -45,6 +50,7 @@ Strong mode converts code evidence into a doc plan with scores and confidence le
 - Evidence rules live in `references/evidence-rules.json` and define weighted signals
 - Each module gets a score and status: `included`, `candidate`, or `excluded`
 - Candidate pages are generated but clearly marked as low-confidence
+- Symbols are extracted via `ctags` when available and written to `symbols.json`
 - Metadata and quality reports make the decision process auditable
 
 ```mermaid
