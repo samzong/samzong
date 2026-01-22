@@ -21,27 +21,24 @@ Store the answer and apply it to all generated prose content. Default to English
 - Treat existing docs (README, `docs/`) as secondary hints only.
 - Prefer code evidence for truth; call out doc/code mismatches.
 
-### 2) Bootstrap `codewiki/` (evidence-driven)
-Run the analyzer to scaffold the folder, generate metadata, and create VitePress config. `<skill-root>` is the directory containing this SKILL.md.
+### 2) Analyze codebase → structured metadata
+Run the analyzer to scan the codebase and generate structured metadata. `<skill-root>` is the directory containing this SKILL.md.
 
 ```
 python3 <skill-root>/scripts/codewiki_analyze.py \
   --repo-root <repo-root> \
   --out-dir codewiki \
-  --force \
-  --refresh-sidebar
+  --force
 ```
 
 Outputs:
 - `codewiki/.meta/` with `deps.json`, `entrypoints.json`, `evidence.json`, `doc_plan.json`, `symbols.json` (ctags if available)
 - `codewiki/quality-report.md` with coverage and low-confidence pages
-- Evidence-scored conditional modules
-- VitePress config and sidebar
+- VitePress config scaffolding (no placeholder .md files)
 
 Notes:
-- Creates minimal required pages and folders.
+- Does NOT generate placeholder .md files — LLM writes docs directly in Step 4.
 - Copies images referenced in existing Markdown into `codewiki/assets/`.
-- Use `--refresh-sidebar` after new docs are added.
 
 ### 3) Decide the doc set dynamically
 - Always include the minimal required pages.
@@ -51,6 +48,11 @@ Notes:
 - Use lowercase directory and file names for all generated docs.
 
 ### 4) Write the docs (code-first, visual-first)
+Read `codewiki/.meta/doc_plan.json` and iterate through each planned page:
+- **Skip** pages with no evidence or low relevance to the codebase.
+- **Create** .md files only for pages you will actually write content for.
+
+Writing guidelines:
 - **Use the language specified in Step 0** for all prose content. Keep code snippets, file paths, and technical terms in original form.
 - Start every page with a low-contrast **# Related Code** block (fenced `text` block), not a heading.
 - Use Mermaid for diagrams (context, class, sequence, component, dataflow).
@@ -64,7 +66,7 @@ Notes:
 Use `references/doc-templates.md` for deep, evidence-linked page templates.
 
 ### 5) Refresh sidebar and run the site
-After generating new files:
+After writing docs, regenerate the sidebar to reflect actual files:
 
 ```
 python3 <skill-root>/scripts/codewiki_bootstrap.py \
@@ -91,17 +93,14 @@ Alternative (no install):
 npx -p vitepress -p vitepress-plugin-mermaid -p mermaid vitepress dev codewiki
 ```
 
-### Alternative: Bootstrap only (no analysis)
-If you only need to scaffold without deep analysis:
+### 6) Offer optional workflows
+After the site is running, inform the user of available options:
 
-```
-python3 <skill-root>/scripts/codewiki_bootstrap.py \
-  --repo-root <repo-root> \
-  --out-dir codewiki \
-  --force
-```
-
-This creates the folder structure without generating `.meta/` evidence files.
+> Documentation site is ready! You can now:
+> - **Option A**: Deploy to Cloudflare Pages — publish the site to a live URL
+> - **Option B**: Add multi-language support (i18n) — translate docs to another language
+>
+> Let me know if you'd like to proceed with any of these.
 
 ---
 
@@ -136,6 +135,7 @@ Translate docs to a second language and configure VitePress language switcher.
 ## Resources
 
 ### scripts/
+- `codewiki_analyze.py`: scans codebase, generates `.meta/*.json` metadata files.
 - `codewiki_bootstrap.py`: scaffolds `codewiki/`, copies referenced images, generates sidebar.
 
 ### references/
