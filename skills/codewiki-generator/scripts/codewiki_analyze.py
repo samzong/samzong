@@ -424,9 +424,23 @@ def _load_evidence_rules() -> dict[str, Any]:
     return data
 
 
+def _should_exclude(path: Path, repo_root: Path) -> bool:
+    """Check if any path component is in EXCLUDE_DIRS."""
+    try:
+        rel = path.relative_to(repo_root)
+    except ValueError:
+        return True
+    for part in rel.parts:
+        if part in EXCLUDE_DIRS:
+            return True
+    return False
+
+
 def _matches_path_glob(repo_root: Path, pattern: str) -> list[str]:
     matches = []
     for path in repo_root.glob(pattern):
+        if _should_exclude(path, repo_root):
+            continue
         if path.is_file() or path.is_dir():
             try:
                 matches.append(str(path.relative_to(repo_root)))
