@@ -21,20 +21,27 @@ Store the answer and apply it to all generated prose content. Default to English
 - Treat existing docs (README, `docs/`) as secondary hints only.
 - Prefer code evidence for truth; call out doc/code mismatches.
 
-### 2) Bootstrap `codewiki/`
-Run the bootstrap script to scaffold the folder and VitePress config. `<skill-root>` is the directory containing this SKILL.md.
+### 2) Bootstrap `codewiki/` (evidence-driven)
+Run the analyzer to scaffold the folder, generate metadata, and create VitePress config. `<skill-root>` is the directory containing this SKILL.md.
 
 ```
-python3 <skill-root>/scripts/codewiki_bootstrap.py \
+python3 <skill-root>/scripts/codewiki_analyze.py \
   --repo-root <repo-root> \
-  --out-dir codewiki
+  --out-dir codewiki \
+  --force \
+  --refresh-sidebar
 ```
+
+Outputs:
+- `codewiki/.meta/` with `deps.json`, `entrypoints.json`, `evidence.json`, `doc_plan.json`, `symbols.json` (ctags if available)
+- `codewiki/quality-report.md` with coverage and low-confidence pages
+- Evidence-scored conditional modules
+- VitePress config and sidebar
 
 Notes:
 - Creates minimal required pages and folders.
 - Copies images referenced in existing Markdown into `codewiki/assets/`.
-- Generates `codewiki/.vitepress/sidebar.mjs` from the current tree.
-- Use `--force` to overwrite, and `--refresh-sidebar` after new docs are added.
+- Use `--refresh-sidebar` after new docs are added.
 
 ### 3) Decide the doc set dynamically
 - Always include the minimal required pages.
@@ -54,7 +61,7 @@ Notes:
 - Reuse existing images/diagrams when accurate; do not blindly trust old docs.
 - Keep Markdown lint-friendly: consistent headings, no trailing spaces, proper lists.
 
-Use `references/doc-templates.md` for concise page templates.
+Use `references/doc-templates.md` for deep, evidence-linked page templates.
 
 ### 5) Refresh sidebar and run the site
 After generating new files:
@@ -84,21 +91,40 @@ Alternative (no install):
 npx -p vitepress -p vitepress-plugin-mermaid -p mermaid vitepress dev codewiki
 ```
 
-### Strong mode (DeepWiki-style, evidence-driven)
-Use the strong analyzer to generate docs + metadata in one pass:
+### Alternative: Bootstrap only (no analysis)
+If you only need to scaffold without deep analysis:
 
 ```
-python3 <skill-root>/scripts/codewiki_analyze.py \
+python3 <skill-root>/scripts/codewiki_bootstrap.py \
   --repo-root <repo-root> \
   --out-dir codewiki \
-  --force \
-  --refresh-sidebar
+  --force
 ```
 
-Outputs:
-- `codewiki/.meta/` with `deps.json`, `entrypoints.json`, `evidence.json`, `doc_plan.json`, `symbols.json` (ctags if available)
-- `codewiki/quality-report.md` with coverage and low-confidence pages
-- Evidence-scored conditional modules
+This creates the folder structure without generating `.meta/` evidence files.
+
+---
+
+## Optional Workflows
+
+These workflows are available after completing the main documentation generation.
+
+### Option A) Deploy to Cloudflare Pages
+
+Deploy the site to Cloudflare Pages using `wrangler` CLI.
+
+**Trigger**: User asks to deploy, publish, or host the documentation.
+
+**See**: `references/deploy-cloudflare.md` for full steps (wrangler install, login check, build, deploy, update index.md with live URL).
+
+### Option B) Add Multi-language Support (i18n)
+
+Translate docs to a second language and configure VitePress language switcher.
+
+**Trigger**: User asks for translation, multi-language, or i18n support.
+
+**See**: `references/i18n-setup.md` for full steps (directory structure, VitePress locales config, translation guidelines).
+
 
 ## Quality Bar (non-negotiable)
 - **Visual First**: prefer diagrams over walls of text.
@@ -114,7 +140,9 @@ Outputs:
 
 ### references/
 - `structure-and-heuristics.md`: module selection rules and evidence signals.
-- `doc-templates.md`: minimal templates for required pages.
+- `doc-templates.md`: deep, evidence-linked templates for all pages.
+- `deploy-cloudflare.md`: Cloudflare Pages deployment workflow.
+- `i18n-setup.md`: multi-language support configuration.
 
 ### assets/
 - `vitepress/`: minimal VitePress config and landing page template.
