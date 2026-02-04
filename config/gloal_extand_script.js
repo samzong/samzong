@@ -53,41 +53,43 @@ const RULE_PROVIDERS = {
 };
 
 const PREPEND_RULES = [
+  "DOMAIN-SUFFIX,linkedin.com,Google",
+  "DOMAIN-SUFFIX,linkedin.cn,Google",
   "RULE-SET,acl4ssr_banad,REJECT",
   "RULE-SET,acl4ssr_openai,OpenAI",
   "RULE-SET,acl4ssr_claude,OpenAI",
   "RULE-SET,acl4ssr_gemini,OpenAI",
   "RULE-SET,acl4ssr_bing,OpenAI",
-  "RULE-SET,acl4ssr_github,Google",
-  "RULE-SET,acl4ssr_docker,Google",
+  "RULE-SET,acl4ssr_github,OpenAI",
+  "RULE-SET,acl4ssr_docker,OpenAI",
 ];
 
 function main(config, profileName) {
-  if (profileName !== "SSRDOG") {
-    return config;
+  // SSRDOG-specific: rule-providers and rules
+  if (profileName === "SSRDOG") {
+    const providers = config["rule-providers"] || {};
+    Object.entries(RULE_PROVIDERS).forEach(([key, provider]) => {
+      if (!providers[key]) {
+        providers[key] = provider;
+      }
+    });
+    config["rule-providers"] = providers;
+
+    const existingRules = Array.isArray(config.rules) ? config.rules : [];
+    const newRules = PREPEND_RULES.filter(
+      (rule) => !existingRules.includes(rule)
+    );
+    config.rules = [...newRules, ...existingRules];
   }
 
-  const providers = config["rule-providers"] || {};
-  Object.entries(RULE_PROVIDERS).forEach(([key, provider]) => {
-    if (!providers[key]) {
-      providers[key] = provider;
-    }
-  });
-  config["rule-providers"] = providers;
-
-  const existingRules = Array.isArray(config.rules) ? config.rules : [];
-  const newRules = PREPEND_RULES.filter(
-    (rule) => !existingRules.includes(rule)
-  );
-  config.rules = [...newRules, ...existingRules];
-
+  // DNS config - applies to all profiles
   // Define internal DNS policy group
   // Format: { "DNS Server IP": ["Domain1", "Domain2", ...] }
   // Last Write Wins
   const nameserverPolicyConfig = {
     "10.64.46.101": [
-      "*.corp.example.com", // Your internal domain suffix
-      "geosite:private", // Hostnames without suffix
+      "*.daocloud.io",
+      "*.daocloud.cn",
     ],
   };
 
