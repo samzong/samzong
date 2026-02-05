@@ -1,11 +1,5 @@
 # Hi, I'm Samzong(船长) 👋
 
-> **I build large-scale AI inference and scheduling systems.**
->
-> My work focuses on making **LLMs routable, schedulable, and operable** at cluster scale. I help shape production-grade infrastructure that powers the AI era.
-
-(AI Infra & Cloud Native TPM at **[@DaoCloud](https://github.com/DaoCloud)**)
-
 ## What I build?
 
 * **Large-scale Inference Scheduling**: Optimizing GPU utilization across clusters.
