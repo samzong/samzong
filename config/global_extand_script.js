@@ -1,4 +1,4 @@
-// IT'S working on CVR 2.4.3
+// IT'S working on CVR 2.4.3+
 
 const RULE_PROVIDERS = {
   acl4ssr_github: {
@@ -45,7 +45,7 @@ const RULE_PROVIDERS = {
   },
 };
 
-const GLOBAL_KEYWORDS = ["Google", "节点选择", "PROXIES", "Global", "GLOBAL", "PROXY"];
+const GLOBAL_KEYWORDS = ["节点选择", "PROXIES", "Global", "GLOBAL", "PROXY"];
 
 function resolveTargetGroup(groups, keywords) {
   if (!groups || !Array.isArray(groups) || groups.length === 0) return "DIRECT";
@@ -99,12 +99,11 @@ function main(config, profileName) {
       "oaiusercontent.com": groupUS,
       "gemini.google.com": groupUS,
       "generativelanguage.googleapis.com": groupUS,
-      "linkedin.cn": targetGlobal,
-      "linkedin.com": targetGlobal,
-      "licdn.com": targetGlobal,
       "x.com": groupUS,
       "twitter.com": groupUS,
       "linux.do": groupJP,
+      "linkedin.com": groupUS,
+      "licdn.com": groupUS,
     },
     "RULE-SET": {
       "xptv_direct": "DIRECT",
@@ -129,14 +128,33 @@ function main(config, profileName) {
   const existing = config.rules || [];
   config.rules = [...rules.filter((r) => !existing.includes(r)), ...existing];
 
+  // DNS
   config.dns = config.dns || {};
+
+  config.dns.nameserver = [
+    "https://doh.pub/dns-query",
+    "https://dns.alidns.com/dns-query",
+  ];
+
+  config.dns.fallback = [
+    "https://dns.google/dns-query",
+    "https://1.1.1.1/dns-query",
+    "https://8.8.8.8/dns-query",
+  ];
+
+  config.dns["fallback-filter"] = {
+    geoip: true,
+    "geoip-code": "CN",
+    ipcidr: ["240.0.0.0/4", "0.0.0.0/32"],
+  };
+
   config.dns["nameserver-policy"] = config.dns["nameserver-policy"] || {};
 
   const customDNS = {
     "10.64.46.101": [
       "*.daocloud.io",
-      "*.daocloud.cn"
-    ]
+      "*.daocloud.cn",
+    ],
   };
 
   Object.entries(customDNS).forEach(([server, domains]) => {
@@ -144,6 +162,21 @@ function main(config, profileName) {
       config.dns["nameserver-policy"][domain] = server;
     });
   });
+
+  // sniffer
+  config.sniffer = {
+    enable: true,
+    "force-dns-mapping": true,
+    "parse-pure-ip": true,
+    sniff: {
+      TLS: { ports: [443, 8443] },
+      HTTP: { ports: [80, "8080-8880"] },
+    },
+    "skip-domain": [
+      "Mijia Cloud",
+      "+.push.apple.com",
+    ],
+  };
 
   return config;
 }
