@@ -6,22 +6,10 @@ import datetime as dt
 import os
 import re
 import secrets
-import subprocess
 import sys
 from pathlib import Path
 
-from _common import load_json, now_utc, write_json
-
-
-def sh(cmd: str, *, warn: bool = True) -> str:
-    # Internal helper for static commands only. Do not pass user input into cmd.
-    try:
-        out = subprocess.check_output(cmd, shell=True, stderr=subprocess.DEVNULL, text=True)
-        return out.strip()
-    except Exception as exc:
-        if warn:
-            print(f"warning: command failed: {cmd} ({exc})", file=sys.stderr)
-        return ""
+from _common import build_context, git_changed_files, git_changed_loc, load_json, now_utc, sh, write_json
 
 
 def gen_review_id() -> str:
@@ -85,32 +73,6 @@ def detect_dev_tool(explicit: str, repo_root: Path) -> dict:
         "scores": scores,
     }
 
-
-def get_changed_files() -> list[str]:
-    out = sh("git diff HEAD --name-only", warn=True)
-    if not out:
-        out = sh("git diff --cached --name-only")
-    if not out:
-        return []
-    return sorted({line.strip() for line in out.splitlines() if line.strip()})
-
-
-def get_changed_loc() -> int:
-    out = sh("git diff HEAD --numstat", warn=True)
-    if not out:
-        out = sh("git diff --cached --numstat")
-    if not out:
-        return 0
-
-    total = 0
-    for line in out.splitlines():
-        parts = line.split("\t")
-        if len(parts) < 3:
-            continue
-        added = int(parts[0]) if parts[0].isdigit() else 0
-        deleted = int(parts[1]) if parts[1].isdigit() else 0
-        total += added + deleted
-    return total
 
 
 def analyze_risk(changed_files: list[str], changed_loc: int) -> dict:
@@ -215,23 +177,22 @@ def build_contract(review_id: str, task: str, repo_root: Path, detection: dict, 
         {
             "id": "codex_high",
             "enabled": "codex_high" in recommended,
-            "model": "gpt-5",
-            "reasoning": "high",
-            "command_template": "codex exec --model gpt-5 --reasoning high \"$(cat {prompt_file})\" > {raw_output_file}",
+            "model": "gpt-5.3-codex",
+            "command_template": "codex exec --model gpt-5.3-codex \"$(cat {prompt_file})\" > {raw_output_file}",
         },
         {
             "id": "claude_opus",
             "enabled": "claude_opus" in recommended,
             "model": "opus",
             "reasoning": "high",
-            "command_template": "claude --model opus --print \"$(cat {prompt_file})\" > {raw_output_file}",
+            "command_template": "env -u CLAUDECODE claude --model opus --print \"$(cat {prompt_file})\" > {raw_output_file}",
         },
         {
             "id": "gemini_pro",
             "enabled": "gemini_pro" in recommended,
-            "model": "gemini-2.5-pro",
+            "model": "gemini-3.1-pro",
             "reasoning": "high",
-            "command_template": "gemini --model gemini-2.5-pro --prompt-file {prompt_file} > {raw_output_file}",
+            "command_template": "gemini --model gemini-3.1-pro --prompt-file {prompt_file} > {raw_output_file}",
         },
     ]
 
@@ -250,67 +211,12 @@ def build_contract(review_id: str, task: str, repo_root: Path, detection: dict, 
         },
         "policy": {
             "fix_threshold": "medium",
+            "auto_fix_threshold": {"determinism": "high", "scope": "local"},
             "require_response_for_all_findings": True,
         },
         "reviewers": reviewers,
         "history": {"rounds": []},
     }
-
-
-def build_context(task: str, changed_files: list[str]) -> str:
-    branch = sh("git branch --show-current", warn=True)
-    head = sh("git rev-parse --short HEAD", warn=True)
-    status = sh("git status --short", warn=True)
-    log5 = sh("git log --oneline -n 5", warn=True)
-    diff = sh("git diff HEAD", warn=True)
-    if not diff:
-        diff = sh("git diff --cached", warn=True)
-
-    if not diff:
-        diff = "<no working-tree diff>"
-    if not status:
-        status = "<clean>"
-
-    changed_files_block = "\n".join(f"- {f}" for f in changed_files) if changed_files else "- <none>"
-
-    diff_lines = diff.splitlines()
-    diff_truncated = False
-    max_diff_lines = 600
-    if len(diff_lines) > max_diff_lines:
-        diff = "\n".join(diff_lines[:max_diff_lines])
-        diff_truncated = True
-
-    truncation_note = ""
-    if diff_truncated:
-        truncation_note = f"\n\nNote: diff truncated to first {max_diff_lines} lines for prompt stability."
-
-    return f"""# Review Context
-
-## Task
-{task}
-
-## Git Snapshot
-- Branch: {branch or '<unknown>'}
-- Head: {head or '<unknown>'}
-
-## Changed Files
-{changed_files_block}
-
-## Git Status
-```text
-{status}
-```
-
-## Recent Commits
-```text
-{log5 or '<none>'}
-```
-
-## Current Diff
-```diff
-{diff}
-```{truncation_note}
-"""
 
 
 def build_prompt(contract: dict, reviewer_id: str) -> str:
@@ -332,7 +238,9 @@ Output STRICT JSON only with this shape:
       "detail": "...",
       "suggested_fix": "...",
       "confidence": 0.0,
-      "category": "correctness|security|performance|test|maintainability|ux"
+      "category": "correctness|security|performance|test|maintainability|ux",
+      "fix_determinism": "high|medium|low",
+      "fix_scope": "local|cross-file|architectural"
     }}
   ],
   "notes": []
@@ -340,6 +248,16 @@ Output STRICT JSON only with this shape:
 
 No markdown fences. No prose outside JSON.
 Policy fix_threshold={contract['policy']['fix_threshold']}.
+
+For fix_determinism:
+  high   = exactly one correct fix, no judgment needed
+  medium = fix pattern is clear but touches multiple callsites
+  low    = fix requires design or business-logic judgment
+
+For fix_scope:
+  local        = 1-3 lines in one function/block
+  cross-file   = changes span multiple files
+  architectural = requires structural or API-level decisions
 """
 
 
@@ -390,8 +308,8 @@ def main() -> int:
         rounds_dir.mkdir(parents=True, exist_ok=False)
 
     detection = detect_dev_tool(args.dev_tool, repo_root)
-    changed_files = get_changed_files()
-    changed_loc = get_changed_loc()
+    changed_files = git_changed_files()
+    changed_loc = git_changed_loc()
     risk = analyze_risk(changed_files, changed_loc)
     recommended, reasons = recommend_reviewers(detection["tool"], risk)
     task_input = args.task.strip()

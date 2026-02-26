@@ -18,19 +18,23 @@ Quoting contract:
 ## Codex (high reasoning)
 
 ```bash
-codex exec --model gpt-5 --reasoning high "$(cat {prompt_file})" > {raw_output_file}
+codex exec --model gpt-5.3-codex "$(cat {prompt_file})" > {raw_output_file}
 ```
 
 ## Claude (Opus)
 
 ```bash
-claude --model opus --print "$(cat {prompt_file})" > {raw_output_file}
+env -u CLAUDECODE claude --model opus --print "$(cat {prompt_file})" > {raw_output_file}
 ```
+
+> Note: `env -u CLAUDECODE` unsets the guard that blocks nested Claude Code sessions.
+> Without it, running this template from inside a Claude Code session fails with
+> "Claude Code cannot be launched inside another Claude Code session."
 
 ## Gemini (pro)
 
 ```bash
-gemini --model gemini-2.5-pro --prompt-file {prompt_file} > {raw_output_file}
+gemini --model gemini-3.1-pro --prompt-file {prompt_file} > {raw_output_file}
 ```
 
 ## JSON-safe local test

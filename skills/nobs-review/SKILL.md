@@ -81,7 +81,32 @@ Latest pointers at review root (`merged-latest.md`, `resolution-latest.md`) are 
 
 For persistent checklist edits, use round-scoped `resolution.md`.
 
-### 5) Fix and re-review
+### 5) Review auto-fix candidates
+
+After merge, check `auto-fix-candidates.md` in the round directory (or `auto-fix-candidates-latest.md` at review root).
+
+Findings listed there satisfy **both**:
+- `fix_determinism = high` — exactly one right fix, no judgment needed
+- `fix_scope = local` — change confined to 1–3 lines in one function
+
+Apply each fix, mark `Applied: [x]`, commit, then run a new round to verify:
+
+```bash
+python3 skills/nobs-review/scripts/run_review.py --round auto
+python3 skills/nobs-review/scripts/merge_review.py --round latest
+```
+
+Findings that do **not** appear in `auto-fix-candidates.md` require human judgment and are tracked in `resolution.md`.
+
+The `auto_fix_threshold` in `contract.json → policy` controls the boundary:
+
+```json
+"auto_fix_threshold": { "determinism": "high", "scope": "local" }
+```
+
+Raise `determinism` to `medium` or `scope` to `cross-file` to widen the auto-fix set.
+
+### 6) Fix and re-review
 
 ```bash
 python3 skills/nobs-review/scripts/run_review.py --id <review_id> --round auto

@@ -3,35 +3,56 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shlex
 import subprocess
 import time
 from pathlib import Path
 
-from _common import list_round_ids, load_json, now_utc, resolve_review_id, to_round_id, update_json, write_json
+from _common import (
+    build_context,
+    git_changed_files,
+    list_round_ids,
+    load_json,
+    now_utc,
+    resolve_review_id,
+    safe_float,
+    to_round_id,
+    update_json,
+    write_json,
+)
 
 ALLOWED_SEVERITY = {"critical", "high", "medium", "low", "nit"}
+ALLOWED_FIX_DETERMINISM = {"high", "medium", "low"}
+ALLOWED_FIX_SCOPE = {"local", "cross-file", "architectural"}
 
 
-def _to_float(v) -> float:
-    return float(v) if isinstance(v, (int, float)) else 0.0
+def sanitize_single_line(value: object, max_len: int = 240) -> str:
+    text = str(value) if value is not None else ""
+    text = text.replace("\r", " ").replace("\n", " ")
+    text = re.sub(r"\s+", " ", text).strip()
+    text = text.replace("```", "` ` `")
+    text = text.replace("###", "## #")
+    if len(text) > max_len:
+        text = text[:max_len].rstrip()
+    return text
 
 
-def resolve_execution_round_id(root: Path, round_arg: str) -> str:
+def resolve_execution_round_id(root: Path, round_arg: str, existing: list[str] | None = None) -> str:
     rounds_dir = root / "rounds"
     rounds_dir.mkdir(parents=True, exist_ok=True)
-    existing = list_round_ids(rounds_dir)
+    existing_rounds = existing if existing is not None else list_round_ids(rounds_dir)
 
     if round_arg == "auto":
-        if not existing:
+        if not existing_rounds:
             return "r001"
-        last = int(existing[-1][1:])
+        last = int(existing_rounds[-1][1:])
         return f"r{last + 1:03d}"
 
     if round_arg == "latest":
-        if existing:
-            return existing[-1]
+        if existing_rounds:
+            return existing_rounds[-1]
         raise SystemExit("no existing rounds; use --round auto to start the first round")
 
     return to_round_id(round_arg, usage="auto/latest/rNNN/NNN")
@@ -82,6 +103,12 @@ def normalize_output(reviewer_id: str, data) -> dict:
         line = f.get("line", 0)
         if not isinstance(line, int) or line < 0:
             line = 0
+        det = str(f.get("fix_determinism", "low")).lower()
+        if det not in ALLOWED_FIX_DETERMINISM:
+            det = "low"
+        scope = str(f.get("fix_scope", "architectural")).lower()
+        if scope not in ALLOWED_FIX_SCOPE:
+            scope = "architectural"
         normalized.append(
             {
                 "id": str(f.get("id") or f"{reviewer_id}-{i:03d}"),
@@ -91,8 +118,10 @@ def normalize_output(reviewer_id: str, data) -> dict:
                 "title": str(f.get("title", "")),
                 "detail": str(f.get("detail", "")),
                 "suggested_fix": str(f.get("suggested_fix", "")),
-                "confidence": _to_float(f.get("confidence", 0.0)),
+                "confidence": safe_float(f.get("confidence", 0.0)),
                 "category": str(f.get("category", "maintainability")),
+                "fix_determinism": det,
+                "fix_scope": scope,
             }
         )
 
@@ -150,7 +179,60 @@ def main() -> int:
     if not contract_path.exists():
         raise SystemExit(f"contract not found: {contract_path}")
 
-    round_id = resolve_execution_round_id(root, args.round)
+    contract = load_json(contract_path)
+
+    existing_rounds = list_round_ids(root / "rounds")
+    round_id = resolve_execution_round_id(root, args.round, existing_rounds)
+
+    # Refresh context.md before every run so reviewers see the current diff.
+    # For rounds after the first, inject prior findings so reviewers don't repeat.
+    max_prior_chars = 3600
+    prior_summaries: list[str] = []
+    if round_id in existing_rounds:
+        base_rounds = existing_rounds[: existing_rounds.index(round_id)]
+    else:
+        base_rounds = existing_rounds
+    prior_ids = base_rounds[-3:]
+    per_limit = 1200
+    for prior_id in prior_ids:
+        merged_json_path = root / "rounds" / prior_id / "merged.json"
+        content = ""
+        if merged_json_path.exists():
+            data = load_json(merged_json_path)
+            findings = data.get("findings", []) if isinstance(data, dict) else []
+            lines: list[str] = []
+            for f in findings[:20]:
+                if not isinstance(f, dict):
+                    continue
+                sev = str(f.get("severity", "low")).lower()
+                if sev not in ALLOWED_SEVERITY:
+                    sev = "low"
+                file = sanitize_single_line(f.get("file", ""), max_len=200)
+                line = f.get("line", 0)
+                if not isinstance(line, int) or line < 0:
+                    line = 0
+                title = sanitize_single_line(f.get("title", ""), max_len=200)
+                if not file and not title:
+                    continue
+                location = f"{file}:{line}" if file else f"line:{line}"
+                lines.append(f"- [{sev.upper()}] {location} {title}".rstrip())
+            content = "\n".join(lines).strip()
+        if content:
+            if len(content) > per_limit:
+                content = content[:per_limit]
+                cut = content.rfind("\n")
+                if cut > 0:
+                    content = content[:cut].rstrip()
+            prior_summaries.append(f"### {prior_id}\n\n{content}")
+        if sum(len(s) for s in prior_summaries) >= max_prior_chars:
+            break
+    changed_files = git_changed_files()
+    context_content = build_context(contract.get("task", ""), changed_files, prior_summaries or None)
+    context_path = root / "context.md"
+    tmp_path = context_path.with_name(f"{context_path.name}.tmp-{os.getpid()}-{int(time.time() * 1000)}")
+    tmp_path.write_text(context_content, encoding="utf-8")
+    os.replace(tmp_path, context_path)
+
     round_dir = root / "rounds" / round_id
     raw_dir = round_dir / "raw"
     norm_dir = round_dir / "normalized"
@@ -159,8 +241,6 @@ def main() -> int:
 
     (out_dir / ".active_review_id").write_text(review_id + "\n", encoding="utf-8")
     (root / ".latest_round").write_text(round_id + "\n", encoding="utf-8")
-
-    contract = load_json(contract_path)
     selected = {x.strip() for x in args.reviewers.split(",") if x.strip()}
 
     summary = {
