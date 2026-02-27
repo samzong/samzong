@@ -1,0 +1,38 @@
+---
+name: {skill_name}
+description: Generate or revise code for the {repo_name} repository using the observed conventions of the {scope_label} scope. Use when writing, modifying, or refactoring code that should match the repository's naming, layout, testing, and error-handling patterns.
+---
+
+# {title}
+
+## Overview
+
+Use this skill when changing code in the `{repo_name}` repository{scope_sentence}.
+
+Read these files before making style-sensitive decisions:
+
+- `profiles/coding-summary.md`
+- `references/evidence.md`
+- `references/anti-patterns.md`
+- `references/examples.md`
+
+## Workflow
+
+1. Read `profiles/coding-summary.md` for the current scope.
+2. Match existing path-local conventions before inventing new structure.
+3. Prefer the conventions backed by repeated evidence from core authors.
+4. Avoid patterns listed in `references/anti-patterns.md`.
+5. When uncertain, follow the examples in `references/examples.md`.
+
+## Hard Gates
+
+- Do not invent a cross-repo style that is not supported by local evidence.
+- Do not mix conventions from unrelated subsystems.
+- Do not ignore the dominant naming and testing patterns documented in the profile.
+- If the requested change clearly falls outside the profiled scope, say so and gather new evidence first.
+
+## Scope
+
+- Repository: `{repo_name}`
+- Scope: `{scope_label}`
+- Evidence summary: `profiles/coding-summary.md`

@@ -1,0 +1,39 @@
+---
+name: {skill_name}
+description: Review code changes for the {repo_name} repository using the observed style and blocking standards of the repository's core maintainers. Use when reviewing diffs, pull requests, or pre-flight changes that should match the repository's real review bar.
+---
+
+# {title}
+
+## Overview
+
+Use this skill when reviewing changes for the `{repo_name}` repository.
+
+Read these files before producing feedback:
+
+- `profiles/review-summary.md`
+- `references/evidence.md`
+- `references/blocking-patterns.md`
+- `references/examples.md`
+
+## Workflow
+
+1. Read `profiles/review-summary.md` for the maintainer profile.
+2. Focus first on issues that repeatedly triggered real maintainer attention.
+3. Distinguish blocking concerns from stylistic suggestions.
+4. Match the documented review bar instead of generic best-practice theater.
+5. Use `references/examples.md` when you need concrete review phrasing or focus areas.
+
+## Hard Gates
+
+- Do not copy bot or AI review behavior.
+- Do not overfit to a single reviewer when the maintainer group shows a stable shared pattern.
+- Do not invent blocking concerns that are unsupported by the evidence.
+- If review evidence is too thin for a subsystem-specific claim, say so explicitly.
+- If `profiles/review-summary.md` shows no `CHANGES_REQUESTED` evidence, treat blocking patterns as inferred heuristics rather than hard rejection precedents.
+
+## Scope
+
+- Repository: `{repo_name}`
+- Maintainer profile: `profiles/review-summary.md`
+- Blocking patterns: `references/blocking-patterns.md`
