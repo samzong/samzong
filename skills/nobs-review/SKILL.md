@@ -1,6 +1,6 @@
 ---
 name: nobs-review
-description: Cross-model code review orchestration. Recommend reviewers from diff risk, run multi-round review with persistent id.
+description: Multi-model code review for pull requests and git diffs. Use when asked to "review my code", "review this PR", "review my changes", "find reviewers", or "run a code review". Suggests appropriate reviewers based on which files changed, runs iterative review rounds across multiple AI models, and tracks findings across sessions.
 ---
 
 # Review

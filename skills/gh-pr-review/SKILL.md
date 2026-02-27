@@ -18,10 +18,15 @@ Generate an owner-grade PR review that is strict about correctness and safety, g
 
 ### 1) Collect PR Facts (gh-only)
 
-- Run `scripts/gh_pr_review.sh <PR_URL|PR_NUMBER>`.
-- This creates `.gh-pr-review/pr-<n>/` artifacts and a starter doc `review-<n>.md` in the current directory.
+```bash
+bash skills/gh-pr-review/scripts/gh_pr_review.sh <PR_URL|PR_NUMBER>
+# Example: bash skills/gh-pr-review/scripts/gh_pr_review.sh https://github.com/org/repo/pull/42
+# Example: bash skills/gh-pr-review/scripts/gh_pr_review.sh 42
+```
 
-Artifacts you’ll use:
+Creates `.gh-pr-review/pr-<n>/` and a starter doc `review-<n>.md` in the current directory.
+
+Artifacts produced:
 - `pr.json`: metadata (title, author, base/head, head SHA)
 - `diff.patch`: unified diff
 - `changed-lines.json`: per-file hunk + new-side line mapping
@@ -60,8 +65,19 @@ Artifacts you’ll use:
 - Offer a concrete fix or alternative (code-level suggestion).
 - Keep tone warm: assume good intent and help the contributor succeed.
 
+Example:
+```
+In `src/auth/login.py:47`, the token is compared with `==` instead of `hmac.compare_digest`.
+This opens a timing-attack vector on token validation.
+Suggestion: replace with `hmac.compare_digest(token, expected)`.
+```
+
 ## Scripts
 
-- `scripts/gh_pr_review.sh`: fetch PR metadata/diff/checks/logs and generate `review-<n>.md` skeleton.
-- `scripts/parse_unified_diff.py`: map diff hunks to new-side line numbers (scope enforcement).
-- `scripts/generate_review_md.py`: render the starter `review-<n>.md` from artifacts + template.
+All scripts live under `skills/gh-pr-review/scripts/` relative to the repo root.
+
+- `gh_pr_review.sh`: entry point — fetch PR metadata/diff/checks/logs, invoke the two helpers, output `review-<n>.md` skeleton.
+- `parse_unified_diff.py`: map diff hunks to new-side line numbers (scope enforcement).
+- `generate_review_md.py`: render `review-<n>.md` from artifacts + template.
+
+Reference: [assets/](`skills/gh-pr-review/assets/`) — review template and prompt fragments.
