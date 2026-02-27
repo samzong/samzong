@@ -34,6 +34,11 @@ def install_generated_skills(
         review_dir = managed_root / review_skill_name
         replace_path(review_dir)
         write_review_skill(review_dir, context, review_profile)
+    else:
+        # Ensure stale review output is removed when review generation is skipped by sufficiency gates.
+        stale_review_dir = managed_root / f"{context.identity.repo_name}-review"
+        if stale_review_dir.exists() or stale_review_dir.is_symlink():
+            replace_path(stale_review_dir)
 
     manifest = {
         "schema_version": "0.2",

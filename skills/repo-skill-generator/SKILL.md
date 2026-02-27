@@ -26,6 +26,7 @@ All generated content is written in English.
 - Stop if `gh` is unauthenticated. → Run `gh auth status` before generating review data; if not logged in, tell the user to run `gh auth login`.
 - Stop if the install target cannot be written. → Fix: check directory permissions or use `--install-root` to specify a writable path.
 - Do not touch skills outside the generator-managed coding/review skill names.
+- Do not generate a review skill when review evidence is insufficient. The generator enforces minimum thresholds for effective reviews, unique human reviewers, and substantive review excerpts.
 
 ## Default Workflow
 
@@ -58,6 +59,23 @@ python3 skills/repo-skill-generator/scripts/generate_repo_skills.py \
 python3 skills/repo-skill-generator/scripts/generate_repo_skills.py \
   --repo-root /path/to/repo \
   --install-root /tmp/repo-skill-generator-smoke
+
+# Solo-repo preset (sparse review activity)
+python3 skills/repo-skill-generator/scripts/generate_repo_skills.py \
+  --repo-root /path/to/repo \
+  --review-evidence-preset solo
+
+# Strict preset (heavier review history expected)
+python3 skills/repo-skill-generator/scripts/generate_repo_skills.py \
+  --repo-root /path/to/repo \
+  --review-evidence-preset strict
+
+# Override preset thresholds (advanced)
+python3 skills/repo-skill-generator/scripts/generate_repo_skills.py \
+  --repo-root /path/to/repo \
+  --min-effective-reviews 12 \
+  --min-unique-human-reviewers 3 \
+  --min-substantive-excerpts 6
 ```
 
 ### 3) Verify output
@@ -89,6 +107,11 @@ At the skill root:
 ## Notes
 
 - The generator collects real git and GitHub review evidence before producing skills.
+- Review skill generation is gated by evidence sufficiency; weak-review repositories may produce coding skill only.
+- Review sufficiency presets:
+  - `default`: `8` effective reviews, `2` unique human reviewers, `5` substantive excerpts
+  - `solo`: `3` effective reviews, `1` unique human reviewer, `2` substantive excerpts
+  - `strict`: `20` effective reviews, `3` unique human reviewers, `10` substantive excerpts
 - It writes repo-local skill directories and installs the `.claude/skills` symlink.
 - The analyzer is conservative when evidence is weak and says so through the generated evidence layer.
 
