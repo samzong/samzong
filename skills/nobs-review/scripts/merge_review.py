@@ -4,7 +4,10 @@ from __future__ import annotations
 import argparse
 import copy
 from collections import Counter
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from _common import list_round_ids, load_json, resolve_review_id, safe_float, to_round_id, write_json
 

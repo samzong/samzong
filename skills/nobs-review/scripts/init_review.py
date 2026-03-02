@@ -9,6 +9,8 @@ import secrets
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 from _common import build_context, git_changed_files, git_changed_loc, load_json, now_utc, sh, write_json
 
 

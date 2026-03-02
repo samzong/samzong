@@ -8,7 +8,10 @@ import re
 import shlex
 import subprocess
 import time
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from _common import (
     build_context,
