@@ -7,18 +7,18 @@ description: Multi-model code review for pull requests and git diffs. Use when a
 
 Multi-model review without runtime interception.
 
-- One shared contract per review: `.reviews/<review_id>/contract.json`
-- Rounds accumulate: `.reviews/<review_id>/rounds/rNNN/`
+- A single shared contract per review: `.reviews/<review_id>/contract.json`
+- Rounds accumulate in: `.reviews/<review_id>/rounds/rNNN/`
 
 ## Interaction Order
 
-1. Run init. Report detected dev tool and confidence.
+1. Run initialization. Report detected development tool and confidence level.
 2. Report risk analysis.
 3. Report recommended reviewers.
-4. Ask user to confirm or override.
-5. Run review.
+4. Prompt the user to confirm or override selections.
+5. Execute the review.
 
-Low-confidence detection: say so and continue.
+IF detected development tool confidence is low, THEN state the low confidence and proceed.
 
 ## Workflow
 
@@ -28,75 +28,82 @@ Low-confidence detection: say so and continue.
 python3 skills/nobs-review/scripts/init_review.py --task "<what to review>"
 ```
 
-Override tool detection:
+To override tool detection:
 
 ```bash
 python3 skills/nobs-review/scripts/init_review.py --task "<what to review>" --dev-tool claude
 ```
 
-Refresh existing review (keep history):
+To refresh an existing review and preserve history:
 
 ```bash
 python3 skills/nobs-review/scripts/init_review.py --id <review_id> --task "<updated scope>" --refresh
 ```
 
-Init detects the current dev tool, analyzes diff risk, pre-enables recommended reviewers in contract, and sets `.reviews/.active_review_id`.
+The `init` command performs the following actions:
+- Detects the current development tool.
+- Analyzes diff risk.
+- Pre-enables recommended reviewers in the contract.
+- Sets `.reviews/.active_review_id`.
 
-### 2) Confirm reviewers
+### 2) Confirm Reviewers
 
-Check `.reviews/<id>/contract.json`:
+Perform the following checks in `.reviews/<id>/contract.json`:
 - `reviewers[].enabled`
 - `reviewers[].command_template`
 
-Accept recommendation or pick your own.
+Accept the recommendation or select custom reviewers.
 
-### 3) Run round
+### 3) Run Round
 
 ```bash
 python3 skills/nobs-review/scripts/run_review.py --id <review_id> --round auto
 ```
 
-Or use active id:
+Or use the active ID:
 
 ```bash
 python3 skills/nobs-review/scripts/run_review.py --round auto
 ```
 
-Limit reviewers:
+To limit reviewers:
 
 ```bash
 python3 skills/nobs-review/scripts/run_review.py --id <review_id> --round auto --reviewers codex_high,claude_opus
 ```
 
-### 4) Merge findings
+### 4) Merge Findings
 
 ```bash
 python3 skills/nobs-review/scripts/merge_review.py --id <review_id> --round latest
 ```
 
-`--round auto` treated as `latest` in merge.
+The `--round auto` argument is treated as `latest` during the merge operation.
 
-Outputs per round: `merged.md`, `resolution.md` in `.reviews/<id>/rounds/rNNN/`.
-Latest pointers at review root (`merged-latest.md`, `resolution-latest.md`) are ephemeral — overwritten on next merge.
+Outputs per round include: `merged.md` and `resolution.md` located in `.reviews/<id>/rounds/rNNN/`.
+The latest pointers at the review root (`merged-latest.md`, `resolution-latest.md`) are ephemeral. They are overwritten on each subsequent merge.
 
-For persistent checklist edits, use round-scoped `resolution.md`.
+For persistent checklist edits, use the round-scoped `resolution.md`.
 
-### 5) Review auto-fix candidates
+### 5) Review Auto-Fix Candidates
 
-After merge, check `auto-fix-candidates.md` in the round directory (or `auto-fix-candidates-latest.md` at review root).
+After merging, check `auto-fix-candidates.md` in the round directory or `auto-fix-candidates-latest.md` at the review root.
 
-Findings listed there satisfy **both**:
-- `fix_determinism = high` — exactly one right fix, no judgment needed
-- `fix_scope = local` — change confined to 1–3 lines in one function
+Findings listed in this file satisfy both conditions:
+- `fix_determinism = high` (exactly one correct fix, no judgment required)
+- `fix_scope = local` (change confined to 1–3 lines within a single function)
 
-Apply each fix, mark `Applied: [x]`, commit, then run a new round to verify:
+Perform the following steps for each fix:
+- Apply the fix.
+- Mark `Applied: [x]`.
+- Commit the changes.
+- Run a new round to verify:
+    ```bash
+    python3 skills/nobs-review/scripts/run_review.py --round auto
+    python3 skills/nobs-review/scripts/merge_review.py --round latest
+    ```
 
-```bash
-python3 skills/nobs-review/scripts/run_review.py --round auto
-python3 skills/nobs-review/scripts/merge_review.py --round latest
-```
-
-Findings that do **not** appear in `auto-fix-candidates.md` require human judgment and are tracked in `resolution.md`.
+Findings not appearing in `auto-fix-candidates.md` require human judgment and are tracked in `resolution.md`.
 
 The `auto_fix_threshold` in `contract.json → policy` controls the boundary:
 
@@ -104,22 +111,22 @@ The `auto_fix_threshold` in `contract.json → policy` controls the boundary:
 "auto_fix_threshold": { "determinism": "high", "scope": "local" }
 ```
 
-Raise `determinism` to `medium` or `scope` to `cross-file` to widen the auto-fix set.
+To expand the set of auto-fix candidates, raise `determinism` to `medium` or `scope` to `cross-file`.
 
-### 6) Fix and re-review
+### 6) Fix and Re-review
 
 ```bash
 python3 skills/nobs-review/scripts/run_review.py --id <review_id> --round auto
 python3 skills/nobs-review/scripts/merge_review.py --id <review_id> --round latest
 ```
 
-Creates `r001 -> r002 -> ...` preserving history.
+This process creates `r001 -> r002 -> ...`, preserving history.
 
 ## Rules
 
-- Missing reviewer CLI: fail, don't fake.
-- Invalid JSON output: keep raw, mark parse failure.
-- No single round is final truth; compare across rounds.
+- IF a reviewer CLI is missing, THEN fail and do not fake the output.
+- IF JSON output is invalid, THEN keep raw output and mark the parse as failed.
+- No single round constitutes the final truth; comparison across multiple rounds is required.
 
 ## Output Contract
 
@@ -128,6 +135,6 @@ Creates `r001 -> r002 -> ...` preserving history.
 
 ## Notes
 
-- Deterministic logic lives in scripts; this skill is thin by design.
-- High-risk diffs: use at least two strong reviewers.
-- User decides final reviewer set; recommendation is advisory.
+- Deterministic logic resides in scripts; this skill is intentionally thin.
+- For high-risk diffs, employ at least two strong reviewers.
+- The user determines the final reviewer set; recommendations are advisory.

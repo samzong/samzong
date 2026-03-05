@@ -9,174 +9,150 @@ Analyze GitHub issues in the current repository and filter high-quality issues s
 
 ## Workflow
 
-### Step 1: Get Repository Info
+### Step 1: Get Repository Information
 
-Get the current repository's owner and repo name:
-
-```bash
-gh repo view --json nameWithOwner --jq '.nameWithOwner'
-```
-
-Parse into `{owner}` and `{repo}` variables for subsequent use.
-
-**Validation**: Ensure the output is in `owner/repo` format. If empty or error, verify you're in a git repository with a GitHub remote.
+1. Execute the command to retrieve the repository's owner and name:
+   ```bash
+   gh repo view --json nameWithOwner --jq '.nameWithOwner'
+   ```
+2. Parse the output into `{owner}` and `{repo}` variables.
+3. Validate the output format:
+   - IF the output is not in `owner/repo` format OR is empty OR an error occurs, THEN terminate execution and instruct the user to verify they are in a git repository with a GitHub remote.
 
 ### Step 2: Fetch Issue Data
 
-Use GraphQL API to fetch all open issues (supports pagination, no limit):
-
-```bash
-gh api graphql --paginate -f query='
-query($endCursor: String) {
-  repository(owner: "{owner}", name: "{repo}") {
-    issues(states: OPEN, first: 100, after: $endCursor) {
-      pageInfo { hasNextPage endCursor }
-      nodes {
-        number
-        title
-        url
-        createdAt
-        updatedAt
-        labels(first: 20) { nodes { name } }
-        assignees(first: 10) { nodes { login } }
-      }
-    }
-  }
-}'
-```
-
-**Validation**: Verify response contains `data.repository.issues.nodes` array. Handle errors:
-- `401/403`: Run `gh auth status` to check authentication
-- Rate limit: Wait and retry, or reduce `first` parameter
-- Empty nodes: Valid for new repos, proceed with empty issue list
+1. Fetch all open issues using the GitHub GraphQL API with pagination:
+   ```bash
+   gh api graphql --paginate -f query='
+   query($endCursor: String) {
+     repository(owner: "{owner}", name: "{repo}") {
+       issues(states: OPEN, first: 100, after: $endCursor) {
+         pageInfo { hasNextPage endCursor }
+         nodes {
+           number
+           title
+           url
+           createdAt
+           updatedAt
+           labels(first: 20) { nodes { name } }
+           assignees(first: 10) { nodes { login } }
+         }
+       }
+     }
+   }'
+   ```
+2. Validate the response:
+   - IF `data.repository.issues.nodes` array is not present, THEN
+     - IF error is `401` or `403`, THEN instruct the user to run `gh auth status` for authentication check.
+     - IF rate limit error occurs, THEN instruct to wait and retry, or reduce the `first` parameter.
+     - ELSE, consider it an error and terminate.
+   - IF `nodes` array is empty, THEN proceed with an empty issue list.
 
 ### Step 3: Detect Issues with Linked PRs
 
-Fetch all open PRs and their linked issues via `closingIssuesReferences`:
-
-```bash
-gh api graphql --paginate -f query='
-query($endCursor: String) {
-  repository(owner: "{owner}", name: "{repo}") {
-    pullRequests(states: OPEN, first: 100, after: $endCursor) {
-      pageInfo { hasNextPage endCursor }
-      nodes {
-        number
-        closingIssuesReferences(first: 10) {
-          nodes { number }
-        }
-      }
-    }
-  }
-}'
-```
-
-Also fetch recently merged PRs (to exclude already-fixed issues):
-
-```bash
-gh api graphql -f query='
-{
-  repository(owner: "{owner}", name: "{repo}") {
-    pullRequests(states: MERGED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
-      nodes {
-        number
-        closingIssuesReferences(first: 10) {
-          nodes { number }
-        }
-      }
-    }
-  }
-}'
-```
-
-Aggregate all PR-linked issue numbers into two categories:
-- `issues_with_open_pr`: Issues with in-progress PRs
-- `issues_with_merged_pr`: Issues fixed by merged PRs
-
-**Validation**: Both queries should return valid arrays. If `closingIssuesReferences` is empty for all PRs, that's valid (PRs may not link issues).
+1. Fetch all open pull requests and their linked issues:
+   ```bash
+   gh api graphql --paginate -f query='
+   query($endCursor: String) {
+     repository(owner: "{owner}", name: "{repo}") {
+       pullRequests(states: OPEN, first: 100, after: $endCursor) {
+         pageInfo { hasNextPage endCursor }
+         nodes {
+           number
+           closingIssuesReferences(first: 10) {
+             nodes { number }
+           }
+         }
+       }
+     }
+   }'
+   ```
+2. Fetch recently merged pull requests and their linked issues:
+   ```bash
+   gh api graphql -f query='
+   {
+     repository(owner: "{owner}", name: "{repo}") {
+       pullRequests(states: MERGED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
+         nodes {
+           number
+           closingIssuesReferences(first: 10) {
+             nodes { number }
+           }
+         }
+       }
+     }
+   }'
+   ```
+3. Aggregate linked issue numbers:
+   - Create `issues_with_open_pr` set: Contains issue numbers linked by open PRs.
+   - Create `issues_with_merged_pr` set: Contains issue numbers linked by merged PRs.
+4. Validate both queries return valid arrays. `closingIssuesReferences` can be empty.
 
 ### Step 4: Apply Filtering Rules
 
-**Exclusion Conditions** (exclude if any match):
+Evaluate each issue based on the following conditions for inclusion or exclusion. Each issue must have an `include_reason` or `exclude_reason`.
 
-| Condition | Detection Method |
-|-----------|------------------|
-| Assigned and active | `assignees` non-empty AND `updatedAt` within last 30 days |
-| Has in-progress PR | In `issues_with_open_pr` set |
-| Fixed by merged PR | In `issues_with_merged_pr` set |
-| Non-code contribution | See smart detection rules below |
-
-**Special Inclusion** (include even if assigned):
-
-| Condition | Description |
-|-----------|-------------|
-| Assigned but stale | `assignees` non-empty, but `updatedAt` >30 days ago AND not in `issues_with_open_pr` |
-
-Mark these issues as `[Stale]` in output, suggesting users may politely ask if help is needed.
-
-**Non-Code Contribution Detection** (smart detection, not just labels):
-
-1. **Label signals** (strong): Contains `question`/`support`/`duplicate`/`wontfix`/`invalid`
-2. **Title patterns** (medium):
-   - Ends with `?`
-   - Starts with "How to"/"How do I"/"Why does"/"What is"
-   - Contains "[Question]"/"[Help]"/"[Support]" prefix
-3. **Combined judgment**: If only title signals exist without label signals, use `gh issue view {number} --json body` to read first 500 chars of body for further judgment
-
-**Conservative Principle**: When uncertain, keep the issue in the list for user judgment.
+- **Exclusion Conditions**:
+  - IF ( `issue.assignees` is non-empty AND `issue.updatedAt` is within the last 30 days ) THEN exclude (reason: `Assigned and active`).
+  - IF `issue.number` is in `issues_with_open_pr` THEN exclude (reason: `Has in-progress PR`).
+  - IF `issue.number` is in `issues_with_merged_pr` THEN exclude (reason: `Fixed by merged PR`).
+  - IF `issue` is a non-code contribution based on the following rules:
+    1. **Label signals**: `issue.labels` contains any of `question`, `support`, `duplicate`, `wontfix`, `invalid`.
+    2. **Title patterns**:
+       - `issue.title` ends with `?`.
+       - `issue.title` starts with "How to", "How do I", "Why does", "What is".
+       - `issue.title` contains "[Question]", "[Help]", "[Support]" prefix.
+    3. **Combined judgment**:
+       - IF only title patterns match without label signals, THEN retrieve the first 500 characters of `issue.body` using `gh issue view {issue.number} --json body` for further judgment.
+       - IF determined to be non-code contribution, THEN exclude (reason: `Non-code contribution`).
+- **Special Inclusion Condition**:
+  - IF (`issue.assignees` is non-empty AND `issue.updatedAt` is older than 30 days AND `issue.number` is NOT in `issues_with_open_pr`) THEN include (reason: `Assigned but stale`). Mark the issue as `[Stale]` in the output.
+- **Conservative Principle**: If an issue's status is uncertain, it must be included for user judgment.
 
 ### Step 5: Group by Priority
 
-Refer to `references/priority-labels.md` for priority definitions:
+Assign a priority to each *included* issue based on its labels:
 
-| Priority | Condition | Description |
-|----------|-----------|-------------|
-| P0 | Both `help-wanted` AND `good-first-issue` | Reserved for community newcomers |
-| P1 | Has `good-first-issue` | Beginner-friendly task |
-| P2 | Has `help-wanted` | Needs community help |
-| P3 | Has `kind/bug` or `bug` | Clear problem description |
-| P4 | Has `kind/documentation` / `kind/cleanup` / `documentation` | Small optimization tasks |
-| P5 | Other | May need more context |
+- **P0**: IF `issue.labels` contains both `help-wanted` AND `good-first-issue` THEN `P0` (Description: `Reserved for community newcomers`).
+- **P1**: ELSE IF `issue.labels` contains `good-first-issue` THEN `P1` (Description: `Beginner-friendly task`).
+- **P2**: ELSE IF `issue.labels` contains `help-wanted` THEN `P2` (Description: `Needs community help`).
+- **P3**: ELSE IF `issue.labels` contains `kind/bug` OR `bug` THEN `P3` (Description: `Clear problem description`).
+- **P4**: ELSE IF `issue.labels` contains `kind/documentation` OR `kind/cleanup` OR `documentation` THEN `P4` (Description: `Small optimization tasks`).
+- **P5**: ELSE `P5` (Description: `May need more context`).
 
 ### Step 6: Generate Report Files
 
-**Must generate two files** in current working directory:
+Generate the following two files in the current working directory:
 
 #### 6.1 `issues-report.json` (Machine-readable)
 
-Complete audit data for all issues. See `references/output-examples.md` for detailed schema and examples.
-
-Key fields:
-- `metadata`: Repository info, scan time, counts
-- `issues[]`: Each issue with `included`, `priority`, `status`, and `include_reason`/`exclude_reason`
+1. Create a JSON file named `issues-report.json`.
+2. Populate the file with complete audit data for all issues, adhering to the schema specified in `references/output-examples.md`.
+3. Ensure the `metadata` object contains repository information, scan time, and issue counts.
+4. Ensure each issue object in the `issues[]` array includes `included` (boolean), `priority` (string), `status` (string), and either `include_reason` or `exclude_reason` (string).
 
 #### 6.2 `issues-report.md` (Human-readable)
 
-Grouped by priority with Markdown tables. See `references/output-examples.md` for format template.
-
-Key sections:
-- Priority groups (P0-P5) with issue tables
-- Summary statistics
-- Exclusion reasons distribution
-
-Skip empty priority groups.
+1. Create a Markdown file named `issues-report.md`.
+2. Structure the file with sections grouped by priority (P0-P5) using Markdown tables, following the format template in `references/output-examples.md`.
+3. Include summary statistics.
+4. Include a distribution of exclusion reasons.
+5. Omit any priority groups that have no issues.
 
 ## Hard Constraints
 
-- Use `gh` CLI GraphQL API to ensure complete data retrieval
-- Only analyze the GitHub project corresponding to the current git repository
-- Read-only operations, do not modify any issue status
-- PR linkage detection uses official `closingIssuesReferences` field, do not parse PR body
-- **Must generate both `issues-report.json` and `issues-report.md` files**
-- **Every issue must include `include_reason` or `exclude_reason` for auditability**
+- Utilize the `gh` CLI GraphQL API exclusively for all data retrieval.
+- Scope analysis to the GitHub project corresponding to the current Git repository.
+- Operations MUST be read-only; no modifications to issue status are permitted.
+- PR linkage detection MUST use the `closingIssuesReferences` field; parsing of PR body text is forbidden for this purpose.
+- Both `issues-report.json` and `issues-report.md` files MUST be generated.
+- Every issue in the `issues-report.json` MUST include either an `include_reason` or an `exclude_reason` for auditability.
 
 ## Error Recovery
 
-| Error | Recovery Action |
-|-------|-----------------|
-| `gh` not installed | Prompt user to install GitHub CLI |
-| Not authenticated | Run `gh auth login` |
-| Not a git repository | Prompt user to navigate to a git repo |
-| No GitHub remote | Verify remote URL points to GitHub |
-| Rate limited | Wait for reset or reduce batch size |
-| Empty repository | Generate report with zero issues |
+- IF `gh` CLI is not installed, THEN prompt the user to install GitHub CLI.
+- IF `gh` is not authenticated, THEN instruct the user to run `gh auth login`.
+- IF not in a Git repository, THEN prompt the user to navigate to a Git repository.
+- IF no GitHub remote is configured, THEN prompt the user to verify the remote URL points to GitHub.
+- IF a rate limit is encountered, THEN instruct the user to wait for reset or reduce batch size.
+- IF the repository is empty, THEN generate reports with zero issues.

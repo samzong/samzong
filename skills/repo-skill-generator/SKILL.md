@@ -7,40 +7,37 @@ description: Generate repo-local coding and review skills from a repository's gi
 
 ## Overview
 
-Generate two repo-local skills from real repository history:
+Generate two repo-local skills from repository history:
 
-- a `coding` skill derived from git commits and diffs
-- a `review` skill derived from GitHub PR review activity
+- A `coding` skill derived from Git commits and diffs.
+- A `review` skill derived from GitHub PR review activity.
 
-The generated artifacts are installed into:
+Generated artifacts are installed into:
 
-- `./.agents/skills/` as the canonical repo-local source
-- `./.claude/skills` as a symlink pointing to `./.agents/skills`
+- `./.agents/skills/` as the canonical repo-local source.
+- `./.claude/skills` as a symlink pointing to `./.agents/skills`.
 
-All generated content is written in English.
+All generated content is in English.
 
 ## Hard Gates
 
-- Stop if the target `repo-root` is not a git repository. → Fix: `cd` to a valid git repo or pass `--repo-root` pointing to one.
-- Stop if `gh` is missing when generating review data. → Fix: tell the user to install GitHub CLI (see https://cli.github.com/).
-- Stop if `gh` is unauthenticated. → Run `gh auth status` before generating review data; if not logged in, tell the user to run `gh auth login`.
-- Stop if the install target cannot be written. → Fix: check directory permissions or use `--install-root` to specify a writable path.
-- Do not touch skills outside the generator-managed coding/review skill names.
-- Do not generate a review skill when review evidence is insufficient. The generator enforces minimum thresholds for effective reviews, unique human reviewers, and substantive review excerpts.
+- IF the target `repo-root` is not a Git repository, THEN terminate. FIX: `cd` to a valid Git repository or pass `--repo-root` pointing to one.
+- IF `gh` is missing when generating review data, THEN terminate. FIX: Install GitHub CLI (refer to https://cli.github.com/).
+- IF `gh` is unauthenticated, THEN terminate. ACTION: Run `gh auth status` before generating review data. If not logged in, run `gh auth login`.
+- IF the install target is unwritable, THEN terminate. FIX: Check directory permissions or use `--install-root` to specify a writable path.
+- Do not modify skills outside generator-managed coding/review skill names.
+- Do not generate a review skill if review evidence is insufficient. The generator enforces minimum thresholds for effective reviews, unique human reviewers, and substantive review excerpts.
 
 ## Default Workflow
 
 ### 1) Pre-flight checks
 
-```bash
-gh auth status
-```
-
-Confirm `gh` is authenticated. If not, tell the user to run `gh auth login`.
+1.  Execute `gh auth status`.
+2.  IF `gh` is not authenticated, THEN instruct the user to run `gh auth login`.
 
 ### 2) Generate skills
 
-Pick the command that matches the use case:
+Execute the command that matches the use case:
 
 ```bash
 # Current repo
@@ -80,13 +77,13 @@ python3 skills/repo-skill-generator/scripts/generate_repo_skills.py \
 
 ### 3) Verify output
 
-After generation completes, confirm all three:
+After generation completes, confirm all three conditions:
 
-1. `generator-meta.json` exists in each generated skill directory.
-2. `.repo-skill-generator-manifest.json` exists at the skill root.
-3. `.claude/skills` symlink points to `.agents/skills/`.
+1.  `generator-meta.json` exists in each generated skill directory.
+2.  `.repo-skill-generator-manifest.json` exists at the skill root.
+3.  `.claude/skills` symlink points to `.agents/skills/`.
 
-If any check fails, review the script's stderr for which step errored and re-run from step 2.
+IF any check fails, THEN review the script's stderr for the erroring step and re-run from step 2.
 
 ## What The Script Produces
 
@@ -106,14 +103,14 @@ At the skill root:
 
 ## Notes
 
-- The generator collects real git and GitHub review evidence before producing skills.
-- Review skill generation is gated by evidence sufficiency; weak-review repositories may produce coding skill only.
+- The generator collects Git and GitHub review evidence before producing skills.
+- Review skill generation is gated by evidence sufficiency. Repositories with weak review evidence may produce only a coding skill.
 - Review sufficiency presets:
-  - `default`: `8` effective reviews, `2` unique human reviewers, `5` substantive excerpts
-  - `solo`: `3` effective reviews, `1` unique human reviewer, `2` substantive excerpts
-  - `strict`: `20` effective reviews, `3` unique human reviewers, `10` substantive excerpts
-- It writes repo-local skill directories and installs the `.claude/skills` symlink.
-- The analyzer is conservative when evidence is weak and says so through the generated evidence layer.
+  - `default`: `8` effective reviews, `2` unique human reviewers, `5` substantive excerpts.
+  - `solo`: `3` effective reviews, `1` unique human reviewer, `2` substantive excerpts.
+  - `strict`: `20` effective reviews, `3` unique human reviewers, `10` substantive excerpts.
+- The script writes repo-local skill directories and installs the `.claude/skills` symlink.
+- The analyzer is conservative when evidence is weak and indicates this through the generated evidence layer.
 
 ## References
 
