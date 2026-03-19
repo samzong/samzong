@@ -1,114 +1,102 @@
 ---
 name: critical-bug-finder
 description: >
-  Find critical implementation bugs that cause crashes, data corruption, security vulnerabilities,
-  deadlocks, race conditions, or fundamentally broken logic. Use when: user says "find bugs",
-  "find critical bugs", "audit for bugs", "check for fatal bugs", "security audit code",
-  "find vulnerabilities", "bug hunt", "reliability check", or any request to scan code for
-  severe implementation defects. Also triggers on: "crash", "data loss", "race condition",
-  "deadlock", "SQL injection", "XSS", "RCE". Does NOT trigger for: code review, refactoring,
-  style checks, performance optimization, or design feedback.
+  Find critical implementation bugs that can crash production, corrupt data,
+  bypass security, deadlock, race, or break core logic. Use for explicit fatal
+  bug hunts such as "find critical bugs", "audit for fatal bugs",
+  "security vulnerability audit", "race condition audit", "find crash or
+  data loss bugs", or reliability incident reviews. Do not use for general
+  code review, refactoring, style feedback, or routine performance analysis.
+argument-hint: [path] [--full] [--quick] [--security-only|--concurrency-only] [--format json|md] [--write-report] [--max-findings N]
 ---
+
+IRON LAW: NEVER REPORT A BUG WITHOUT A CONCRETE TRIGGER, A REAL FAILURE MODE, AND A SEVERE CONSEQUENCE.
 
 # Critical Bug Finder
 
-Assume the role of a Senior Reliability & Security Engineer. The sole mission: find implementation
-bugs that would cause production incidents.
+Use `$ARGUMENTS` and the user's wording to define scope before scanning.
 
-## Qualifying Bug Categories (report ONLY these)
+## Options
 
-1. **Crash / panic / uncaught exception** - unhandled error paths, null dereferences, type errors at runtime
-2. **Data corruption / loss / silent wrong results** - write-after-write conflicts, truncated writes, missing atomicity
-3. **Security vulnerabilities** - SQL injection, XSS, RCE, path traversal, auth bypass, credential exposure, SSRF
-4. **Infinite loop / deadlock / resource exhaustion** - unbounded allocations, lock ordering violations, missing loop exits
-5. **Race conditions** - TOCTOU, unprotected shared state, non-atomic check-then-act
-6. **Core logic errors** - actual behavior contradicts documented/intended behavior
+- `<path>`: file or directory to audit
+- `--full`: audit the full repository
+- `--quick`: skip confirmation gates when scope and output mode are explicit
+- `--security-only`: only report security vulnerabilities
+- `--concurrency-only`: only report races, deadlocks, or TOCTOU bugs
+- `--format json|md`: output format, default `md`; if `json`, load `references/output-format.md`
+- `--write-report`: write a report file after presenting findings
+- `--max-findings N`: cap reported findings, default `10`
 
-## Strict Exclusions (NEVER report)
+Copy this checklist and check off items as you complete them:
 
-- Design opinions, architecture suggestions, naming conventions
-- Performance issues (slow queries, missing indexes, O(n^2) unless it causes OOM)
-- Code style, readability, documentation gaps
-- Refactoring opportunities, DRY violations
-- "Nice to have" improvements
+- [ ] Step 0: Define scope [BLOCKING]
+  - [ ] Parse `$ARGUMENTS`
+  - [ ] If `<path>` is provided, scope to it
+  - [ ] If `--full` is provided, scan the full repo
+  - [ ] If scope is unclear and `--full` is absent, ask one focused question before scanning
+- [ ] Step 1: Build the risk map [BLOCKING]
+  - [ ] Identify high-risk files first: input boundaries, state mutations, DB or file writes, auth checks, concurrency, error handling
+  - [ ] For large repos, split one top-level directory or subsystem per subagent, starting with the riskiest areas first
+- [ ] Step 2: Audit [REQUIRED]
+  - [ ] Load `references/checklist.md`
+  - [ ] Ask: can bad input crash this path, corrupt state, bypass auth, exhaust resources, or create a race
+  - [ ] Ask: can two requests or two processes break assumptions here
+  - [ ] Ask: does the code mutate state without atomicity, rollback, or ordering guarantees
+- [ ] Step 3: Validate candidates [REQUIRED]
+  - [ ] Keep only findings with a concrete trigger scenario
+  - [ ] Keep only findings with a real severe consequence
+  - [ ] Keep only findings with a specific code location
+  - [ ] Discard theoretical, stylistic, or low-impact issues
+- [ ] Step 4: Present findings [REQUIRED]
+  - [ ] Report the highest-confidence findings first
+  - [ ] Respect `--max-findings N`
+  - [ ] State audited scope and anything not checked
+- [ ] Step 5: Write report (conditional)
+  - [ ] Only if the user requested file output or passed `--write-report`
+  - [ ] Unless `--quick` was passed with explicit output mode, ask before writing files
 
-## Workflow
+## Qualifying categories
 
-### Phase 1: Scope
+- Crash, panic, uncaught exception, or unrecoverable runtime failure
+- Data corruption, data loss, or silently wrong results
+- Security vulnerability such as SQL injection, XSS, RCE, SSRF, path traversal, auth bypass, or secret exposure
+- Infinite loop, deadlock, resource exhaustion, or unbounded growth that can take the system down
+- Race condition or TOCTOU bug with a realistic failure path
+- Core logic contradiction that breaks documented or clearly intended behavior
 
-1. If user specifies files/directories, scope to those. Otherwise scan the full project.
-2. Read CLAUDE.md or equivalent to understand the project's expected behavior.
-3. Identify high-risk areas: state mutations, DB/file operations, concurrency, input handling, auth checks.
+## Exclusions
 
-### Phase 2: Systematic Audit
+- Architecture opinions, refactors, naming, readability, or style
+- Performance complaints unless they realistically cause outage, OOM, or resource exhaustion
+- Missing tests, docs, or logging by themselves
+- "Could be risky" claims without a concrete exploit or failure path
 
-Use a multi-agent team for large codebases. Assign each agent a directory or module.
+## Output
 
-For each file, analyze in order of risk:
+If `--format json`, load `references/output-format.md` and follow its schema exactly.
 
-1. **Input boundaries** - user input, API params, file reads, env vars. Check: validation, sanitization, type coercion.
-2. **State mutations** - DB writes, file writes, in-memory state changes. Check: atomicity, error rollback, ordering.
-3. **Concurrency** - shared mutable state, async operations, locks. Check: race conditions, deadlocks, TOCTOU.
-4. **Error paths** - catch blocks, error callbacks, finally blocks. Check: swallowed errors, incomplete cleanup, resource leaks.
-5. **Auth/authz** - permission checks, session handling, token validation. Check: bypass routes, privilege escalation.
-6. **Crypto/secrets** - key handling, hashing, random generation. Check: hardcoded secrets, weak algorithms, timing attacks.
+For each finding, include:
 
-### Phase 3: Validate Findings
+- `severity`: `CRITICAL` or `HIGH`
+- `location`: `file:line` or exact symbol
+- `category`: one qualifying category
+- `description`: one sentence
+- `trigger`: concrete scenario
+- `why_fatal`: why the impact is severe
+- `suggested_fix`: minimal fix direction
 
-For each candidate bug, verify:
-- It actually triggers under realistic conditions (not just theoretical)
-- The consequence matches one of the 6 qualifying categories
-- A concrete exploit path or failure scenario exists
+If no qualifying bugs are found, say so clearly and list the audited scope.
 
-Discard anything that doesn't pass all three checks.
+## Report file
 
-### Phase 4: Output
+If writing a file, save it in the project root as `bugs_<4-char>.md`.
 
-Save results to `./bugs_{4-random-chars}.md` in the project root.
+Typical downstream: use `bugfix-dispatch` when the user wants to split confirmed findings into PR-sized worktrees.
 
-Use this exact format:
+## Do not
 
-````markdown
-# Critical Bug Audit Report
-
-**Project**: {project name}
-**Date**: {date}
-**Scope**: {files/dirs audited}
-
-## Findings
-
-```json
-{
-  "critical_bugs": [
-    {
-      "severity": "CRITICAL or HIGH",
-      "location": "file:line or function_name",
-      "description": "One sentence: what the bug is",
-      "why_fatal": "Why this causes one of the 6 qualifying consequences",
-      "trigger": "Concrete scenario that triggers this bug",
-      "suggested_fix": "Minimal code patch (only necessary changes)"
-    }
-  ],
-  "files_audited": ["list of files examined"],
-  "summary": "Found N critical bugs across M files"
-}
-```
-
-## Details
-
-For each bug, include:
-- Full code context (the vulnerable code block)
-- Step-by-step trigger scenario
-- Suggested fix with diff
-````
-
-If zero qualifying bugs are found, output:
-
-```json
-{"critical_bugs": [], "files_audited": [...], "summary": "No critical implementation bugs found"}
-```
-
-## Checklist Reference
-
-See [references/checklist.md](references/checklist.md) for the detailed per-language vulnerability checklist
-used during Phase 2 analysis.
+- Do not report generic code review issues
+- Do not report speculative vulnerabilities without a trigger path
+- Do not inflate severity for medium or low issues
+- Do not write a report file unless the user asked for it or passed `--write-report`
+- Do not claim a full-repo audit if the scan was partial

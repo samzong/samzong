@@ -1,130 +1,116 @@
 ---
 name: gmc
 description: >
-  Git workflow automation via `gmc` CLI: LLM-powered commit messages, worktree lifecycle management
-  (bare repo pattern), PR-aware worktree cleanup, shared resource discovery and sync.
-  Use when: (1) user says "gmc" and wants to create/manage worktrees, (2) user wants to clean up
-  merged worktrees, (3) user wants to discover and sync shared files across worktrees,
-  (4) user wants to generate commit messages with gmc, (5) user mentions "worktree", "wt",
-  "gmc wt add", "gmc cleanup", "gmc share", "gmc prune", "gmc sync".
-  Triggers on: gmc, worktree management, worktree cleanup, worktree share, worktree sync.
-  CRITICAL: All worktree commands are subcommands of `gmc wt`, NOT `gmc` directly.
-  `gmc add` is INVALID. The correct command is `gmc wt add`.
+  Use the `gmc` CLI for explicit gmc requests: generate commit messages,
+  create or remove worktrees, prune merged worktrees, discover or sync shared
+  resources, or run other `gmc wt` subcommands. Triggers mainly when the user
+  invokes `/gmc` or mentions `gmc wt add`, `gmc wt prune`, `gmc wt share`,
+  `gmc wt sync`, `gmc tag`, or asks to use gmc for commit or worktree
+  automation. Do not use for generic git or generic worktree requests unless
+  the user specifically wants `gmc`.
+argument-hint: [commit|wt add <name>|wt prune|wt share|wt sync|tag] [--dry-run] [--sync] [-b branch] [--force] [--auto] [-a] [-y]
 ---
+
+IRON LAW: ALL WORKTREE OPERATIONS MUST USE `gmc wt <subcommand>`. NEVER INVENT `gmc add`, `gmc rm`, `gmc prune`, `gmc clone`, OR OTHER TOP-LEVEL WORKTREE COMMANDS.
 
 # gmc
 
-`gmc` is a Go CLI at `/Users/x/go/bin/gmc` (installed via Homebrew).
+Use `$ARGUMENTS` and the user's words to route into exactly one mode.
 
-## Quick Reference
+Use the loaded skill base directory as `SKILL_DIR` when running bundled scripts.
 
-| Task | Command |
-|---|---|
-| Commit with LLM message | `gmc -a -y` |
-| Create worktree | `gmc wt add <name>` |
-| Create from specific base | `gmc wt add <name> -b <branch>` |
-| List worktrees | `gmc wt ls` |
-| Switch worktree | `gmc wt switch` |
-| Remove worktree | `gmc wt rm <name>` |
-| Remove + delete branch | `gmc wt rm -D <name>` |
-| Prune merged worktrees | `gmc wt prune` |
-| Clone as bare repo | `gmc wt clone <url>` |
-| PR review worktree | `gmc wt pr-review <PR#>` |
-| Parallel dev worktrees | `gmc wt dup [count]` |
-| Promote temp branch | `gmc wt promote <wt> <branch>` |
-| Sync base branch | `gmc wt sync` |
-| Manage shared files | `gmc wt share [add|ls|rm|sync]` |
-| Suggest version tag | `gmc tag` |
+Copy this checklist and check off items as you complete them:
 
-## IMPORTANT: Command Structure
+- [ ] Step 0: Parse intent [BLOCKING]
+  - [ ] Classify the request as `commit`, `wt add`, `wt prune`, `wt share`, `wt sync`, `wt rm`, `wt ls`, `wt dup`, `wt pr-review`, or `tag`
+  - [ ] If the intent is unclear, ask one focused question before running commands
+- [ ] Step 1: Validate context [BLOCKING]
+  - [ ] Confirm `gmc` exists
+  - [ ] Confirm the current directory is a git repo when the command needs repo context
+  - [ ] If the action depends on GitHub state, confirm `gh` works first
+- [ ] Step 2: Preview plan [REQUIRED]
+  - [ ] Show the exact command you plan to run
+  - [ ] For destructive or bulk actions, prefer `--dry-run` first
+- [ ] Step 3: Execute exactly one workflow
+  - [ ] `commit`
+  - [ ] `wt add`
+  - [ ] `wt prune`
+  - [ ] `wt share`
+  - [ ] other `gmc wt` subcommand or `tag`
+- [ ] Step 4: Report result
+  - [ ] State the exact command run
+  - [ ] Report the created path, cleaned worktrees, synced resources, or generated message
+  - [ ] State what was not run
 
-`gmc` has TWO top-level modes:
-- `gmc [flags]` — commit mode (generate commit messages)
-- `gmc wt <subcommand>` — worktree mode (all worktree operations)
+## Routing
 
-**`gmc add` is NOT a valid command.** Worktree creation is `gmc wt add`.
-Never run `gmc add`, `gmc rm`, `gmc prune`, `gmc clone` etc. — always prefix with `gmc wt`.
+- `commit` uses top-level `gmc`
+- Any worktree action uses `gmc wt <subcommand>`
+- If the user says `gmc add`, translate it to `gmc wt add` and say so
+- If the user wants generic git help without `gmc`, do not use this skill
 
-## Workflow 1: Create Worktree
+## Common commands
 
-When user says "add worktree X", "create worktree X", or "gmc wt add X":
+- `gmc`
+- `gmc -y`
+- `gmc -a -y`
+- `gmc -a -y -p "context"`
+- `gmc --dry-run`
+- `gmc wt add <name>`
+- `gmc wt add <name> --sync`
+- `gmc wt add <name> -b <branch>`
+- `gmc wt ls`
+- `gmc wt rm <name>`
+- `gmc wt rm -D <name>`
+- `gmc wt prune`
+- `gmc wt sync`
+- `gmc wt share ls`
+- `gmc wt share add <path> --strategy copy`
+- `gmc wt share add <path> --strategy link`
+- `gmc wt share sync`
+- `gmc tag`
 
-```bash
-gmc wt add <name>
-gmc wt add <name> --sync          # pull latest base first
-gmc wt add <name> -b <branch>     # from specific branch
-gmc wt add name1 name2 name3      # multiple at once
-```
+## Workflow: commit mode
 
-After creation, report the worktree path. Directory names use `--` as separator (e.g., `feat--my-feature`).
+- Use top-level `gmc`, not `gmc wt`
+- Default to interactive `gmc` unless the user explicitly wants automation
+- Ask before `gmc -a -y` because it stages all files and auto-confirms
+- Use `gmc --dry-run` when the user wants a suggested message without committing
 
-## Workflow 2: Cleanup Merged Worktrees
+## Workflow: create worktree
 
-When user says "gmc cleanup", "clean worktrees", or "prune merged":
+- Use `gmc wt add <name>`
+- Use `-b <branch>` only if the user provided a base branch or asked for one
+- Use `--sync` only when the user wants the latest base first
+- After creation, report the worktree path
 
-### Option A: Quick (git-only, no GitHub check)
-```bash
-gmc wt prune --dry-run   # preview
-gmc wt prune             # execute
-```
+## Workflow: prune merged worktrees
 
-### Option B: PR-aware (checks GitHub PR status)
-Run the bundled script:
-```bash
-bash <skill-dir>/scripts/wt-cleanup.sh --dry-run   # preview
-bash <skill-dir>/scripts/wt-cleanup.sh              # execute
-```
+- For local-only cleanup, run `gmc wt prune --dry-run` first
+- For PR-aware cleanup, run `bash "$SKILL_DIR/scripts/wt-cleanup.sh" --dry-run` first
+- Ask before actual removal
+- Use `--force` only with explicit user approval
 
-The script cross-references each worktree's branch against GitHub PRs via `gh`:
-- **MERGED PR + clean worktree** -> safe to remove (with `-D` to delete branch)
-- **MERGED PR + dirty worktree** -> skipped unless `--force`
-- **CLOSED PR (not merged)** -> skipped
-- **No PR / open PR** -> skipped
+## Workflow: shared resources
 
-Always show dry-run output first and confirm with user before actual removal.
+- For discovery, run `bash "$SKILL_DIR/scripts/wt-share-discover.sh" --dry-run`
+- Use `bash "$SKILL_DIR/scripts/wt-share-discover.sh" --auto` only with explicit approval
+- For manual control, use `gmc wt share add`, `gmc wt share ls`, `gmc wt share rm`, or `gmc wt share sync`
+- Prefer `copy` for env files or local config
+- Prefer `link` for large identical directories such as `node_modules` or `.venv`
 
-## Workflow 3: Share Discovery and Sync
+## Confirmation gates
 
-When user says "gmc share", "discover shared files", or "sync worktrees":
+- Ask before `gmc -a -y`
+- Ask before `gmc wt rm -D <name>`
+- Ask before any non-dry-run prune
+- Ask before `bash "$SKILL_DIR/scripts/wt-share-discover.sh" --auto`
+- Ask before `--force`
 
-### Auto-discover shareable files
-```bash
-bash <skill-dir>/scripts/wt-share-discover.sh --dry-run   # preview
-bash <skill-dir>/scripts/wt-share-discover.sh --auto       # add and sync
-```
+## Do not
 
-Scans main worktree for common shareable files:
-- **Copy strategy** (isolated per wt): `.env`, `.env.local`, `.claude/settings.json`, `.claude/CLAUDE.md`, `.serena/project.yml`
-- **Link strategy** (shared, saves disk): `node_modules`, `.venv`, `vendor`
-
-### Manual share management
-```bash
-gmc wt share add .env --strategy copy
-gmc wt share add node_modules --strategy link
-gmc wt share ls
-gmc wt share sync
-gmc wt share rm <path>
-```
-
-Strategy guidance:
-- **copy**: Files that may differ per worktree (env files, local config)
-- **link**: Large identical directories (node_modules, .venv)
-
-## Workflow 4: Commit with LLM
-
-```bash
-gmc                    # interactive: review diff, generate message, confirm
-gmc -y                 # auto-confirm
-gmc -a -y              # stage all + auto-confirm
-gmc -a -y -p "context" # with extra context for LLM
-gmc --dry-run          # generate message only
-```
-
-## Notes
-
-- `gmc wt` uses the bare repository pattern (`.bare/` + worktree dirs as siblings)
-- Worktree directory names replace `/` with `--` in branch names
-- `gmc wt switch` requires shell integration: `eval "$(gmc wt init zsh)"`
-- Share config lives at `.bare/gmc-share.yml` (or `.git/gmc-share.yml`)
-- Always `cd` into a worktree directory before running gmc commands
-- Replace `<skill-dir>` with the actual skill directory path when running scripts
+- Do not run `gmc add`, `gmc rm`, `gmc prune`, `gmc clone`, or `gmc share`
+- Do not skip dry-run for cleanup when a preview exists
+- Do not use `--auto`, `-a -y`, `-D`, or `--force` without explicit user approval
+- Do not guess worktree paths, base branches, or GitHub state
+- Do not mix commit mode and worktree mode in the same command

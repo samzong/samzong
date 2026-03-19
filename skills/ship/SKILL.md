@@ -1,145 +1,95 @@
 ---
 name: ship
 description: >
-  Strict release automation: strip AI comments from staged files, check for Chinese characters,
-  create branch, commit with conventional format, push, and open PR via gh CLI.
-  Use when: user says "ship", "ship it", "open PR", "create PR", "push and PR",
-  "commit and PR", "send it", or wants to go from staged changes to a merged-ready PR
-  in one shot. ALL generated output (commit messages, branch names, PR titles, PR body)
-  MUST be in English.
+  Ship staged changes through a narrow release flow: optionally clean staged files,
+  optionally block unexpected non-i18n CJK additions, create or keep a branch,
+  commit staged work, push, and open a pull request.
+  Use mainly when the user explicitly invokes `/ship` or says "ship it",
+  "push and PR", or "commit and PR". Do not use for commit-only, push-only,
+  PR-only, or existing-PR editing requests. All generated git and GitHub text
+  must be in English.
 ---
 
-# Ship — Clean, Commit, and Open PR
+IRON LAW: NEVER PUSH OR OPEN A PR WITHOUT SHOWING THE EXACT STAGED SCOPE, BRANCH NAME, COMMIT MESSAGE, AND PR DRAFT FIRST.
 
-Strict release automation agent. **ALL output (commit messages, branch names, PR titles, PR body) MUST be in English.**
+# Ship
 
-Stop immediately and report to the user if any step fails.
+Stop immediately and report the failure if any required step fails.
 
-## Step 1: Simplify + Strip AI Comments
+Copy this checklist and check off items as you complete them:
 
-Run `git diff --cached --name-only` to get staged files. **Only touch staged files.**
+- [ ] Step 0: Preflight ⛔ BLOCKING
+  - [ ] Run `git diff --cached --name-only` and stop if nothing is staged
+  - [ ] Run `git branch --show-current`
+  - [ ] Confirm `origin` exists
+  - [ ] Run `gh auth status`
+- [ ] Step 1: Review staged scope
+  - [ ] Run `git diff --cached --stat`
+  - [ ] List staged files for the user
+- [ ] Step 2: Optional cleanup confirmation ⚠️ REQUIRED
+  - [ ] Ask whether to simplify staged source files and remove AI narration comments before commit
+  - [ ] If the `no-comment` skill is available, prefer it for staged narration comment stripping
+  - [ ] If approved, touch staged files only
+  - [ ] Keep why-comments, lint directives, suppression comments, JSDoc/TSDoc, and license headers
+- [ ] Step 3: Content validation ⚠️ REQUIRED
+  - [ ] Check added lines only for CJK characters
+  - [ ] Ignore i18n or translation paths such as `**/i18n/**`, `**/locales/**`, `**/translations/**`, `*.zh*.json`, `*.zh*.ts`, `*.zh*.yaml`, `*zh-CN*`, `*zh-TW*`
+  - [ ] Stop if non-i18n files contain added CJK lines
+- [ ] Step 4: Branch and commit draft
+  - [ ] Stay on the current branch if it is not `main`
+  - [ ] If on `main`, create a branch like `feat/<slug>`, `fix/<slug>`, `refactor/<slug>`, `docs/<slug>`, or `build/<slug>`
+  - [ ] Run `git log --oneline -10` for commit style reference
+  - [ ] Draft one commit message in conventional format: `type(scope): description`
+- [ ] Step 5: Publish confirmation ⚠️ REQUIRED
+  - [ ] Show the staged files, branch name, commit message, PR title, and PR body draft
+  - [ ] Ask the user to continue or revise
+- [ ] Step 6: Commit
+  - [ ] Do not run `git add`
+  - [ ] Match the repo's normal signing convention before committing
+  - [ ] Commit staged changes only, for example `git commit -m "type(scope): description"` or `git commit -s -m "type(scope): description"`
+- [ ] Step 7: Push and open PR
+  - [ ] Run `git push -u origin HEAD`
+  - [ ] If `.github/PULL_REQUEST_TEMPLATE.md` exists, follow it
+  - [ ] Otherwise use the fallback body below
+- [ ] Step 8: Report
+  - [ ] Report cleanup count, branch name, commit message, and PR URL
 
-**1a. Simplify** — For each staged source file, apply the `simplify` skill logic: inline single-use wrappers, delete unused abstractions, flatten unnecessary indirection. Do NOT change behavior or break APIs.
+## Cleanup rules
 
-**1b. Strip AI comments** — For each staged source file (`.ts`, `.tsx`, `.js`, `.jsx`, `.css`), remove single-line comments that are AI narration:
+Remove staged single-line comments that only narrate the next line, such as `// Create the ...`, `// Initialize ...`, `// Handle ...`, `// Set up ...`, `// Update ...`, `// This is ...`, or `// We need to ...`.
 
-**Remove**: `// Create the ...`, `// Initialize ...`, `// Handle ...`, `// Set up ...`, `// Update ...`,
-`// TODO: added by ...`, `// This is ...`, `// We need to ...`, or any comment that restates what the next line does.
+Keep comments that explain why the code exists or preserve tooling behavior.
 
-**Keep**: why-comments (business logic, gotchas), `// eslint-disable`, `// @ts-ignore`, `// NOTE:`, `// HACK:`, `// FIXME:`, JSDoc/TSDoc, license headers, tooling-referenced comments.
+Typical downstream: after `critical-bug-finder` or `bugfix-dispatch` has produced and implemented a focused fix, use this skill to publish the staged result.
 
-Use the Edit tool. Track removed count and simplification count.
+## PR title
 
-## Step 2: Chinese Character Check (HARD STOP)
+Map the commit type to a PR title prefix:
 
-Run `git diff` and check **added lines only** (`+` lines) for CJK characters (`\u4e00-\u9fff`, `\u3400-\u4dbf`, `\uff00-\uffef`).
+- `feat` -> `[Feat]`
+- `fix` -> `[Fix]`
+- `docs` -> `[Docs]`
+- `refactor` -> `[Refactor]`
+- `build` -> `[Build]`
+- `chore` -> `[Chore]`
 
-**Exclude from this check** (these files legitimately contain CJK):
-- `**/i18n/**`, `**/locales/**`, `**/locale/**`, `**/lang/**`, `**/translations/**`
-- Files matching `*.zh*.json`, `*.zh*.ts`, `*.zh*.yaml`, `*zh-CN*`, `*zh-TW*`
-- Any file whose path clearly indicates it is an internationalization/translation resource
+## Fallback PR body
 
-- **Found in non-i18n files**: STOP. List files and lines. Ask user to fix. Do not proceed.
-- **Found only in i18n files**: OK. Continue.
-- **Clean**: Continue.
+```md
+### What's changed?
 
-## Step 3: Branch
+- <concise bullet(s)>
 
-Check `git branch --show-current`.
+### Why
 
-- Non-`main` branch: stay.
-- On `main`: create branch from change type:
-  - `feat/<slug>`, `fix/<slug>`, `refactor/<slug>`, `docs/<slug>`, `build/<slug>`
-  - Slug: 2-4 lowercase hyphenated words. English only.
-
-## Step 4: Commit
-
-1. `git log --oneline -10` for style reference.
-2. **Do NOT run `git add`.** Only commit what is already staged. If staging area is empty, STOP.
-3. One-line conventional commit: `type(scope): description` — lowercase, imperative, no period, under 72 chars.
-4. Commit with sign-off, no Co-Authored-By:
-
-```bash
-git commit -s -m "type(scope): description"
+- <reason / motivation>
 ```
 
-## Step 5: Push
+## Do not
 
-```bash
-git push -u origin HEAD
-```
-
-## Step 6: Create PR
-
-1. Read `.github/PULL_REQUEST_TEMPLATE.md` if it exists.
-2. PR type prefix from commit type: `feat`→`[Feat]`, `fix`→`[Fix]`, `ui`→`[UI]`, `docs`→`[Docs]`, `refactor`→`[Refactor]`, `build`→`[Build]`, `chore`→`[Chore]`.
-3. Analyze all commits on branch vs `main`.
-
-```bash
-gh pr create --base main --title "[Type] Short description" --body "$(cat <<'EOF'
-## Summary
-
-<1-3 sentences: what changed and why>
-
-## Type of change
-
-- [x] `[Type]` ...
-
-## Why is this needed?
-
-<problem statement>
-
-## What changed?
-
-- <bullet list>
-
-## Linked issues
-
-Closes #N (or "N/A")
-
-## Validation
-
-- [x] `pnpm typecheck`
-- [ ] `pnpm test`
-- [ ] `pnpm build`
-- [ ] Manual smoke test
-- [ ] Not run
-
-Commands, screenshots, or notes:
-
-```text
-<verification output>
-```
-
-## Screenshots or recordings
-
-N/A
-
-## Release note
-
-- [x] No user-facing change. Release note is `NONE`.
-
-```release-note
-NONE
-```
-
-## Checklist
-
-- [x] The PR title uses at least one approved prefix
-- [x] The summary explains both what changed and why
-- [x] Validation reflects the commands actually run for this PR
-- [x] The release note block is accurate
-EOF
-)"
-```
-
-Check only what was actually run. Be honest.
-
-## Step 7: Report
-
-Print:
-- Simplifications applied count
-- Comments removed count
-- Branch name
-- Commit message
-- PR URL
+- Do not trigger this skill for broad PR-only requests like "open PR"
+- Do not run `git add`
+- Do not include unstaged changes
+- Do not invent validation results or claim commands were run when they were not
+- Do not continue after auth, push, or PR creation failures
+- Do not generate non-English git or GitHub text
