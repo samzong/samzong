@@ -1,0 +1,12 @@
+{
+  "name": "samzong",
+  "owner": { "name": "samzong" },
+  "plugins": [
+    {
+      "name": "dev-style-gate",
+      "source": "./plugins/dev-style-gate",
+      "description": "Maintainer decision protocol with gated review and live case files",
+      "version": "1.0.0"
+    }
+  ]
+}
