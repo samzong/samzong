@@ -1,158 +1,170 @@
 ---
 name: issue-cleaner-master
-description: Analyze GitHub repository issues by checking assignee status, linked PRs, and label signals, then filter and rank contributable issues by priority (P0-P5). Outputs machine-readable JSON and human-readable Markdown reports. Use when looking for contributable issues, finding contribution opportunities, searching for good-first-issue, finding help-wanted issues, or discovering beginner-friendly tasks.
+description: >
+  GitHub issue management toolkit for project maintainers and contributors.
+  Four modes: (1) scan — find contributable issues ranked P0-P5,
+  (2) reply — draft and post concise maintainer responses to specific issues,
+  (3) triage — classify issues and assign/remove labels,
+  (4) analyze — deep root-cause or feature-design analysis saved to markdown.
+  Use when: managing GitHub issues, finding contribution opportunities,
+  replying to issues, triaging issues, labeling issues, analyzing bugs,
+  designing features from issues, "what can I work on", "reply to this issue",
+  "triage issues", "analyze this bug", "label these issues", "find easy issues",
+  "show me contributable issues", issue cleanup, issue management, project
+  maintenance, open source contribution discovery.
+  Do not use for: PR review, code review, issue creation from scratch, or
+  general GitHub operations unrelated to issue management.
+argument-hint: <scan|reply|triage|analyze> [#issue...] [--repo owner/repo] [--quick] [--min-priority P0-P5] [--format json|md|both] [--output file.md]
 ---
+
+IRON LAW: NEVER POST A REPLY, APPLY A LABEL, OR MODIFY ANY ISSUE WITHOUT SHOWING THE EXACT CONTENT TO THE USER AND GETTING EXPLICIT CONFIRMATION FIRST. FOR READ-ONLY MODES, NEVER FABRICATE DATA NOT RETURNED BY THE API.
 
 # Issue Cleaner Master
 
-Analyze GitHub issues in the current repository and filter high-quality issues suitable for contribution.
+Use the loaded skill base directory as `SKILL_DIR` when running bundled scripts.
 
-## Workflow
+Route `$ARGUMENTS` into exactly one mode: `scan`, `reply`, `triage`, or `analyze`.
 
-### Step 1: Get Repository Information
+## Routing
 
-1. Execute the command to retrieve the repository's owner and name:
-   ```bash
-   gh repo view --json nameWithOwner --jq '.nameWithOwner'
-   ```
-2. Parse the output into `{owner}` and `{repo}` variables.
-3. Validate the output format:
-   - IF the output is not in `owner/repo` format OR is empty OR an error occurs, THEN terminate execution and instruct the user to verify they are in a git repository with a GitHub remote.
+| Input pattern | Mode |
+|---------------|------|
+| No mode keyword, or `scan` | scan |
+| `reply #N [#N...]` | reply |
+| `triage [#N...]` | triage |
+| `analyze #N [#N...]` | analyze |
 
-### Step 2: Fetch Issue Data
+If ambiguous, ask one focused question before proceeding.
 
-1. Fetch all open issues using the GitHub GraphQL API with pagination:
-   ```bash
-   gh api graphql --paginate -f query='
-   query($endCursor: String) {
-     repository(owner: "{owner}", name: "{repo}") {
-       issues(states: OPEN, first: 100, after: $endCursor) {
-         pageInfo { hasNextPage endCursor }
-         nodes {
-           number
-           title
-           url
-           createdAt
-           updatedAt
-           labels(first: 20) { nodes { name } }
-           assignees(first: 10) { nodes { login } }
-         }
-       }
-     }
-   }'
-   ```
-2. Validate the response:
-   - IF `data.repository.issues.nodes` array is not present, THEN
-     - IF error is `401` or `403`, THEN instruct the user to run `gh auth status` for authentication check.
-     - IF rate limit error occurs, THEN instruct to wait and retry, or reduce the `first` parameter.
-     - ELSE, consider it an error and terminate.
-   - IF `nodes` array is empty, THEN proceed with an empty issue list.
+---
 
-### Step 3: Detect Issues with Linked PRs
+## Mode: scan
 
-1. Fetch all open pull requests and their linked issues:
-   ```bash
-   gh api graphql --paginate -f query='
-   query($endCursor: String) {
-     repository(owner: "{owner}", name: "{repo}") {
-       pullRequests(states: OPEN, first: 100, after: $endCursor) {
-         pageInfo { hasNextPage endCursor }
-         nodes {
-           number
-           closingIssuesReferences(first: 10) {
-             nodes { number }
-           }
-         }
-       }
-     }
-   }'
-   ```
-2. Fetch recently merged pull requests and their linked issues:
-   ```bash
-   gh api graphql -f query='
-   {
-     repository(owner: "{owner}", name: "{repo}") {
-       pullRequests(states: MERGED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
-         nodes {
-           number
-           closingIssuesReferences(first: 10) {
-             nodes { number }
-           }
-         }
-       }
-     }
-   }'
-   ```
-3. Aggregate linked issue numbers:
-   - Create `issues_with_open_pr` set: Contains issue numbers linked by open PRs.
-   - Create `issues_with_merged_pr` set: Contains issue numbers linked by merged PRs.
-4. Validate both queries return valid arrays. `closingIssuesReferences` can be empty.
+Find contributable issues ranked by priority. Contributor perspective.
 
-### Step 4: Apply Filtering Rules
+**Options**: `--repo owner/repo`, `--min-priority P0-P5`, `--format json|md|both`, `--quick`
 
-Evaluate each issue based on the following conditions for inclusion or exclusion. Each issue must have an `include_reason` or `exclude_reason`.
+- [ ] Step 0: Fetch data ⛔ BLOCKING
+  - [ ] Run `bash "$SKILL_DIR/scripts/fetch-issues.sh"` (pass `--repo` if provided)
+  - [ ] If the script fails, stop and report the error
+- [ ] Step 1: Filter and rank ⚠️ REQUIRED
+  - [ ] Load `references/priority-labels.md` for label mappings
+  - [ ] Apply filtering rules (see below)
+  - [ ] Assign priorities P0-P5; respect `--min-priority`
+- [ ] Step 2: Confirm scope ⚠️ REQUIRED (skip if `--quick`)
+  - [ ] Show: total fetched, included, excluded, priority distribution
+  - [ ] Ask user to proceed or adjust
+- [ ] Step 3: Generate reports
+  - [ ] Load `references/output-examples.md` for templates
+  - [ ] Write `issues-report.json` and/or `issues-report.md` per `--format`
 
-- **Exclusion Conditions**:
-  - IF ( `issue.assignees` is non-empty AND `issue.updatedAt` is within the last 30 days ) THEN exclude (reason: `Assigned and active`).
-  - IF `issue.number` is in `issues_with_open_pr` THEN exclude (reason: `Has in-progress PR`).
-  - IF `issue.number` is in `issues_with_merged_pr` THEN exclude (reason: `Fixed by merged PR`).
-  - IF `issue` is a non-code contribution based on the following rules:
-    1. **Label signals**: `issue.labels` contains any of `question`, `support`, `duplicate`, `wontfix`, `invalid`.
-    2. **Title patterns**:
-       - `issue.title` ends with `?`.
-       - `issue.title` starts with "How to", "How do I", "Why does", "What is".
-       - `issue.title` contains "[Question]", "[Help]", "[Support]" prefix.
-    3. **Combined judgment**:
-       - IF only title patterns match without label signals, THEN retrieve the first 500 characters of `issue.body` using `gh issue view {issue.number} --json body` for further judgment.
-       - IF determined to be non-code contribution, THEN exclude (reason: `Non-code contribution`).
-- **Special Inclusion Condition**:
-  - IF (`issue.assignees` is non-empty AND `issue.updatedAt` is older than 30 days AND `issue.number` is NOT in `issues_with_open_pr`) THEN include (reason: `Assigned but stale`). Mark the issue as `[Stale]` in the output.
-- **Conservative Principle**: If an issue's status is uncertain, it must be included for user judgment.
+### Filtering rules (scan)
 
-### Step 5: Group by Priority
+Evaluate each issue in order. First matching rule wins.
 
-Assign a priority to each *included* issue based on its labels:
+**Exclude if:**
+1. `has_open_pr == true` → "Has in-progress PR"
+2. `has_merged_pr == true` → "Fixed by merged PR"
+3. Assignees non-empty AND `updated_at` within 30 days → "Assigned and active"
+4. Non-code contribution: labels contain `question`/`support`/`duplicate`/`wontfix`/`invalid`, or title ends with `?` / starts with "How to"/"Why does"/"What is". If only title matches, fetch first 500 chars of body before deciding.
 
-- **P0**: IF `issue.labels` contains both `help-wanted` AND `good-first-issue` THEN `P0` (Description: `Reserved for community newcomers`).
-- **P1**: ELSE IF `issue.labels` contains `good-first-issue` THEN `P1` (Description: `Beginner-friendly task`).
-- **P2**: ELSE IF `issue.labels` contains `help-wanted` THEN `P2` (Description: `Needs community help`).
-- **P3**: ELSE IF `issue.labels` contains `kind/bug` OR `bug` THEN `P3` (Description: `Clear problem description`).
-- **P4**: ELSE IF `issue.labels` contains `kind/documentation` OR `kind/cleanup` OR `documentation` THEN `P4` (Description: `Small optimization tasks`).
-- **P5**: ELSE `P5` (Description: `May need more context`).
+**Include if:**
+5. Assignees non-empty AND `updated_at` > 30 days AND no open PR → "Assigned but stale" (mark `[Stale]`)
+6. All others → included
 
-### Step 6: Generate Report Files
+**Priority** (first match; see `references/priority-labels.md` for label variants):
+P0: `help-wanted` + `good-first-issue` | P1: `good-first-issue` | P2: `help-wanted` | P3: `bug`/`kind/bug` | P4: `documentation`/`kind/documentation`/`kind/cleanup` | P5: rest
 
-Generate the following two files in the current working directory:
+**Conservative principle**: if uncertain, include for user judgment.
 
-#### 6.1 `issues-report.json` (Machine-readable)
+---
 
-1. Create a JSON file named `issues-report.json`.
-2. Populate the file with complete audit data for all issues, adhering to the schema specified in `references/output-examples.md`.
-3. Ensure the `metadata` object contains repository information, scan time, and issue counts.
-4. Ensure each issue object in the `issues[]` array includes `included` (boolean), `priority` (string), `status` (string), and either `include_reason` or `exclude_reason` (string).
+## Mode: reply
 
-#### 6.2 `issues-report.md` (Human-readable)
+Draft and post concise maintainer responses. Maintainer perspective.
 
-1. Create a Markdown file named `issues-report.md`.
-2. Structure the file with sections grouped by priority (P0-P5) using Markdown tables, following the format template in `references/output-examples.md`.
-3. Include summary statistics.
-4. Include a distribution of exclusion reasons.
-5. Omit any priority groups that have no issues.
+- [ ] Step 0: Load issues ⛔ BLOCKING
+  - [ ] Fetch each issue: `gh issue view #N --json number,title,body,comments,labels,assignees,state`
+  - [ ] Read the full conversation thread to avoid repeating what was already said
+- [ ] Step 1: Understand project context ⚠️ REQUIRED
+  - [ ] From the issue content, identify relevant source files, docs, or config
+  - [ ] Read enough code to give an informed, specific response
+- [ ] Step 2: Draft replies ⚠️ REQUIRED
+  - [ ] One draft per issue
+  - [ ] Follow reply style rules (see below)
+- [ ] Step 3: Confirm ⚠️ REQUIRED (**never** skip, even with `--quick`)
+  - [ ] Show each draft with target issue number and title
+  - [ ] Ask user to approve, edit, or skip each one
+- [ ] Step 4: Post approved replies
+  - [ ] `gh issue comment #N --body "..."`
+  - [ ] Report posted vs skipped
 
-## Hard Constraints
+### Reply style
 
-- Utilize the `gh` CLI GraphQL API exclusively for all data retrieval.
-- Scope analysis to the GitHub project corresponding to the current Git repository.
-- Operations MUST be read-only; no modifications to issue status are permitted.
-- PR linkage detection MUST use the `closingIssuesReferences` field; parsing of PR body text is forbidden for this purpose.
-- Both `issues-report.json` and `issues-report.md` files MUST be generated.
-- Every issue in the `issues-report.json` MUST include either an `include_reason` or an `exclude_reason` for auditability.
+- Open with direct answer or acknowledgment, not pleasantries
+- Short paragraphs; no walls of text
+- Reference code with backticks: `path/to/file.ts:42`
+- Use "we" for project decisions, "you" for the reporter
+- End with a clear next step: fix incoming, label assigned, needs repro, or wontfix with reason
+- Ask specific questions when more info is needed, never vague "could you provide more details"
 
-## Error Recovery
+---
 
-- IF `gh` CLI is not installed, THEN prompt the user to install GitHub CLI.
-- IF `gh` is not authenticated, THEN instruct the user to run `gh auth login`.
-- IF not in a Git repository, THEN prompt the user to navigate to a Git repository.
-- IF no GitHub remote is configured, THEN prompt the user to verify the remote URL points to GitHub.
-- IF a rate limit is encountered, THEN instruct the user to wait for reset or reduce batch size.
-- IF the repository is empty, THEN generate reports with zero issues.
+## Mode: triage
+
+Classify issues and manage labels. PM perspective.
+
+- [ ] Step 0: Load data ⛔ BLOCKING
+  - [ ] If specific numbers given, fetch each with `gh issue view #N --json number,title,body,labels`
+  - [ ] If no numbers, run `bash "$SKILL_DIR/scripts/fetch-issues.sh"` for all open issues
+  - [ ] Fetch available labels: `gh label list --json name,description --limit 200`
+- [ ] Step 1: Classify ⚠️ REQUIRED
+  - [ ] Load `references/priority-labels.md` for taxonomy
+  - [ ] For each issue, suggest: type label, priority label, and any other applicable labels
+  - [ ] Match against existing repo labels only — never suggest labels that don't exist
+- [ ] Step 2: Present plan ⚠️ REQUIRED (**never** skip, even with `--quick`)
+  - [ ] Show table: issue #, title, current labels → suggested adds/removes
+  - [ ] Ask user to approve, edit, or skip each
+- [ ] Step 3: Apply approved changes
+  - [ ] `gh issue edit #N --add-label "label1,label2"` for additions
+  - [ ] `gh issue edit #N --remove-label "label"` for removals
+  - [ ] Report what was changed vs skipped
+
+---
+
+## Mode: analyze
+
+Deep technical analysis. Senior engineer perspective.
+
+**Options**: `--output file.md` (default `issue-analysis.md`), `--quick`
+
+- [ ] Step 0: Load issues ⛔ BLOCKING
+  - [ ] Fetch each issue: `gh issue view #N --json number,title,body,comments,labels`
+  - [ ] Read the full conversation thread
+- [ ] Step 1: Investigate ⚠️ REQUIRED
+  - [ ] Identify affected code areas from the issue
+  - [ ] Read relevant source, tests, and dependencies
+  - [ ] For bugs: trace execution to root cause
+  - [ ] For features: map current architecture and constraints
+- [ ] Step 2: Document findings ⚠️ REQUIRED
+  - [ ] Load `references/analysis-template.md`
+  - [ ] For bugs: root cause, reproduction path, fix direction
+  - [ ] For features: design options with trade-offs, recommended approach
+- [ ] Step 3: Confirm ⚠️ REQUIRED (skip if `--quick`)
+  - [ ] Show summary of findings
+  - [ ] Ask before writing file
+- [ ] Step 4: Write output
+  - [ ] Write to `--output` path
+  - [ ] Report file path
+
+---
+
+## Do not
+
+- Do not post replies or apply labels without explicit user confirmation — **never**
+- Do not suggest labels that don't exist in the repository
+- Do not fabricate issue data, code analysis, or API results
+- Do not skip confirmation for `reply` or `triage` even with `--quick`
+- Do not generate empty priority groups in scan reports
+- Do not parse PR body text for issue links — use `closingIssuesReferences` from fetch script
+- Do not modify issue state (open/close) — this skill manages labels and comments only
