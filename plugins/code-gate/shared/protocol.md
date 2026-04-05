@@ -12,10 +12,12 @@ assistant and it is not an autopilot.
 - Keep one live case file in the repo root for the current task.
 - Update the case file on state transitions and meaningful evidence changes, not
   after every command.
+- Write the case file in the same language the user is currently using in
+  conversation. Detect from the user's most recent message; do not ask.
 
 ## Case File Contract
 
-- Path: `<repo-root>/YYYY-MM-DD-<slug>.md`
+- Path: `<repo-root>/case-YYYY-MM-DD-<slug>.md`
 - The date is the creation date. A task started 2026-04-02 keeps that date forever.
 - Reuse the existing case file if the task already has one.
 - Never create a nested `dev-style/` directory.
@@ -25,15 +27,15 @@ assistant and it is not an autopilot.
 All commands MUST use this algorithm:
 
 1. `git rev-parse --show-toplevel` for repo root. If that fails, use cwd and say so.
-2. Glob `[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-*.md` at repo root.
+2. Glob `case-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-*.md` at repo root.
 3. Filter: keep only files with a `status:` frontmatter field matching a valid status value.
 4. If multiple: ask the user which one.
 5. If none: say so. For `init`, proceed to create. For others, suggest `init`.
 
 ## Slug Derivation
 
-- From GitHub URL `https://github.com/org/repo/issues/42` → `repo-issue-42`
-- From free text "fix telegram reaction" → `fix-telegram-reaction`
+- From GitHub URL `https://github.com/org/repo/issues/42` → `case-2026-04-06-repo-issue-42.md`
+- From free text "fix telegram reaction" → `case-2026-04-06-fix-telegram-reaction.md`
 - Kebab-case, first 4-5 meaningful words.
 
 ## Allowed Status Values
