@@ -14,7 +14,7 @@ description: >
   maintenance, open source contribution discovery.
   Do not use for: PR review, code review, issue creation from scratch, or
   general GitHub operations unrelated to issue management.
-argument-hint: <scan|reply|triage|analyze> [#issue...] [--repo owner/repo] [--quick] [--min-priority P0-P5] [--format json|md|both] [--output file.md]
+argument-hint: "<scan|reply|triage|analyze> [#issue...] [--repo owner/repo] [--quick] [--min-priority P0-P5] [--format json|md|both] [--output file.md]"
 ---
 
 IRON LAW: NEVER POST A REPLY, APPLY A LABEL, OR MODIFY ANY ISSUE WITHOUT SHOWING THE EXACT CONTENT TO THE USER AND GETTING EXPLICIT CONFIRMATION FIRST. FOR READ-ONLY MODES, NEVER FABRICATE DATA NOT RETURNED BY THE API.

@@ -8,7 +8,7 @@ description: >
   `gmc wt sync`, `gmc tag`, or asks to use gmc for commit or worktree
   automation. Do not use for generic git or generic worktree requests unless
   the user specifically wants `gmc`.
-argument-hint: [commit|wt add <name>|wt prune|wt share|wt sync|tag] [--dry-run] [--sync] [-b branch] [--force] [--auto] [-a] [-y]
+argument-hint: "[commit|wt add <name>|wt prune|wt share|wt sync|tag] [--dry-run] [--sync] [-b branch] [--force] [--auto] [-a] [-y]"
 ---
 
 IRON LAW: ALL WORKTREE OPERATIONS MUST USE `gmc wt <subcommand>`. NEVER INVENT `gmc add`, `gmc rm`, `gmc prune`, `gmc clone`, OR OTHER TOP-LEVEL WORKTREE COMMANDS.
@@ -16,8 +16,6 @@ IRON LAW: ALL WORKTREE OPERATIONS MUST USE `gmc wt <subcommand>`. NEVER INVENT `
 # gmc
 
 Use `$ARGUMENTS` and the user's words to route into exactly one mode.
-
-Use the loaded skill base directory as `SKILL_DIR` when running bundled scripts.
 
 Copy this checklist and check off items as you complete them:
 
@@ -86,15 +84,15 @@ Copy this checklist and check off items as you complete them:
 
 ## Workflow: prune merged worktrees
 
-- For local-only cleanup, run `gmc wt prune --dry-run` first
-- For PR-aware cleanup, run `bash "$SKILL_DIR/scripts/wt-cleanup.sh" --dry-run` first
+- Run `gmc wt prune --dry-run` first to preview
+- Use `gmc wt prune --pr-aware` to check PR state before pruning
 - Ask before actual removal
 - Use `--force` only with explicit user approval
 
 ## Workflow: shared resources
 
-- For discovery, run `bash "$SKILL_DIR/scripts/wt-share-discover.sh" --dry-run`
-- Use `bash "$SKILL_DIR/scripts/wt-share-discover.sh" --auto` only with explicit approval
+- For discovery, run `gmc wt share discover --dry-run`
+- Use `gmc wt share discover --auto` only with explicit approval
 - For manual control, use `gmc wt share add`, `gmc wt share ls`, `gmc wt share rm`, or `gmc wt share sync`
 - Prefer `copy` for env files or local config
 - Prefer `link` for large identical directories such as `node_modules` or `.venv`
@@ -104,7 +102,7 @@ Copy this checklist and check off items as you complete them:
 - Ask before `gmc -a -y`
 - Ask before `gmc wt rm -D <name>`
 - Ask before any non-dry-run prune
-- Ask before `bash "$SKILL_DIR/scripts/wt-share-discover.sh" --auto`
+- Ask before `gmc wt share discover --auto`
 - Ask before `--force`
 
 ## Do not

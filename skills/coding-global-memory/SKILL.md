@@ -13,9 +13,18 @@ description: >
 
 ## Setup
 
-1. Derive `project-name`: replace all `/` in CWD with `-`.
-   Example: `/Users/x/projects/my-app` → `-Users-x-projects-my-app`
-2. Set `MEMORY_DIR` = `~/.agents/memories/{project-name}/`.
+Derive `project-name` (first match wins):
+
+1. **Git remote** (preferred): `git remote get-url origin` → extract `owner/repo`
+   (strip `.git` suffix, take last two path segments). Replace `/` with `-`.
+   Example: `git@github.com:samzong/my-app.git` → `samzong-my-app`
+2. **Git repo root** (no remote): `basename $(git rev-parse --show-toplevel)`.
+   Example: `/Users/x/projects/my-app` → `my-app`
+3. **Non-git fallback**: replace all `/` in CWD with `-`.
+
+Set `MEMORY_DIR` = `~/.agents/memories/{project-name}/`.
+
+This ensures all worktrees, clones, and checkouts of the same repo share one memory.
 
 All workflows below assume setup is done.
 

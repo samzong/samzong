@@ -9,7 +9,7 @@ description: >
   any structured bug report with identifiable files, problems, and fix goals.
   Do not use for generic bug finding, generic issue triage, or normal project
   planning without a report file.
-argument-hint: <report-file> [--plan-only] [--quick] [--severity CRITICAL|HIGH] [--max-prs N] [--output todo.md]
+argument-hint: "<report-file> [--plan-only] [--quick] [--severity CRITICAL|HIGH] [--max-prs N] [--output todo.md]"
 ---
 
 IRON LAW: NEVER CREATE A WORKTREE OR WRITE A TODO FILE BEFORE SHOWING A CONFLICT-AWARE DISPATCH PLAN.

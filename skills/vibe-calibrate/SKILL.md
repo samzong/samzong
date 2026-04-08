@@ -1,30 +1,46 @@
 ---
 name: vibe-calibrate
 description: >
-  Cross-tool vibe coding profiler. Scans ALL AI coding tool data on the machine
-  (Claude Code sessions, OpenCode DB, Codex sessions, Cursor, etc.),
+  Cross-tool vibe coding profiler. Scans AI coding tool data on the machine
+  (Claude Code sessions, OpenCode DB, Codex sessions),
   combined with git history and project memory, to build a true user portrait,
-  discover workflow automation opportunities, and update Global CLAUDE.md accordingly.
+  discover workflow automation opportunities, and update the target tool's
+  instruction file (CLAUDE.md or AGENTS.md) accordingly.
   Use when: "calibrate", "vibe-calibrate", "分析我的习惯", "profile me",
   "update my CLAUDE.md based on my history", "我的效率怎么提升",
   "analyze my patterns", "优化我的配置", or at the start of a long-term
   engagement with a new user.
-argument-hint: ["--quick", "--full", "--dry-run"]
+argument-hint: "[--tool claude|codex|opencode] [--quick|--full] [--dry-run]"
 ---
 
-IRON LAW: NEVER UPDATE CLAUDE.md BASED ON ASSUMPTIONS. EVERY CHANGE MUST TRACE TO OBSERVED DATA.
+IRON LAW: NEVER UPDATE ANY INSTRUCTION FILE BASED ON ASSUMPTIONS. EVERY CHANGE MUST TRACE TO OBSERVED DATA.
+
+LANGUAGE RULE: Respond in the same language the user used in their most recent message.
+All internal skill text (checkpoints, report templates) is in English. Output language follows the user.
 
 # Vibe Calibrate
 
 Build a true user portrait from cross-tool behavioral data, find error patterns,
-diagnose CLAUDE.md misconfigurations, and propose targeted improvements.
+diagnose instruction file misconfigurations, and propose targeted improvements.
+
+## Tool Config Map
+
+| Tool | Global instruction file | Notes |
+|------|------------------------|-------|
+| Claude Code | `~/.claude/CLAUDE.md` | Canonical source. Full rule set. |
+| Codex | `~/.codex/AGENTS.md` | Exclude: skill references (`/skill`), `settings.json` audit rules, Claude Code hooks |
+| OpenCode | `~/.config/opencode/AGENTS.md` | Same exclusions as Codex |
+
+Each run targets ONE tool.
 
 ## Options
 
+- `--tool <name>`: target tool — `claude` (default), `codex`, `opencode`.
 - `--quick`: scan last 20 sessions per source. Skip Layer 3 calibration. Target: <60 seconds.
 - `--full`: scan all sessions. Full pipeline including Layer 3 calibration.
-- `--dry-run`: present findings and proposed CLAUDE.md diff without writing. Can combine with either mode.
-- (no flag): use AskUserQuestion to let the user choose between quick and full before proceeding.
+- `--dry-run`: present findings and proposed diff without writing. Can combine with either mode.
+- (no `--tool`): use AskUserQuestion to ask which tool to optimize before proceeding.
+- (no `--quick`/`--full`): use AskUserQuestion to let the user choose scan depth.
 
 ## Scope Control
 
@@ -33,7 +49,21 @@ Session selection for quick: sort by file modification time descending, take top
 All sample-size thresholds (3+ occurrences for rules, 5+ for claim reliability) still apply —
 quick mode may produce more "insufficient data" caveats, which is correct behavior.
 
-Settings.json audit is always performed (cheap and always useful). Not gated behind a flag.
+Settings.json audit is always performed for Claude Code (cheap and always useful). Not gated behind a flag.
+
+## Target Tool Resolution
+
+Before any data collection, resolve `TARGET_TOOL`:
+
+1. If `--tool <name>` is provided, use it.
+2. Otherwise, use AskUserQuestion:
+   > Which tool do you want to optimize?
+   > 1. **Claude Code** (`~/.claude/CLAUDE.md`)
+   > 2. **Codex** (`~/.codex/AGENTS.md`)
+   > 3. **OpenCode** (`~/.config/opencode/AGENTS.md`)
+
+Set `TARGET_FILE` from the Tool Config Map based on selection.
+All subsequent phases (data collection, diagnosis, output, apply) operate on `TARGET_FILE` only.
 
 ## Phase 0: Discover Data Sources + Pre-read [BLOCKING]
 
@@ -46,12 +76,11 @@ Locate ALL AI coding tool data on this machine. Run ALL of these in parallel
 - [ ] `cat ~/.config/opencode/opencode.json` — OpenCode config
 - [ ] `cat ~/.claude/settings.json` — Claude Code settings
 - [ ] `find ~/.codex/sessions -name "*.jsonl" | wc -l` — Codex sessions
-- [ ] `ls -d ~/.cursor/ ~/Library/Application\ Support/Cursor/ 2>/dev/null` — Cursor data
 - [ ] `find ~/.claude/projects -path "*/memory/*.md" | wc -l` — Project memory files (feedback_*.md are high-value)
-- [ ] `find ~ -maxdepth 4 -name "*.db" \( -path "*opencode*" -o -path "*codex*" -o -path "*cursor*" \) 2>/dev/null` — Other tool data
+- [ ] `find ~ -maxdepth 4 -name "*.db" \( -path "*opencode*" -o -path "*codex*" \) 2>/dev/null` — Other tool data
 
 **Pre-reads** (parallel Read tool — always needed, fetch now to avoid later serial wait):
-- [ ] `~/.claude/CLAUDE.md` — current Global instructions
+- [ ] `TARGET_FILE` — the instruction file for the selected tool
 - [ ] `references/classification-protocol.md` — tagging protocol
 - [ ] `references/language-classifier.md` — tag definitions
 
@@ -412,6 +441,7 @@ Compare rules/configs across tools:
 - Claude Code settings.json vs CLAUDE.md (contradictions?)
 - OpenCode opencode.json permissions vs user expectations
 - Different tools getting different instructions for the same project
+- CLAUDE.md vs AGENTS.md drift (flag if detected, but do not auto-sync)
 
 ### 2H. Layer 3 Calibration [CONDITIONAL]
 
@@ -474,17 +504,20 @@ skills, commands, or pipelines to reduce manual overhead.
 | 2 | ... | N | opportunity | — | Proposed /skill-name + description |
 ```
 
-## Phase 3: CLAUDE.md Diagnosis [REQUIRED]
+## Phase 3: Instruction File Diagnosis [REQUIRED]
 
-Read the current `~/.claude/CLAUDE.md` and evaluate:
+### 3A. TARGET_FILE Diagnosis
+
+Read `TARGET_FILE` and evaluate:
 
 - [ ] Does the Persona section match the portrait from Phase 2C?
 - [ ] Do the Core Rules match actual behavior patterns?
 - [ ] Are there dead rules the user routinely violates or AI routinely ignores?
 - [ ] Are there recurring errors from Phase 2E that have no corresponding rule?
-- [ ] Are there conflicting instructions between CLAUDE.md and settings.json?
+- [ ] Are there tool-specific contradictions? (e.g., settings.json vs CLAUDE.md for Claude Code,
+      config.toml vs AGENTS.md for Codex)
 
-### Settings.json Audit [ALWAYS]
+### 3B. Settings/Config Audit [ALWAYS for Claude Code, BEST-EFFORT for others]
 
 Check for:
 - `bypassPermissions` vs git safety rules (contradiction)
@@ -503,7 +536,7 @@ Check for:
 ## Phase 3.5: Axis → Rule Mapping [REQUIRED]
 
 For each axis, check against the mapping table below. Only propose rules where
-the condition is met AND no equivalent rule already exists in CLAUDE.md.
+the condition is met AND no equivalent rule already exists in `TARGET_FILE`.
 
 ### Mapping Table
 
@@ -522,9 +555,9 @@ the condition is met AND no equivalent rule already exists in CLAUDE.md.
 ### Rule dedup protocol
 
 Before proposing a new rule:
-1. Grep existing CLAUDE.md for keyword overlap (>50% shared terms) — if equivalent exists, skip or propose strengthening
+1. Grep existing `TARGET_FILE` for keyword overlap (>50% shared terms) — if equivalent exists, skip or propose strengthening
 2. If contradicts existing rule, propose replacement not addition
-3. Never exceed CLAUDE.md ~150-line budget — if at limit, propose which rule to remove
+3. Never exceed ~150-line budget — if at limit, propose which rule to remove
 
 ## Phase 4: Present Findings [REQUIRED]
 
@@ -557,7 +590,7 @@ Top corrections with attributed cause:
 ## Error Pattern Ranking (by cost)
 1. [Pattern] — [frequency] — [evidence]
 
-## Settings.json Audit
+## Settings/Config Audit
 - [Conflict] / [Dead setting] / [No issues] with evidence for each finding
 
 ## Workflow Automation Discovery
@@ -565,7 +598,7 @@ Top corrections with attributed cause:
 |---|---------|----------|--------|----------------|----------------|
 [For each detected pattern, one row. Status: covered — inherent, covered — accidental, partial, opportunity]
 
-## CLAUDE.md Issues
+## TARGET_FILE Issues
 1. [Rule/section] — [problem] — [evidence]
 
 ## Proposed Changes (from Phase 3.5 mapping)
@@ -579,9 +612,9 @@ Top corrections with attributed cause:
 ## Phase 5: Apply Changes [CONDITIONAL]
 
 - If `--dry-run`: stop after Phase 4
-- Otherwise: apply changes to `~/.claude/CLAUDE.md` after user confirms
-- NEVER change settings.json without explicit user approval
-- After applying: re-read the file to verify correctness
+- Otherwise: apply changes to `TARGET_FILE` after user confirms the diff
+- Re-read the file after writing to verify correctness
+- NEVER change settings.json / config.toml without explicit user approval
 
 ## Anti-Patterns
 
@@ -590,8 +623,8 @@ Top corrections with attributed cause:
 - Do not force attribution when evidence is insufficient. Use `unknown_or_mixed`.
 - Do not use the word "ground truth" for LLM judgments. LLM does adjudication, not ground truth.
 - Do not profile from a single session — need cross-session data.
-- Do not add CLAUDE.md rules for one-off incidents — require 3+ occurrences.
-- Do not let CLAUDE.md exceed ~150 lines.
+- Do not add rules to instruction files for one-off incidents — require 3+ occurrences.
+- Do not let any instruction file exceed ~150 lines.
 - Do not interpret correction rate as user competence. It is an AI behavior signal.
 - Do not draw Claim Reliability conclusions from <5 verifiable samples.
 - **Do not spawn agents for data extraction.** Agents add 90-210s overhead for work a

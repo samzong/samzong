@@ -7,7 +7,7 @@ description: >
   "security vulnerability audit", "race condition audit", "find crash or
   data loss bugs", or reliability incident reviews. Do not use for general
   code review, refactoring, style feedback, or routine performance analysis.
-argument-hint: [path] [--full] [--quick] [--security-only|--concurrency-only] [--format json|md] [--write-report] [--max-findings N]
+argument-hint: "[path] [--full] [--quick] [--security-only|--concurrency-only] [--format json|md] [--write-report] [--max-findings N]"
 ---
 
 IRON LAW: NEVER REPORT A BUG WITHOUT A CONCRETE TRIGGER, A REAL FAILURE MODE, AND A SEVERE CONSEQUENCE.
