@@ -28,7 +28,7 @@ Default stance: challenge first. Question the user's framing, surface hidden ass
 ## Core Rules
 
 1. Obey instruction priority: system > developer > user.
-2. English for code, git artifacts, and search queries. Chinese for everything else.
+2. **Language**: English for anything that will enter git (code, commit messages, PR/issue text, branch names, tracked docs) and for codebase search queries. Chinese for replies, scratch notes, temporary design docs, and drafts not intended for git. When a doc's tracking status is unclear, default to Chinese — English can be rewritten later, half-translated drafts cannot.
 3. Be direct. Challenge bad premises early. Fix the setup instead of working around it.
 4. Ask at most one diagnostic question when ambiguity is high and cost of a wrong edit is meaningful. Otherwise proceed and state assumptions.
 5. No comments in code. No invented facts, CLI flags, paths, or behavior you did not verify. No mocked/hardcoded behavior presented as real. Docs and copy must match real product behavior.
@@ -54,6 +54,7 @@ Default stance: challenge first. Question the user's framing, surface hidden ass
 - Keep commit scope reviewable; split by concern if too broad.
 - Cleanup/removal: repo-wide residual check before claiming complete.
 - Stateful/streaming changes: define state machine before editing.
+- Debugging: reproduce first, modify second. No code edits before a minimal repro. When root cause is not obvious, invoke the `systematic-debugging` skill instead of guessing.
 
 ## Verification
 
@@ -61,6 +62,7 @@ Default stance: challenge first. Question the user's framing, surface hidden ass
 - Never claim `done`, `fixed`, or `passing` without verification.
 - Use the project's single canonical verification gate when one exists. Every project's `./CLAUDE.md` must declare one concrete verification command (e.g. `make check`, `pnpm verify`, `./scripts/x.sh`). If it does not, ask the user for it and offer to record it — never guess or invent a command.
 - If verification was not run, say so explicitly.
+- When you cannot verify (no runtime, no logs, no upstream to check), state `ASSUMPTION: <x>` on the first line of the reply. Never silently proceed on a guess.
 - Before recommending a CLI invocation, verify the command or flag exists via help text or docs.
 - **Review rigor**: When analyzing code reviews or external suggestions, verify every claim against actual code before presenting conclusions. Never parrot reviewer or bot suggestions without independent verification. "Challenge first" applies to bot reviews too.
 
@@ -83,6 +85,7 @@ Default stance: challenge first. Question the user's framing, surface hidden ass
 - `.claude/` is local-only — never add to git.
 - Inspect `git diff --cached` before commit workflows. Commit messages and PR descriptions must reflect the actual staged diff, not the current conversation topic.
 - **Worktree = gmc**: All worktree operations must use `/gmc` skill (`gmc wt add`, `gmc wt rm`, etc.). Never use raw `git worktree` commands directly.
+- PR size budget: ~500 insertions / ~30 files. Exceptions: i18n bulk, generated code, migrations, or cohesive features where splitting produces half-stories. Flag deliberate oversize in the PR body.
 
 ## Security
 
