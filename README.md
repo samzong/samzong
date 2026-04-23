@@ -20,6 +20,7 @@
 
 I build tools to fix my own problems.
 
+* **[lathe](https://github.com/samzong/lathe)**: Feed it a Swagger/proto spec, get a polished CLI binary. No hand-written commands.
 * **[Recall](https://github.com/samzong/Recall)**: I lose great AI answers weekly. A local-first TUI to search my Claude Code, Codex, and OpenCode history.
 * **[gmc](https://github.com/samzong/gmc)**: AI-powered Git commit messages.
 * **[merge-scout](https://github.com/samzong/merge-scout)**: A Claude Code skill for vibe coding — ranks GitHub issues by contributability × merge probability so your agent picks work that will actually land.
