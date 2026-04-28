@@ -55,6 +55,8 @@ If the user asks for multiple gates in one message, run only the first gate and 
 - Follow the repository plan gate before mutating files unless the user explicitly invoked a mutating Code Gate command.
 - `status`, `next`, and `reply` are read-only by default.
 - `init`, `feasibility`, `adversarial`, `source-align`, `merge-value`, `sync`, and `close` may update the case file exactly as the protocol requires.
+- If a stateful gate is requested and no valid case file exists, auto-create a minimal case file first, then continue the requested gate. Do not stop just to ask the user to run `init`.
+- Do not auto-create a case file for `status`, `next`, or `reply`.
 - Keep the case file in the repository root using `case-YYYY-MM-DD-<slug>.md`.
 - Use the same language as the user's latest message for case file content.
 - Prefer `rg`, `git`, and `gh` for evidence gathering when relevant.

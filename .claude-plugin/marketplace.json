@@ -6,7 +6,7 @@
       "name": "code-gate",
       "source": "./plugins/code-gate",
       "description": "Maintainer decision protocol with gated review and live case files",
-      "version": "1.2.1"
+      "version": "1.2.2"
     }
   ]
 }

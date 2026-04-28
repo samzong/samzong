@@ -30,7 +30,26 @@ All commands MUST use this algorithm:
 2. Glob `case-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-*.md` at repo root.
 3. Filter: keep only files with a `status:` frontmatter field matching a valid status value.
 4. If multiple: ask the user which one.
-5. If none: say so. For `init`, proceed to create. For others, suggest `init`.
+5. If none:
+   - For `init`, proceed to create.
+   - For `reply`, continue stateless.
+   - For `status` or `next`, say no case file exists and suggest `init`.
+   - For stateful gates (`feasibility`, `adversarial`, `source-align`,
+     `merge-value`, `sync`, `close`), auto-create a minimal case file first,
+     then run the requested gate.
+
+## Auto-Init Fallback
+
+When a stateful gate auto-creates a case file:
+
+- Derive the slug from raw arguments first.
+- If raw arguments are empty, derive the slug from the current branch name.
+- If both are unavailable, use `current-task`.
+- Capture the requested gate as the next intended gate.
+- Set initial status to `intake`, then immediately apply the requested gate's
+  normal status/update rules.
+- Do not inspect PRs, upstream state, or unrelated diffs just to create the case
+  file. Evidence gathering belongs to the requested gate after the case exists.
 
 ## Slug Derivation
 
