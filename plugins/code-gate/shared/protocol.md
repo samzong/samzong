@@ -80,6 +80,46 @@ For `reply`, also return:
 Reply: <paste-ready sentence or short paragraph>
 ```
 
+## Source-Backed Maintainer Review Lens
+
+Use this lens inside the requested gate whenever the task involves an issue, PR,
+diff, or merge decision. It is a maintainer evidence frame, not a separate gate
+and not an auto-close policy.
+
+- Treat issue and PR discussion as evidence. Read the body, comments, linked
+  items, review notes, and timeline signals before deciding.
+- Use the upstream baseline, preferring the upstream remote default branch
+  (`upstream/HEAD`, commonly `upstream/main`); if unavailable, fall back to the
+  origin remote default branch (`origin/HEAD`, commonly `origin/main`) and
+  record the resolved ref and commit SHA. Verify whether the reported gap or
+  proposed change is already implemented, obsolete, duplicated, or still real.
+  Prefer concrete source, docs, tests, commit SHAs, and related issue/PR state
+  over title-level matches.
+- Search for synonyms, old names, moved ownership, and adjacent implementations.
+  Do not decide from one `rg` hit or one nearby file.
+- For PRs, inspect the PR body, diff, touched files, comments, and
+  upstream-baseline behavior before deciding whether the work is useful,
+  redundant, or stale.
+- For PRs, run a security and supply-chain surface pass when the diff touches CI
+  workflows, GitHub Action refs, dependencies, lockfiles, release scripts,
+  package metadata, secrets handling, permissions, downloaded artifacts,
+  generated/vendor code, or other code execution paths.
+- Identify owner and boundary fit: core vs plugin, shared seam vs owner module,
+  docs vs code, current repo vs external administration.
+- Identify public contract, data-access, permission, and compatibility
+  expansion. If the implementation is technically correct but the remaining
+  question is product or maintainer policy, say that explicitly instead of
+  inventing a code bug.
+- Keep high-confidence negative decisions rare. If you cannot cite concrete
+  code/docs/tests/history/related-item evidence, keep the item alive and mark
+  the missing evidence.
+- Always state the best possible solution: land, narrow, redact, split, defer,
+  close as duplicate, move to plugin/ClawHub-style work, or keep open for
+  maintainer judgment.
+- Separate remaining risks from open questions. Code defects, CI failures,
+  security risks, and product-policy decisions should not be collapsed into one
+  vague blocker.
+
 ## Gate Definitions
 
 ### `init` (start)
@@ -107,12 +147,20 @@ Reply: <paste-ready sentence or short paragraph>
 - State whether the fix still matches the original problem.
 - State whether the fix is already present upstream.
 - State whether the scope claim is honest.
+- Apply the Source-Backed Maintainer Review Lens when an issue, PR, or diff is
+  available.
+- Include the best possible solution and remaining risk/open question in the
+  decision log entry when they affect the next action.
 
 ### `merge-value`
 
 - Separate correctness from merge-worthiness.
 - State whether the change is real, narrow, strategic, or noisy.
 - State whether the maintenance cost is justified.
+- Apply the Source-Backed Maintainer Review Lens before deciding value.
+- Explicitly cover upstream-baseline gap, owner/boundary fit, tests/docs evidence,
+  security/data-access/contract impact, best possible solution, and remaining
+  risk/open question.
 
 ### `reply`
 

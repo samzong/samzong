@@ -15,3 +15,12 @@ Rules:
 
 - Explicitly repeatable. Each run appends a new decision log entry.
 - Do NOT change the status field.
+- Apply the Source-Backed Maintainer Review Lens from the protocol.
+- Compare original issue/PR discussion, upstream-baseline behavior, and the
+  current implementation. Say whether the task is still real, already
+  implemented, duplicated/superseded, or no longer aligned.
+- For PRs, inspect the PR body, diff, touched files, comments, and
+  upstream-baseline behavior before deciding whether the PR still matches the
+  original problem.
+- Record the best possible solution and remaining risk/open question when they
+  affect what should happen next.

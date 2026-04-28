@@ -17,3 +17,16 @@ Rules:
   verdict for comparison.
 - Set status to `merge-value`.
 - Append decision log entry.
+- Apply the Source-Backed Maintainer Review Lens from the protocol before
+  deciding value.
+- Explicitly separate:
+  - upstream-baseline gap or redundancy
+  - implementation correctness
+  - owner/boundary fit
+  - security, data-access, permission, supply-chain, and public-contract impact
+  - tests/docs/changelog evidence
+  - maintenance cost
+  - best possible solution
+  - remaining risk/open question
+- Do not treat unrelated base CI failures as merge blockers unless the diff
+  introduced or touched the failing surface.

@@ -27,8 +27,8 @@ Treat the protocol as the source of truth for status values, discovery, state tr
 - `next`: read the current case file and suggest one next gate
 - `feasibility`: decide whether the task should be fixed and set positive cases to `execute`
 - `adversarial`: challenge the current story and append evidence without changing status
-- `source-align`: compare the implementation with original source context and upstream state
-- `merge-value`: decide whether the change is worth merging
+- `source-align`: compare the implementation with original source context, PR/issue discussion, and upstream state using the source-backed maintainer review lens
+- `merge-value`: decide whether the change is worth merging using upstream-baseline evidence, owner/boundary fit, contract/security impact, best possible solution, and remaining risk
 - `reply`: draft a paste-ready review reply without reading or writing case state unless needed for context
 - `sync`: refresh the case file without changing status
 - `close`: freeze the final verdict and set `status: closed`
