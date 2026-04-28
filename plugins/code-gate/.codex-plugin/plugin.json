@@ -1,6 +1,6 @@
 {
   "name": "code-gate",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Maintainer decision protocol with gated review and live case files for Codex.",
   "author": {
     "name": "samzong",
