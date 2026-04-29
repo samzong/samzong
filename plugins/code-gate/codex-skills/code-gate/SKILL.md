@@ -1,11 +1,19 @@
 ---
 name: code-gate
-description: Run the Code Gate maintainer workflow in Codex or Codex IDE. Use when the user invokes code-gate, asks for a gated feasibility/adversarial/source-align/merge-value/status/next/reply/sync/close pass, or wants a live case file for a task.
+description: Route the Code Gate maintainer workflow in Codex. Use when the user invokes code-gate directly, needs init/reply/sync/close, or asks for a gate not covered by the focused status, next, or review skills.
 ---
 
 # Code Gate
 
-Use this skill for the `code-gate` maintainer workflow. It is a Codex-native wrapper around the shared protocol in `../../shared/protocol.md`.
+Use this skill as the umbrella router for the `code-gate` maintainer workflow. It is a Codex-native wrapper around the shared protocol in `../../shared/protocol.md`.
+
+Prefer the focused Codex skills when the request clearly matches them:
+
+- `status` for read-only status checks
+- `next` for read-only next-step suggestions
+- `review` for feasibility, adversarial, source-align, or merge-value review gates
+
+Use this umbrella skill for direct `code-gate <gate>` invocations, `init`, `reply`, `sync`, `close`, or ambiguous routing.
 
 ## Core Rule
 

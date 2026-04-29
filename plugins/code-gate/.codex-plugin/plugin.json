@@ -1,6 +1,6 @@
 {
   "name": "code-gate",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Maintainer decision protocol with gated review and live case files for Codex.",
   "author": {
     "name": "samzong",
@@ -19,8 +19,8 @@
   "skills": "./codex-skills/",
   "interface": {
     "displayName": "Code Gate",
-    "shortDescription": "Gate maintainer decisions with live case files",
-    "longDescription": "Use Code Gate to run one maintainer decision gate at a time, keep a root-level case file current, challenge weak premises, and preserve review context across Codex and Codex IDE sessions.",
+    "shortDescription": "Run maintainer gates with live case files",
+    "longDescription": "Use Code Gate to inspect status, choose the next gate, and run one maintainer review gate at a time while keeping a root-level case file current across Codex and Codex IDE sessions.",
     "developerName": "samzong",
     "category": "Coding",
     "capabilities": [
@@ -32,10 +32,12 @@
     "privacyPolicyURL": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
     "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
     "defaultPrompt": [
-      "code-gate init for this task",
-      "code-gate status",
-      "code-gate feasibility for this issue"
+      "Show Code Gate status",
+      "Suggest the next Code Gate step",
+      "Run a Code Gate review for this task"
     ],
+    "composerIcon": "./assets/code-gate.svg",
+    "logo": "./assets/code-gate.svg",
     "brandColor": "#0F766E",
     "screenshots": []
   }
