@@ -1,19 +1,27 @@
 ---
 name: code-gate
-description: Route the Code Gate maintainer workflow in Codex. Use when the user invokes code-gate directly, needs init/reply/sync/close, or asks for a gate not covered by the focused status, next, or review skills.
+description: Route the Code Gate maintainer workflow in Codex. Use when the user invokes code-gate directly, asks for an ambiguous gate, or wants the umbrella workflow entrypoint.
 ---
 
 # Code Gate
 
 Use this skill as the umbrella router for the `code-gate` maintainer workflow. It is a Codex-native wrapper around the shared protocol in `../../shared/protocol.md`.
 
-Prefer the focused Codex skills when the request clearly matches them:
+Prefer the gate-specific Codex skills when the request clearly matches them:
 
+- `init` for starting or reusing a case file
 - `status` for read-only status checks
 - `next` for read-only next-step suggestions
-- `review` for feasibility, adversarial, source-align, or merge-value review gates
+- `feasibility` for first maintainer decisions
+- `adversarial` for challenge passes
+- `source-align` for source-backed alignment checks
+- `merge-value` for merge-worthiness decisions
+- `reply` for paste-ready review replies
+- `sync` for refreshing case state
+- `close` for closing cases
+- `review` as a high-level convenience entry for feasibility, adversarial, source-align, or merge-value review gates
 
-Use this umbrella skill for direct `code-gate <gate>` invocations, `init`, `reply`, `sync`, `close`, or ambiguous routing.
+Use this umbrella skill for direct `code-gate <gate>` invocations or ambiguous routing.
 
 ## Core Rule
 

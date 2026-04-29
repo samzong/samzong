@@ -16,9 +16,9 @@
     "maintainer",
     "case-file"
   ],
-  "skills": "./codex-skills/",
+  "skills": "./skills/",
   "interface": {
-    "displayName": "Code Gate",
+    "displayName": "code-gate",
     "shortDescription": "Run maintainer gates with live case files",
     "longDescription": "Use Code Gate to inspect status, choose the next gate, and run one maintainer review gate at a time while keeping a root-level case file current across Codex and Codex IDE sessions.",
     "developerName": "samzong",
