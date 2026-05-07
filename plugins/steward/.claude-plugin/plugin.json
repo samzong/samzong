@@ -1,6 +1,6 @@
 {
   "name": "steward",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Maintainer decision protocol with gated review and live case files",
   "author": {
     "name": "samzong"

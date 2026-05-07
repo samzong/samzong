@@ -1,11 +1,11 @@
 ---
 name: init
-description: Create or reuse the root-level Steward case file and set it to intake. Use when the user starts a Steward case or asks for steward init.
+description: Manually create or reuse the root-level Steward case file and set it to intake. Use only when the user explicitly asks for steward init or needs manual case setup.
 ---
 
 # Init
 
-Use this skill to start a Steward case.
+Use this skill as an explicit escape hatch to manually start a Steward case. Judgment gates can create cases implicitly.
 
 ## First Step
 
@@ -26,6 +26,7 @@ Run only the `init` gate.
 - Keep the file at `case-YYYY-MM-DD-<slug>.md` in the repository root.
 - Capture task goal, current hypothesis, and next intended gate.
 - Set status to `intake`.
+- Write the case file's repo-root-relative path to the current pointer.
 - Use the same language as the user's latest message for case file content.
 - Do not run any follow-up gate.
 

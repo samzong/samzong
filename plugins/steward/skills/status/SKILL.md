@@ -22,7 +22,7 @@ Run only the `status` gate.
 - Do not edit files.
 - Report the current status, verdict, next action, blockers, branch, issue, PR, and latest decision log entry when present.
 - If `updated_at` is stale by more than 24 hours, note that and suggest `steward sync`.
-- If no case file exists, suggest `steward init`.
+- If no current case exists, suggest running a judgment gate such as `steward feasibility <task>`.
 
 ## Output
 

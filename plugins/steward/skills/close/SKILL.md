@@ -1,11 +1,11 @@
 ---
 name: close
-description: Freeze the final Steward verdict and set the case status to closed. Use when the user asks for steward close or wants to finish a case.
+description: Manually archive a Steward case by freezing the final verdict and setting the case status to closed. Use when the user explicitly asks for steward close or needs to clean up abnormal case state.
 ---
 
 # Close
 
-Use this skill to close a Steward case.
+Use this skill as an explicit escape hatch to manually archive a Steward case.
 
 ## First Step
 
@@ -19,8 +19,9 @@ Run only the `close` gate.
 
 - Freeze the final verdict, verification status, limits, and follow-ups.
 - Set status to `closed`.
+- Clear the current pointer if it points to this case file.
 - Warn if the case is already closed.
-- If no valid case file exists, auto-create a minimal case file first, then run close.
+- If no valid case file exists, say no current case exists; do not auto-create a case only to close it.
 - Do not run another gate.
 - Do not implement product or code changes.
 

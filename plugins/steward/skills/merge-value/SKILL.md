@@ -23,7 +23,7 @@ Run only the `merge-value` gate.
 - Apply the Source-Backed Maintainer Review Lens before deciding value.
 - Cover upstream-baseline gap, owner and boundary fit, tests and docs evidence, security/data-access/contract impact, best possible solution, and remaining risk or open question.
 - If re-running and a merge-value entry already exists, show the previous verdict for comparison.
-- If no valid case file exists, auto-create a minimal case file first, then run merge-value.
+- If no valid case file exists, auto-create a minimal case file first, write it to the current pointer, then run merge-value.
 - Do not implement product or code changes.
 
 ## Output

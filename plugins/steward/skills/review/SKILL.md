@@ -23,7 +23,7 @@ Read `../../shared/protocol.md` before acting. Treat it as the source of truth f
 - Run exactly one review gate per user request.
 - Map natural-language requests to one of the supported review gates.
 - If the user asks for multiple review gates in one message, run only the first and report the next explicit command to run.
-- If no valid case file exists, auto-create a minimal case file first, then continue the requested review gate.
+- If no valid case file exists, auto-create a minimal case file first, write it to the current pointer, then continue the requested review gate.
 - Keep the case file in the repository root using `case-YYYY-MM-DD-<slug>.md`.
 - Use the same language as the user's latest message for case file content.
 - Prefer `rg`, `git`, and `gh` for evidence gathering when relevant.

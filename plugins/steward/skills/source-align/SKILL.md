@@ -25,7 +25,7 @@ Run only the `source-align` gate.
 - Include the best possible solution and remaining risk or open question when they affect next action.
 - Append a decision log entry.
 - Do not change status.
-- If no valid case file exists, auto-create a minimal case file first, then run source-align.
+- If no valid case file exists, auto-create a minimal case file first, write it to the current pointer, then run source-align.
 - Do not implement product or code changes.
 
 ## Output

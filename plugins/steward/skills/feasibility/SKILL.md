@@ -25,8 +25,8 @@ Run only the `feasibility` gate.
   a proposed solution.
 - If re-running and a feasibility entry already exists, show the previous verdict for comparison.
 - If positive, set status to `execute`.
-- If negative, suggest `steward close`.
-- If no valid case file exists, auto-create a minimal case file first, then run feasibility.
+- If negative, record the final negative verdict and make the next action `stop` unless specific evidence remains missing.
+- If no valid case file exists, auto-create a minimal case file first, write it to the current pointer, then run feasibility.
 - Do not drift into implementation.
 
 ## Output

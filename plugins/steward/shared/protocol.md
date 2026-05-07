@@ -27,16 +27,25 @@ assistant and it is not an autopilot.
 All commands MUST use this algorithm:
 
 1. `git rev-parse --show-toplevel` for repo root. If that fails, use cwd and say so.
-2. Glob `case-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-*.md` at repo root.
-3. Filter: keep only files with a `status:` frontmatter field matching a valid status value.
-4. If multiple: ask the user which one.
-5. If none:
+2. Resolve the Git-local current pointer path with `git rev-parse --git-path steward/current`.
+   - If that fails because the working directory is not a Git repository, use `<cwd>/.steward-current` as a non-Git fallback and warn that this fallback is local state that may need to be ignored.
+   - Never hard-code `.git/steward/current`; linked worktrees may have a `.git` file, not a directory.
+3. Read the current pointer if it exists.
+   - The pointer MUST contain one repo-root-relative case file path.
+   - If it points to an existing case file with a valid non-`closed` `status:` value, use that case file.
+   - If it points to a missing, invalid, or `closed` case file, treat the pointer as stale and continue discovery.
+4. Glob `case-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-*.md` at repo root.
+5. Filter: keep only files with a `status:` frontmatter field matching a valid status value. For default discovery, exclude `closed` case files unless the user explicitly names that case file.
+6. If one open case remains, use it and write its repo-root-relative path to the current pointer when the command is allowed to write.
+7. If multiple open cases remain, ask the user which one. After the user chooses, write its repo-root-relative path to the current pointer when the command is allowed to write.
+8. If none:
    - For `init`, proceed to create.
    - For `reply`, continue stateless.
-   - For `status` or `next`, say no case file exists and suggest `init`.
-   - For stateful gates (`feasibility`, `adversarial`, `source-align`,
-     `merge-value`, `sync`, `close`), auto-create a minimal case file first,
-     then run the requested gate.
+   - For `status` or `next`, say no current case exists and suggest running a judgment gate such as `steward feasibility <task>`.
+   - For stateful judgment gates (`feasibility`, `adversarial`, `source-align`,
+     `merge-value`, `sync`), auto-create a minimal case file first,
+     write it to the current pointer, then run the requested gate.
+   - For `close`, say no current case exists and do not auto-create a case only to close it.
 
 ## Auto-Init Fallback
 
@@ -48,6 +57,7 @@ When a stateful gate auto-creates a case file:
 - Capture the requested gate as the next intended gate.
 - Set initial status to `intake`, then immediately apply the requested gate's
   normal status/update rules.
+- Write the new case file's repo-root-relative path to the current pointer.
 - Do not inspect PRs, upstream state, or unrelated diffs just to create the case
   file. Evidence gathering belongs to the requested gate after the case exists.
 
@@ -147,11 +157,12 @@ general code review style pass.
 
 ## Gate Definitions
 
-### `init` (start)
+### `init` (manual start)
 
-- Create or reuse the case file.
+- Optional escape hatch for manually creating or reusing a case file.
 - Capture task goal, current hypothesis, and next intended gate.
 - Set status to `intake`.
+- Write the case file's repo-root-relative path to the current pointer.
 
 ### `feasibility`
 
@@ -203,28 +214,31 @@ general code review style pass.
 
 ### `close`
 
+- Optional escape hatch for manually archiving a case.
 - Freeze the final verdict, verification status, limits, and follow-ups.
 - Set status to `closed`.
+- Clear the current pointer if it points to this case file.
 
 ## State Machine
 
 ```
+judgment gate with no current case → auto-create case → requested gate
 intake → feasibility
 feasibility (positive) → execute (user codes, no command)
-feasibility (negative) → close
+feasibility (negative) → final negative verdict, then stop or manually close
 execute → adversarial | source-align
 adversarial ←→ source-align (either order, both repeatable)
 adversarial/source-align → merge-value
-merge-value (positive) → ship (user ships) → close
-merge-value (negative) → adversarial (re-verify)
-ship → post-ship → close
+merge-value (positive) → ship (user ships) → post-ship or manually close
+merge-value (negative) → adversarial (re-verify) or final negative verdict
+post-ship → final verdict or manually close
 ```
 
 ## Repeatability
 
 | Category | Commands | Write? | Repeat? |
 |----------|----------|--------|---------|
-| Transition | init, close | Yes | Guard: warn if already done |
+| Manual lifecycle | init, close | Yes | Escape hatch; guard if redundant |
 | Decision | feasibility, merge-value | Yes | Show previous verdict for comparison |
 | Verification | adversarial, source-align | Yes | Append to decision log, do NOT change status |
 | Utility | status, next, reply, sync | Mixed | Always ok |

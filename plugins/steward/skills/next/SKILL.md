@@ -21,7 +21,7 @@ Run only the `next` gate.
 - Do not create a case file if none exists.
 - Do not edit files.
 - Suggest exactly one next gate based on the current case state and missing evidence.
-- If no case file exists, suggest `steward init`.
+- If no current case exists, suggest running a judgment gate such as `steward feasibility <task>`.
 - If a re-run is warranted, include it as the alternative instead of suggesting multiple next gates.
 
 ## Output

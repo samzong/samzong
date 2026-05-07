@@ -9,17 +9,17 @@ Use this skill as the umbrella router for the `steward` maintainer workflow. It 
 
 Prefer the gate-specific Codex skills when the request clearly matches them:
 
-- `init` for starting or reusing a case file
-- `status` for read-only status checks
-- `next` for read-only next-step suggestions
 - `feasibility` for first maintainer decisions using the Requirement Deletion Lens
 - `adversarial` for challenge passes, especially debatable requirements and abstractions
 - `source-align` for source-backed alignment checks
 - `merge-value` for merge-worthiness decisions
+- `status` for read-only status checks
+- `next` for read-only next-step suggestions
 - `reply` for paste-ready review replies
 - `sync` for refreshing case state
-- `close` for closing cases
 - `review` as a high-level convenience entry for feasibility, adversarial, source-align, or merge-value review gates
+- `init` only as a manual case setup escape hatch
+- `close` only as a manual archive escape hatch
 
 Use this umbrella skill for direct `steward <gate>` invocations or ambiguous routing.
 
@@ -38,16 +38,16 @@ Treat the protocol as the source of truth for status values, discovery, state tr
 
 ## Supported Gates
 
-- `init`: create or reuse the root-level case file and set `status: intake`
-- `status`: read the current case file only
-- `next`: read the current case file and suggest one next gate
 - `feasibility`: decide whether the task should be fixed using the Requirement Deletion Lens and set positive cases to `execute`
 - `adversarial`: challenge the current story using the Requirement Deletion Lens when requirements or abstractions are debatable, and append evidence without changing status
 - `source-align`: compare the implementation with original source context, PR/issue discussion, and upstream state using the source-backed maintainer review lens
 - `merge-value`: decide whether the change is worth merging using upstream-baseline evidence, owner/boundary fit, contract/security impact, best possible solution, and remaining risk
+- `status`: read the current case file only
+- `next`: read the current case file and suggest one next gate
 - `reply`: draft a paste-ready review reply without reading or writing case state unless needed for context
 - `sync`: refresh the case file without changing status
-- `close`: freeze the final verdict and set `status: closed`
+- `init`: manually create or reuse the root-level case file and set `status: intake`
+- `close`: manually archive the case by freezing the final verdict and setting `status: closed`
 
 ## Invocation Mapping
 
@@ -71,8 +71,9 @@ If the user asks for multiple gates in one message, run only the first gate and 
 - Follow the repository plan gate before mutating files unless the user explicitly invoked a mutating Steward command.
 - `status`, `next`, and `reply` are read-only by default.
 - `init`, `feasibility`, `adversarial`, `source-align`, `merge-value`, `sync`, and `close` may update the case file exactly as the protocol requires.
-- If a stateful gate is requested and no valid case file exists, auto-create a minimal case file first, then continue the requested gate. Do not stop just to ask the user to run `init`.
-- Do not auto-create a case file for `status`, `next`, or `reply`.
+- Resolve the current case through the Git-local current pointer before globbing case files.
+- If a stateful judgment gate is requested and no valid case file exists, auto-create a minimal case file first, write it to the current pointer, then continue the requested gate. Do not stop just to ask the user to run `init`.
+- Do not auto-create a case file for `status`, `next`, `reply`, or `close`.
 - Keep the case file in the repository root using `case-YYYY-MM-DD-<slug>.md`.
 - Use the same language as the user's latest message for case file content.
 - Prefer `rg`, `git`, and `gh` for evidence gathering when relevant.

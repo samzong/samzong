@@ -6,7 +6,7 @@
       "name": "steward",
       "source": "./plugins/steward",
       "description": "Maintainer decision protocol with gated review and live case files",
-      "version": "1.3.0"
+      "version": "1.4.0"
     }
   ]
 }

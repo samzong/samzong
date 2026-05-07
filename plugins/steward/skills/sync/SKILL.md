@@ -21,7 +21,7 @@ Run only the `sync` gate.
 - Do not change status.
 - Update meaningful evidence, blockers, identifiers, verification result, or rejected path when they changed.
 - Do not update for routine file reads or repetitive search noise.
-- If no valid case file exists, auto-create a minimal case file first, then run sync.
+- If no valid case file exists, auto-create a minimal case file first, write it to the current pointer, then run sync.
 - Do not run another gate.
 
 ## Output

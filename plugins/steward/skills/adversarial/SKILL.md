@@ -23,7 +23,7 @@ Run only the `adversarial` gate.
   depends on a debatable requirement, new abstraction, workflow, or automation.
 - Append a decision log entry.
 - Do not change status.
-- If no valid case file exists, auto-create a minimal case file first, then run adversarial.
+- If no valid case file exists, auto-create a minimal case file first, write it to the current pointer, then run adversarial.
 - Do not summarize neutrally; this is a challenge pass.
 - Do not implement product or code changes.
 
