@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "code-gate",
+      "name": "steward",
       "source": {
         "source": "local",
-        "path": "./plugins/code-gate"
+        "path": "./plugins/steward"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",

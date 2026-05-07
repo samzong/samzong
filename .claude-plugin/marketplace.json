@@ -3,10 +3,10 @@
   "owner": { "name": "samzong" },
   "plugins": [
     {
-      "name": "code-gate",
-      "source": "./plugins/code-gate",
+      "name": "steward",
+      "source": "./plugins/steward",
       "description": "Maintainer decision protocol with gated review and live case files",
-      "version": "1.2.4"
+      "version": "1.3.0"
     }
   ]
 }
