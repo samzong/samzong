@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Token Factory 大纲审阅入口</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --ink: #111827;
+        --muted: #667085;
+        --line: #d8dee8;
+        --line-strong: #b9c4d3;
+        --blue: #2563eb;
+        --green: #0f766e;
+        --amber: #a16207;
+        --red: #b45309;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 44px 0 56px;
+      }
+
+      .hero {
+        max-width: 780px;
+        margin-bottom: 34px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--blue);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(34px, 6vw, 54px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .hero p {
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: 17px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 20px;
+        letter-spacing: 0;
+      }
+
+      .section-head span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .timeline {
+        position: relative;
+        display: grid;
+        gap: 34px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 42px;
+        top: 18px;
+        bottom: 18px;
+        width: 1px;
+        background: var(--line);
+      }
+
+      .version {
+        position: relative;
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 26px;
+      }
+
+      .version-marker {
+        position: relative;
+        min-height: 48px;
+        padding-left: 72px;
+      }
+
+      .version-marker::before {
+        content: "";
+        position: absolute;
+        left: 33px;
+        top: 9px;
+        width: 17px;
+        height: 17px;
+        border-radius: 999px;
+        background: var(--panel);
+        border: 4px solid var(--blue);
+        box-shadow: 0 0 0 5px var(--bg);
+      }
+
+      .version-marker time {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .version-marker h2 {
+        font-size: 28px;
+        line-height: 1;
+      }
+
+      .version-content {
+        display: grid;
+        gap: 14px;
+      }
+
+      .version-summary {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        display: grid;
+        gap: 16px;
+        min-height: 176px;
+        padding: 20px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        transition:
+          transform 160ms ease,
+          border-color 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .card:hover {
+        transform: translateY(-1px);
+        border-color: var(--line-strong);
+        box-shadow: 0 12px 32px rgba(17, 24, 39, 0.06);
+      }
+
+      .card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: #eef4ff;
+        color: var(--blue);
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .tag.green {
+        background: #eaf8f2;
+        color: var(--green);
+      }
+
+      .tag.amber {
+        background: #fff7e6;
+        color: var(--amber);
+      }
+
+      .tag.red {
+        background: #fff1eb;
+        color: var(--red);
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1.22;
+        letter-spacing: 0;
+      }
+
+      .card p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .card-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: auto;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+
+      .open {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 86px;
+        min-height: 34px;
+        padding: 7px 11px;
+        border-radius: 6px;
+        background: var(--ink);
+        color: #ffffff;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .open.secondary {
+        background: #eef4ff;
+        color: var(--blue);
+      }
+
+      .note {
+        margin-top: 28px;
+        padding: 14px 0 0;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 860px) {
+        .shell {
+          width: min(100% - 28px, 1120px);
+          padding-top: 32px;
+        }
+
+        .section-head {
+          display: grid;
+        }
+
+        .timeline::before {
+          left: 9px;
+        }
+
+        .version {
+          grid-template-columns: 1fr;
+          gap: 12px;
+          padding-left: 32px;
+        }
+
+        .version-marker {
+          padding-left: 0;
+        }
+
+        .version-marker::before {
+          left: -31px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .card-foot {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .actions {
+          justify-content: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <h1>Token Factory PPT 大纲</h1>
+      </header>
+
+      <section class="section" aria-labelledby="timeline-title">
+        <div class="section-head">
+          <h2 id="timeline-title">版本时间线</h2>
+          <span>最新版本在最上方</span>
+        </div>
+        <div class="timeline">
+          <section class="version" aria-labelledby="v2-title">
+            <div class="version-marker">
+              <time datetime="2026-05-15">2026-05-15</time>
+              <h2 id="v2-title">v2</h2>
+            </div>
+            <div class="version-content">
+              <div class="version-summary">
+                保留智算中心和企业客户两个入口，采用先结果、后论证的叙事方式。
+              </div>
+              <div class="grid">
+                <article class="card">
+                  <div class="card-top">
+                    <div>
+                      <h3>智算中心</h3>
+                      <p>
+                        面向地方智算中心决策层，先讲 GPU 资产如何变成可经营的
+                        Token 生意。
+                      </p>
+                    </div>
+                    <span class="tag">Sales</span>
+                  </div>
+                  <div class="card-foot">
+                    <span>28 页</span>
+                    <span class="actions">
+                      <a
+                        class="open"
+                        href="./sales-ppt-outline-v2-computing-center.html"
+                        >打开 HTML</a
+                      >
+                      <a
+                        class="open secondary"
+                        href="https://github.com/samzong/samzong/blob/main/talks/2026-05-14-token-factory-zh-online/sales-ppt-outline-v2-computing-center.md"
+                        >Markdown</a
+                      >
+                    </span>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <div class="card-top">
+                    <div>
+                      <h3>企业客户</h3>
+                      <p>
+                        面向大型企业内部平台方，先讲统一 AI
+                        供给、成本治理和业务可见性。
+                      </p>
+                    </div>
+                    <span class="tag green">Sales</span>
+                  </div>
+                  <div class="card-foot">
+                    <span>26 页</span>
+                    <span class="actions">
+                      <a class="open" href="./sales-ppt-outline-v2-enterprise.html"
+                        >打开 HTML</a
+                      >
+                      <a
+                        class="open secondary"
+                        href="https://github.com/samzong/samzong/blob/main/talks/2026-05-14-token-factory-zh-online/sales-ppt-outline-v2-enterprise.md"
+                        >Markdown</a
+                      >
+                    </span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <section class="version" aria-labelledby="v1-title">
+            <div class="version-marker">
+              <time datetime="2026-05-14">2026-05-14</time>
+              <h2 id="v1-title">v1</h2>
+            </div>
+            <div class="version-content">
+              <div class="version-summary">
+                第一版混合叙事，保留综合大纲和产品功能版两个入口。
+              </div>
+              <div class="grid">
+                <article class="card">
+                  <div class="card-top">
+                    <div>
+                      <h3>综合大纲｜v1</h3>
+                      <p>
+                        第一版综合大纲，采用 60% 智算中心与 40%
+                        企业用户的混合版本。
+                      </p>
+                    </div>
+                    <span class="tag">Sales</span>
+                  </div>
+                  <div class="card-foot">
+                    <span>v1</span>
+                    <span class="actions">
+                      <a class="open" href="./sales-ppt-outline-v1.html"
+                        >打开 HTML</a
+                      >
+                      <a
+                        class="open secondary"
+                        href="https://github.com/samzong/samzong/blob/main/talks/2026-05-14-token-factory-zh-online/sales-ppt-outline-v1.md"
+                        >Markdown</a
+                      >
+                    </span>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <div class="card-top">
+                    <div>
+                      <h3>产品功能版｜v1</h3>
+                      <p>
+                        第一版产品功能增强大纲，采用面向市场团队加工的原始组织方式。
+                      </p>
+                    </div>
+                    <span class="tag amber">Product</span>
+                  </div>
+                  <div class="card-foot">
+                    <span>v1</span>
+                    <span class="actions">
+                      <a class="open" href="./product-feature-ppt-outline-v1.html"
+                        >打开 HTML</a
+                      >
+                      <a
+                        class="open secondary"
+                        href="https://github.com/samzong/samzong/blob/main/talks/2026-05-14-token-factory-zh-online/product-feature-ppt-outline-v1.md"
+                        >Markdown</a
+                      >
+                    </span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <p class="note">
+        固定入口：打开本文件即可进入所有 HTML
+        审阅页，Markdown 链接指向 GitHub main
+        分支源文件。后续新增版本时，把新的版本组追加到时间线最上方即可。
+      </p>
+    </main>
+  </body>
+</html>

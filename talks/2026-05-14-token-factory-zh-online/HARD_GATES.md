@@ -236,3 +236,50 @@ PPT 受众与比例：
 - 是否用 B/A 证明 C 买了之后能产生价值。
 - 是否用 D 证明 DaoCloud 值得被投资和被平台方采购。
 - 是否避免 ToC MaaS、功能堆砌和技术堆料。
+
+## Gate 17：v2 必须拆成四个独立版本，不再做一个混合 60/40 版本
+
+第一版 review 后，用户已明确 v2 的输出物不是在原有两个大纲里继续混合“60% 地方智算中心 / 40% 大型企业”，而是拆成四个独立版本：
+
+- `sales-ppt-outline-v2-computing-center.md`：面向智算中心的销售拜访版。
+- `sales-ppt-outline-v2-enterprise.md`：面向企业用户 / 大型企业内部平台方的销售拜访版。
+- `product-feature-ppt-outline-v2-computing-center.md`：面向智算中心的产品功能增强版。
+- `product-feature-ppt-outline-v2-enterprise.md`：面向企业用户 / 大型企业内部平台方的产品功能增强版。
+
+每个 Markdown 必须生成一个对应的读者友好 HTML，并统一放到：
+
+- `pages-deploy/sales-ppt-outline-v2-computing-center.html`
+- `pages-deploy/sales-ppt-outline-v2-enterprise.html`
+- `pages-deploy/product-feature-ppt-outline-v2-computing-center.html`
+- `pages-deploy/product-feature-ppt-outline-v2-enterprise.html`
+
+v2 版本的理解规则：
+
+- 智算中心版：主对象是 C 类地方智算中心，重点是 GPU 资源变现、区域 AI 服务、客户增长、套餐与计量、收入毛利、资产回本、SLA、异构硬件、算电协同和样板经营闭环。
+- 企业用户版：主对象是 C 类大型企业内部 AI / IT / 平台团队，兼顾 B 类部门 / 应用 / 业务管理者，重点是内部 MaaS、统一模型供给、部门预算、Showback / Chargeback、应用 / Agent 接入、关键业务 SLA、安全审计和内部价值证明。
+- 企业用户版里的“企业用户”不是 A 类终端个人用户，不能把叙事写成面向普通终端用户的 ToC 使用体验。
+- A 类仍然只作为下游使用证明出现，不能抢采购和决策主线。
+
+## Gate 18：v2 叙事必须先结果、后论证
+
+v2 的 review 结论是：内容逻辑要按照“先结果、后论证”组织。
+
+每个 v2 大纲开头必须先回答决策层最关心的问题：
+
+- 面向智算中心：用了 Token Factory 后，智算中心会得到什么经营结果，例如可售 Token 产能、客户和套餐运营、收入毛利、单位 Token 成本下降、单机资产回本、SLA 提升、算电协同收益、样板项目复制。
+- 面向企业用户：用了 Token Factory 后，企业会得到什么治理和业务结果，例如统一内部 AI 供给、预算可控、成本可分摊、应用 / Agent 可接入、关键业务 SLA 可保障、安全审计可闭环、内部业务价值可证明。
+
+只有先讲清结果后，才进入论证：
+
+1. 为什么客户现在需要这个结果。
+2. Token Factory 的产品能力如何支撑结果。
+3. Dashboard / Copilot / FinOps / MaaS / 管理后台 / 推理优化 / 安全 / 算电协同分别承担什么角色。
+4. 具体数字、案例和交付路径如何证明结果可信。
+5. 下一步如何进入 PoC、样板项目、经营测算或内部治理试点。
+
+禁止：
+
+- 先从功能清单、架构图、模块介绍或技术案例开始讲。
+- 把“结果”写成泛泛价值口号，而没有可度量指标。
+- 智算中心版和企业用户版复用同一套开场，只改几个词。
+- 让企业用户版看起来像地方智算中心版的删减版。
