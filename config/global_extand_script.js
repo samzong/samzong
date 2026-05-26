@@ -1,4 +1,4 @@
-// IT'S working on CVR 2.4.3+
+// IT'S working on CVR 2.4.3
 
 const RULE_PROVIDERS = {
   acl4ssr_github: {
@@ -83,14 +83,21 @@ function main(config, profileName) {
   });
   config["rule-providers"] = providers;
 
-  const groupUS = buildRegionGroup(config, "US", /美国|US|United States|🇺🇸/i, ["OpenAI", "PROXY"]);
+  const groupUS = buildRegionGroup(config, "USS", /美国|US|United States|🇺🇸/i, ["OpenAI", "PROXY"]);
   // const groupSG = buildRegionGroup(config, "SG", /新加坡|SG|Singapore|🇸🇬/i, ["Singapore", "PROXY"]);
-  const groupJP = buildRegionGroup(config, "JP", /日本|JP|Japan|🇯🇵/i, ["Japan", "PROXY"]);
+  const groupJP = buildRegionGroup(config, "JPP", /日本|JP|Japan|🇯🇵/i, ["Japan", "PROXY"]);
 
   const targetGlobal = resolveTargetGroup(config["proxy-groups"], GLOBAL_KEYWORDS);
 
   const customRules = {
     "DOMAIN-SUFFIX": {
+      "z.ai": groupUS,
+      "tokscale.daocloud.io": "DIRECT",
+      "clawos.daocloud.io": "DIRECT",
+      "gimy.tv": "DIRECT",
+      "tabbitbrowser.com": groupJP,
+      "grok.com": groupUS,
+      "x.ai": groupUS,
       "claude.com": groupUS,
       "anthropic.com": groupUS,
       "openai.com": groupUS,
@@ -115,7 +122,10 @@ function main(config, profileName) {
     },
     "IP-CIDR": {
       "58.240.226.242/32": "DIRECT",
-    }
+    },
+    "PROCESS-NAME": {
+      "iOS": "DIRECT",
+    },
   };
 
   const rules = [];
@@ -128,26 +138,30 @@ function main(config, profileName) {
   const existing = config.rules || [];
   config.rules = [...rules.filter((r) => !existing.includes(r)), ...existing];
 
-  // DNS
+  // DNS 配置
   config.dns = config.dns || {};
 
-  config.dns.nameserver = [
-    "https://doh.pub/dns-query",
-    "https://dns.alidns.com/dns-query",
-  ];
+  // // nameserver: 国内DNS只用于解析国内域名
+  // config.dns.nameserver = [
+  //   "https://doh.pub/dns-query",
+  //   "https://dns.alidns.com/dns-query",
+  // ];
 
-  config.dns.fallback = [
-    "https://dns.google/dns-query",
-    "https://1.1.1.1/dns-query",
-    "https://8.8.8.8/dns-query",
-  ];
+  // // fallback: 海外DNS用于解析被污染的域名
+  // config.dns.fallback = [
+  //   "https://dns.google/dns-query",
+  //   "https://1.1.1.1/dns-query",
+  //   "https://8.8.8.8/dns-query",
+  // ];
 
-  config.dns["fallback-filter"] = {
-    geoip: true,
-    "geoip-code": "CN",
-    ipcidr: ["240.0.0.0/4", "0.0.0.0/32"],
-  };
+  // // fallback-filter: 国内DNS返回非CN IP时，用fallback结果覆盖
+  // config.dns["fallback-filter"] = {
+  //   geoip: true,
+  //   "geoip-code": "CN",
+  //   ipcidr: ["240.0.0.0/4", "0.0.0.0/32"],
+  // };
 
+  // nameserver-policy: 特定域名指定DNS
   config.dns["nameserver-policy"] = config.dns["nameserver-policy"] || {};
 
   const customDNS = {
@@ -163,7 +177,7 @@ function main(config, profileName) {
     });
   });
 
-  // sniffer
+  // sniffer: TLS SNI 嗅探，兜底防止DNS污染绕过规则
   config.sniffer = {
     enable: true,
     "force-dns-mapping": true,
