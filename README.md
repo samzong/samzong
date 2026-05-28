@@ -5,7 +5,7 @@
 * **Inference Serving Stack**: Scheduling and routing across heterogeneous models — the production path for vLLM and llm-d workloads on Kubernetes.
 * **Kubernetes-Native Workload Plumbing**: Batch queueing, multi-cluster scheduling, and GPU sharing for AI/ML workloads — contributing upstream to Kueue, Karmada, and HAMi.
 * **Agent Harnesses**: The supervision layer for long-running LLM agents — parallel sessions, multi-agent teams, artifacts, approval gates, scheduled dispatch. Because the work shouldn't collapse into chat.
-* **Vibe Coding Loops**: Multi-worktree dispatch, Claude Code skills, and commit/PR/task automation — the inner loop I live in daily.
+* **Agentic Developer Workflows**: Multi-worktree dispatch, Claude Code skills, and commit/PR/task automation — the inner loop I live in daily.
 
 ## Contributions
 
