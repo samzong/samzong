@@ -28,7 +28,6 @@ Steward does not:
 
 | Gate | Purpose |
 | --- | --- |
-| `init` | Manually create or reuse a root-level case file. |
 | `status` | Read the current case state without writing files. |
 | `next` | Suggest exactly one next Steward gate. |
 | `feasibility` | Decide whether the task should be fixed and whether the approach is acceptable. |
@@ -110,7 +109,7 @@ steward/
 - case discovery;
 - valid status values;
 - state transitions;
-- auto-init fallback behavior;
+- auto-create fallback for stateful judgment gates;
 - output contract;
 - source-backed maintainer review lens;
 - requirement deletion lens;

@@ -5,7 +5,7 @@ workflow repeatable without taking judgment away from the user.
 
 ## Why commands, not one big mode parser
 
-The user wants `/steward:init`, `/steward:feasibility`, and similar
+The user wants `/steward:feasibility`, `/steward:adversarial`, and similar
 commands because each gate is a distinct action with a hard stop. A single
 command with a mode flag would technically work, but it weakens the command
 surface and makes accidental full-flow behavior more likely.

@@ -39,7 +39,6 @@ All commands MUST use this algorithm:
 6. If one open case remains, use it and write its repo-root-relative path to the current pointer when the command is allowed to write.
 7. If multiple open cases remain, ask the user which one. After the user chooses, write its repo-root-relative path to the current pointer when the command is allowed to write.
 8. If none:
-   - For `init`, proceed to create.
    - For `reply`, continue stateless.
    - For `status` or `next`, say no current case exists and suggest running a judgment gate such as `steward feasibility <task>`.
    - For stateful judgment gates (`feasibility`, `adversarial`, `source-align`,
@@ -157,13 +156,6 @@ general code review style pass.
 
 ## Gate Definitions
 
-### `init` (manual start)
-
-- Optional escape hatch for manually creating or reusing a case file.
-- Capture task goal, current hypothesis, and next intended gate.
-- Set status to `intake`.
-- Write the case file's repo-root-relative path to the current pointer.
-
 ### `feasibility`
 
 - Answer whether the task should be fixed.
@@ -238,7 +230,7 @@ post-ship → final verdict or manually close
 
 | Category | Commands | Write? | Repeat? |
 |----------|----------|--------|---------|
-| Manual lifecycle | init, close | Yes | Escape hatch; guard if redundant |
+| Manual lifecycle | close | Yes | Escape hatch; guard if redundant |
 | Decision | feasibility, merge-value | Yes | Show previous verdict for comparison |
 | Verification | adversarial, source-align | Yes | Append to decision log, do NOT change status |
 | Utility | status, next, reply, sync | Mixed | Always ok |
