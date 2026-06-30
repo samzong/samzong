@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760">
+  <rect width="1400" height="760" fill="#fbfbf7"/>
+  <text x="80" y="86" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="42" font-weight="700" fill="#161616">从 MCP 到 Skill，再到 CLI：我理解的 Agent 接入层演进</text>
+  <text x="82" y="132" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#5f625d">不是谁替代谁，而是从“能调用工具”走向“能稳定进入真实业务系统”。</text>
+
+  <rect x="90" y="220" width="340" height="260" rx="24" fill="#e7f0ff" stroke="#2f6fed" stroke-width="3"/>
+  <text x="128" y="280" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#163d87">MCP</text>
+  <text x="128" y="326" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#26384d">让 Agent 能接工具</text>
+  <text x="128" y="374" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#43546c">上下文、工具、资源、服务</text>
+  <text x="128" y="410" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#43546c">重点是运行时连接</text>
+
+  <path d="M455 350 H555" stroke="#222" stroke-width="4" fill="none"/>
+  <path d="M555 350 L535 338 M555 350 L535 362" stroke="#222" stroke-width="4" fill="none"/>
+
+  <rect x="580" y="220" width="340" height="260" rx="24" fill="#fff3da" stroke="#db8f00" stroke-width="3"/>
+  <text x="618" y="280" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#7a4a00">Skill</text>
+  <text x="618" y="326" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#544226">让 Agent 懂工作流</text>
+  <text x="618" y="374" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#6b5734">规则、步骤、边界、示例</text>
+  <text x="618" y="410" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#6b5734">重点是可复用知识</text>
+
+  <path d="M945 350 H1045" stroke="#222" stroke-width="4" fill="none"/>
+  <path d="M1045 350 L1025 338 M1045 350 L1025 362" stroke="#222" stroke-width="4" fill="none"/>
+
+  <rect x="1070" y="220" width="240" height="260" rx="24" fill="#e7f7ee" stroke="#1f9254" stroke-width="3"/>
+  <text x="1108" y="280" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#116337">CLI</text>
+  <text x="1108" y="326" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#244534">让业务系统可操作</text>
+  <text x="1108" y="374" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#3f624d">可审计、可测试</text>
+  <text x="1108" y="410" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#3f624d">可进入 CI/CD</text>
+
+  <rect x="130" y="560" width="1140" height="92" rx="18" fill="#161616"/>
+  <text x="170" y="617" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#ffffff">我的判断：企业真正缺的不是更多 Agent，而是 Agent 进入真实工程系统的低摩擦入口。</text>
+</svg>

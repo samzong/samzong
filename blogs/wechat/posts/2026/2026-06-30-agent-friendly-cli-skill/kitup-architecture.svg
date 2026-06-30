@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860">
+  <rect width="1400" height="860" fill="#fbfbf7"/>
+  <text x="76" y="86" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="42" font-weight="700" fill="#151515">kitup 的位置：不是 marketplace，而是 producer-side installer</text>
+  <text x="78" y="132" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#64645f">CLI 作者已经拥有 Skill。kitup 负责把它安全送到用户本地的 Agent hosts。</text>
+
+  <rect x="80" y="205" width="250" height="190" rx="24" fill="#ffffff" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="120" y="265" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#111">Embedding CLI</text>
+  <text x="120" y="315" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="21" fill="#484848">mycli skill install</text>
+  <text x="120" y="348" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#484848">appId / bundle</text>
+  <text x="120" y="378" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#484848">scope / agents</text>
+
+  <path d="M355 300 H445" stroke="#222" stroke-width="4" fill="none"/>
+  <path d="M445 300 L425 288 M445 300 L425 312" stroke="#222" stroke-width="4" fill="none"/>
+
+  <rect x="470" y="175" width="330" height="250" rx="26" fill="#fff3da" stroke="#db8f00" stroke-width="3"/>
+  <text x="520" y="235" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#7a4a00">kitup SDK</text>
+  <text x="520" y="288" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#5c482a">resolve install selection</text>
+  <text x="520" y="322" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#5c482a">validate SKILL.md</text>
+  <text x="520" y="356" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#5c482a">copy / update / skip</text>
+  <text x="520" y="390" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#5c482a">write .kitup.json</text>
+
+  <path d="M825 300 H915" stroke="#222" stroke-width="4" fill="none"/>
+  <path d="M915 300 L895 288 M915 300 L895 312" stroke="#222" stroke-width="4" fill="none"/>
+
+  <rect x="940" y="170" width="380" height="260" rx="26" fill="#e7f7ee" stroke="#1f9254" stroke-width="3"/>
+  <text x="990" y="235" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#116337">Local Agent Hosts</text>
+  <text x="990" y="290" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#315642">Codex: ~/.agents/skills</text>
+  <text x="990" y="324" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#315642">Claude: ~/.claude/skills</text>
+  <text x="990" y="358" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#315642">OpenCode / Cursor / Gemini ...</text>
+  <text x="990" y="392" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#315642">installed skill tree</text>
+
+  <rect x="150" y="520" width="300" height="170" rx="22" fill="#eef2ff" stroke="#4338ca" stroke-width="2"/>
+  <text x="190" y="575" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#252a7c">host adapter DB</text>
+  <text x="190" y="625" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="21" fill="#3c4078">spec/hosts.json</text>
+  <text x="190" y="656" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#3c4078">path / aliases / detect</text>
+  <text x="190" y="684" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#3c4078">status</text>
+
+  <rect x="550" y="520" width="300" height="170" rx="22" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+  <text x="590" y="575" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#8a2f0a">safety policy</text>
+  <text x="590" y="625" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="21" fill="#6c3921">copy over symlink</text>
+  <text x="590" y="658" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="21" fill="#6c3921">conflict over clobber</text>
+
+  <rect x="950" y="520" width="300" height="170" rx="22" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="990" y="575" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#166534">structured report</text>
+  <text x="990" y="625" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="21" fill="#315642">installed / updated</text>
+  <text x="990" y="656" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#315642">skipped / conflicts</text>
+  <text x="990" y="684" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#315642">errors</text>
+
+  <path d="M300 520 V430" stroke="#4338ca" stroke-width="3" stroke-dasharray="8 8" fill="none"/>
+  <path d="M700 520 V430" stroke="#c2410c" stroke-width="3" stroke-dasharray="8 8" fill="none"/>
+  <path d="M1100 520 V430" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 8" fill="none"/>
+
+  <rect x="120" y="735" width="1160" height="70" rx="18" fill="#151515"/>
+  <text x="158" y="780" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="#fff">关键：CLI 作者不应该维护 100 个 Agent host 的安装路径，业务也不应该承担这层碎片化。</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <rect width="1400" height="820" fill="#fbfbf7"/>
+  <text x="80" y="86" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="42" font-weight="700" fill="#151515">Lathe + kitup：一条业务系统变成 Agent-friendly 入口的生产线</text>
+  <text x="82" y="132" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#63645f">Lathe 解决制作成本，kitup 解决分发和安全更新。</text>
+
+  <rect x="70" y="225" width="240" height="150" rx="22" fill="#ffffff" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="105" y="285" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#111">业务系统</text>
+  <text x="105" y="330" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#555">OpenAPI / Swagger</text>
+  <text x="105" y="358" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="20" fill="#555">protobuf / GraphQL</text>
+
+  <path d="M335 300 H430" stroke="#222" stroke-width="4" fill="none"/>
+  <path d="M430 300 L410 288 M430 300 L410 312" stroke="#222" stroke-width="4" fill="none"/>
+
+  <rect x="455" y="195" width="270" height="210" rx="26" fill="#e7f0ff" stroke="#2f6fed" stroke-width="3"/>
+  <text x="505" y="260" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#163d87">Lathe</text>
+  <text x="505" y="310" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#253b59">生成 CLI</text>
+  <text x="505" y="344" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#253b59">生成 catalog</text>
+  <text x="505" y="378" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#253b59">生成 Skill</text>
+
+  <path d="M750 300 H845" stroke="#222" stroke-width="4" fill="none"/>
+  <path d="M845 300 L825 288 M845 300 L825 312" stroke="#222" stroke-width="4" fill="none"/>
+
+  <rect x="870" y="170" width="250" height="260" rx="26" fill="#fff3da" stroke="#db8f00" stroke-width="3"/>
+  <text x="920" y="240" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#7a4a00">kitup</text>
+  <text x="920" y="292" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#544226">检测 host</text>
+  <text x="920" y="326" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#544226">安全复制</text>
+  <text x="920" y="360" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#544226">metadata ownership</text>
+  <text x="920" y="394" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" fill="#544226">冲突保护</text>
+
+  <path d="M1145 300 H1230" stroke="#222" stroke-width="4" fill="none"/>
+  <path d="M1230 300 L1210 288 M1230 300 L1210 312" stroke="#222" stroke-width="4" fill="none"/>
+
+  <rect x="1248" y="165" width="110" height="50" rx="14" fill="#e7f7ee" stroke="#1f9254" stroke-width="2"/>
+  <text x="1272" y="198" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#116337">Codex</text>
+  <rect x="1248" y="235" width="110" height="50" rx="14" fill="#e7f7ee" stroke="#1f9254" stroke-width="2"/>
+  <text x="1262" y="268" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#116337">Claude</text>
+  <rect x="1248" y="305" width="110" height="50" rx="14" fill="#e7f7ee" stroke="#1f9254" stroke-width="2"/>
+  <text x="1268" y="338" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#116337">Cursor</text>
+  <rect x="1248" y="375" width="110" height="50" rx="14" fill="#e7f7ee" stroke="#1f9254" stroke-width="2"/>
+  <text x="1258" y="408" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#116337">OpenCode</text>
+
+  <rect x="120" y="555" width="1160" height="118" rx="22" fill="#151515"/>
+  <text x="160" y="610" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#fff">业务不需要先重写成每个 Agent 的插件。</text>
+  <text x="160" y="652" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#e6e6e6">先给它一个稳定、可测试、可审计的 CLI，再把 Skill 分发给用户已经在用的 Agent。</text>
+</svg>

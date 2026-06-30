@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760">
+  <rect width="1400" height="760" fill="#fbfbf7"/>
+  <text x="80" y="86" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="42" font-weight="700" fill="#151515">OpenCLI 和 Lathe：两个值得尊重的方向</text>
+  <text x="82" y="132" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#63645f">一个在定义/连接已有 CLI 能力，一个在从 API 契约生成可维护的 CLI 产品。</text>
+
+  <rect x="90" y="190" width="570" height="440" rx="26" fill="#ffffff" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="135" y="255" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#111">OpenCLI 方向</text>
+  <text x="135" y="315" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#333">起点：已有 CLI / 网站 / 工具能力</text>
+  <text x="135" y="365" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#333">重点：让人和 Agent 都能理解调用方式</text>
+  <text x="135" y="415" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#333">强项：连接存量能力，快速建立可调用入口</text>
+  <text x="135" y="465" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#333">适合：已有工具生态、浏览器/桌面/脚本桥接</text>
+  <text x="135" y="535" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#7a4a00">核心问题：已有能力怎么被稳定理解和调用？</text>
+
+  <rect x="740" y="190" width="570" height="440" rx="26" fill="#e7f0ff" stroke="#2f6fed" stroke-width="3"/>
+  <text x="785" y="255" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#163d87">Lathe</text>
+  <text x="785" y="315" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#253b59">起点：OpenAPI / Swagger / proto / GraphQL</text>
+  <text x="785" y="365" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#253b59">重点：生成 CLI + catalog + Skill</text>
+  <text x="785" y="415" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#253b59">强项：API spec 是源头，减少文档/CLI/Skill 漂移</text>
+  <text x="785" y="465" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" fill="#253b59">适合：真实业务系统、长期维护、CI 校验</text>
+  <text x="785" y="535" font-family="PingFang SC, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#163d87">核心问题：怎么把 API 产品变成 Agent-ready？</text>
+</svg>
