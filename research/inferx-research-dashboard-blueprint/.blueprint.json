@@ -1,0 +1,14 @@
+{
+  "createdWith": "0.1.3",
+  "deployment": {
+    "account": "samzong",
+    "provider": "cloudflare-workers",
+    "url": "https://samzong-inferx-research-dashboard.samzong.workers.dev",
+    "workerName": "samzong-inferx-research-dashboard"
+  },
+  "entry": "index.html",
+  "name": "inferx-research-dashboard-blueprint",
+  "preset": "dossier",
+  "projectId": "9240d57e-6669-4014-920d-fe97044b5265",
+  "schemaVersion": 1
+}

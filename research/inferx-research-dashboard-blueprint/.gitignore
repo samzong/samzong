@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# build / tooling output
+dist/
+.vite/
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+
+# local / OS
+.DS_Store
+*.local
+.env
+.env.*
+!.env.example
