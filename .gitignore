@@ -143,3 +143,4 @@ bin/
 
 # report files
 *_milestone_*.md
+.grok
