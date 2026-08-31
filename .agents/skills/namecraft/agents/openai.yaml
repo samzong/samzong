@@ -1,0 +1,6 @@
+interface:
+  display_name: "Namecraft"
+  short_description: "Name projects for the Agent Bench portfolio."
+  default_prompt: "Use $namecraft to name this project."
+policy:
+  allow_implicit_invocation: false
