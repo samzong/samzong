@@ -10,6 +10,8 @@ Install only the workflows you need and their required sibling skill directories
 
 For Lody Duo, install [lody-duo](skills/lody-duo/SKILL.md), [gmc](skills/gmc/SKILL.md), and [liability-review](skills/liability-review/SKILL.md) as sibling directories. All three skills are required for the complete workflow. The `gmc` CLI is a separate external requirement and is not installed by this package. You do not need to install all twelve skills to use a selected workflow and its required dependencies.
 
+Lody Duo includes [eight workflow role configuration references](skills/lody-duo/references/agent-roles.md), with English descriptions and complete translated prompt prefixes that retain the Chinese conversation policy. They support manual inspection and configuration, are not import payloads, and do not create roles or bind a machine. Dispatch uses the current workspace catalog.
+
 This is a manual snapshot. Editing the repository copy does not change `~/.agents/`, and there is no automatic synchronization, installer, hook configuration, or scheduler in this package.
 
 ## Included skills and external requirements

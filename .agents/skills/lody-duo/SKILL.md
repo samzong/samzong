@@ -28,6 +28,8 @@ If the current Lody session or necessary tools or skills are missing, report the
 
 Discover available workspace roles with `lody_agent_role_list`, following pagination when needed. Read each selected role with `lody_agent_role_get` and verify its responsibilities, machine, agent configuration, model, reasoning effort, permissions, and availability. Names are discovery hints; dispatch with the stable `id` returned by the catalog. Never hardcode machine-specific IDs or create or modify roles to make a task fit.
 
+When inspecting, comparing, or manually configuring roles, read the [Agent Role configuration attachments](references/agent-roles.md) for each role's description, Agent, full runtime configuration, and prompt prefix. These references install with the skill but do not create roles; dispatch still uses the current workspace catalog.
+
 The table is a reference division of responsibilities. Required roles must already be supplied by the user's workspace catalog; installing this skill does not install or create roles. Agent, model, and reasoning settings can change, so verify the current catalog. Explicit user choices of role, agent, and model take priority when selecting a compatible role.
 
 | Role | Suitable work |
