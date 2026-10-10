@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lody Duo"
+  short_description: "Build Standard leads Lody tasks with verified delegation"
+  default_prompt: "Use $lody-duo to complete this task in Lody, with Build Standard leading development, bounded Build Deep consultation or Build Fast delegation as needed, and independent review before final acceptance."

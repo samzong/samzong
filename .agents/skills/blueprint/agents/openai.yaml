@@ -1,0 +1,4 @@
+interface:
+  display_name: "blueprint"
+  short_description: "Design architecture diagrams and build Blueprint Artifacts"
+  default_prompt: "Use $blueprint to inspect this project and directly design the requested Artifact."

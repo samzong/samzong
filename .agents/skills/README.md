@@ -96,3 +96,9 @@ In short:
 - This setup is optimized for my own solo workflow, not for every team.
 - The goal is not process purity. The goal is to keep parallel work isolated, small, and easy to ship.
 - If a step does not need a skill, I keep it manual instead of forcing automation.
+
+## Lody coordination
+
+See the [shared agent workflow snapshot](../README.md) for the [root rules](../AGENTS.md), all twelve synchronized skills, installation boundaries, and external requirements. This repository uses the [MIT License](../../LICENSE).
+
+[lody-duo](lody-duo/SKILL.md) coordinates authorized work through Lody MCP. Install `lody-duo/`, [gmc/](gmc/SKILL.md), and [liability-review/](liability-review/SKILL.md) as sibling directories in your agent's skill search path and invoke `$lody-duo` within Lody. These sibling skills are required for the complete workflow; the external `gmc` CLI must be installed separately for worktree operations. You can install a selected workflow and its required dependencies without installing all twelve skills. Development requires existing Build Standard and compatible Review roles; Build Deep, Build Fast, and Research roles are needed only when used. Fast reasoning must be at least `high`. The skill discovers roles in your workspace catalog; it does not create them or silently substitute missing or incompatible roles.

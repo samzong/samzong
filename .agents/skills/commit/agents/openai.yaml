@@ -1,0 +1,6 @@
+interface:
+  display_name: "Commit"
+  short_description: "Commit staged changes with pre-ship."
+  default_prompt: "Use $commit to commit the staged changes."
+policy:
+  allow_implicit_invocation: false

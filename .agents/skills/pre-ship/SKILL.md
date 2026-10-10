@@ -1,224 +1,222 @@
 ---
 name: pre-ship
-description: >
-  Pre-push bot-adversarial self-review gate. Simulates 7 AI reviewer lenses
-  (coderabbit / copilot / codex / strict-maintainer / gemini / claude-code /
-  greptileai) on staged or just-committed diff, auto-fixes MUST-FIX findings
-  atomically, loops to convergence (hard cap 2 rounds), writes audit trail to
-  commit body and a sentinel file for the Claude Code hook. Self-contained —
-  does NOT call `pr-eval` (which is post-push only). Invoked by `ship` Step 3.5,
-  by `commit` before commit, or manually before any push.
-  Use when: "pre-ship", "pre-push scan", "bot exhaust", "ship-ready check",
-  "push 之前扫一遍", "本地审", or invoked from `ship`.
-argument-hint: "[--staged | --committed] [--round N]"
+description: Verify a staged or just-committed change before commit or push. Read-only; reuse the liability-review verdict and valid verification for the exact target.
 ---
 
-**回复语言**：进度、分析、verdict 解释使用中文。文件引用（`path:42`）、符号名、YAML 字段、shell 命令保持英文原样。
+# Pre-Ship
 
-# Pre-Ship: Bot-Adversarial Self-Review Gate
+Prove that the exact change about to leave the machine has no known blocker and
+has passed a relevant project verifier. This is a gate, not a repair loop.
 
-**Goal**: The diff you push must have already passed 7 simulated bot lenses. Real bots on GitHub then find nothing new. AI-era code review does not happen on GitHub — it finishes here.
+Use Chinese for analysis and verdicts. Keep paths, symbols, commands, and Git or
+GitHub text in English.
 
-Triggered by `ship` Step 3.5, by `commit` before committing, or by user directly. Self-contained: scans, classifies, fixes MUST-FIX atomically, loops to convergence, writes audit trail, writes sentinel.
+## Modes
 
-## Input Mode
+- `--staged` (default): review `git diff --cached`.
+- `--committed`: review `git diff HEAD~1..HEAD` for an existing local commit,
+  or its root diff when the initial commit has no parent.
 
-- `--staged` (default when invoked standalone): scan `git diff --cached`. Fix → `git add` updated paths only.
-- `--committed` (default when invoked from `ship`): scan `git diff HEAD~1..HEAD`. Fix → `git add` + `git commit --amend --no-edit` (preserves signing).
-- `--round N`: current round number, default 1. Auto-incremented per iteration.
+No mode may edit files, mutate the index, amend a commit, stage fixes, create a
+PR, or post a comment. Return concrete corrections to the caller. A caller may
+make already-authorized in-scope corrections and resume without another approval;
+then resolve the new exact target and update the affected evidence before PASS.
 
-## Budget (hard limits — over = STOP, do NOT write sentinel)
+## 1. Resolve the exact target
 
-- `max_fix_delta_per_round`: 30 (sum of +added / -removed across all MUST-FIX fixes)
-- `max_rounds`: 2
-- `max_new_files`: 0 (fixes may only touch files already in the diff)
-
-Over any limit → abort with specific blocker message. Budget failures are **signals** the commit is too large — the remedy is to split it, not to raise the budget.
-
-## Verdict Schema (bot-adversarial, deterministic)
-
-| Verdict | Trigger | Action |
-|---|---|---|
-| `MUST-FIX` | Named runtime error with traceable path / CVE-class security (injection, SSRF, traversal, secret leak) / breaks existing test or compile / breaks documented public API / PR-introduced regression | Fix atomically |
-| `BOT-WRONG` | Code reading disproves claim (condition doesn't occur / already handled / pattern doesn't match this project) | Record for audit trail — rebuttal |
-| `BOT-NIT` | JSDoc / naming / format / extract-helper with <2 call sites / premature abstraction / style | Record for audit trail — defer reply |
-| `BOT-SCOPE` | Would touch file not in current diff / cross-file refactor / rename public symbol / new abstraction layer | Record — defer + follow-up ref |
-| `BOT-TASTE` | Uses softeners ("consider", "suggest", "could", "might want") AND no MUST-FIX trigger | Record — defer ack |
-
-**Only MUST-FIX touches code.** All other verdicts go into the audit trail only.
-
-**Tiebreak on ambiguity → defer, not fix.** Priority: `MUST-FIX > BOT-WRONG > BOT-SCOPE > BOT-NIT > BOT-TASTE`.
-
-Never upgrade BOT-NIT → MUST-FIX because "it would be nicer". Never downgrade a real bug → BOT-TASTE because claim is softly worded.
-
-## Phase 1: Collect Diff
+Start with:
 
 ```bash
-if [ "$mode" = "--staged" ]; then
-  git diff --cached
-  git diff --cached --name-only
-else
-  git diff HEAD~1..HEAD
-  git diff HEAD~1..HEAD --name-only
-fi
+git status --short --branch
 ```
 
-Zero diff → "Nothing to pre-ship" + write sentinel + exit 0 (vacuously passed).
-
-## Phase 2: 7-Lens Parallel Scan
-
-Run 7 lenses on the same diff. Each has a sharp zone — stay silent outside it. Cross-lens duplicates on same `file:line + claim` deduplicated; keep the strictest verdict.
-
-1. `coderabbit-style` — null/undefined deref without guard; unchecked `await` at IO boundary; off-by-one on indexing; incorrect type narrowing; magic numbers outside constants; swallowed exceptions (`catch {}`, re-throw losing cause); unhandled promise rejection; dead branches; shadowed vars; unused imports. Skews: `MUST-FIX` / `BOT-NIT`.
-
-2. `copilot-style` — SQLi / XSS / SSRF / path-traversal / command-injection / open-redirect; secrets in logs or error messages; unclosed resources (streams / handles / DB conns); missing `finally` / `using` / `defer`; deprecated API; input-validation gaps at system boundary; outdated syntax where modern idiom is standard. Skews: `MUST-FIX` on security; `BOT-NIT` on idiom.
-
-3. `codex-style` — edge cases (empty / max bound / concurrent / reentrancy / TOCTOU); race conditions on shared mutable state; assumption violations ("X is always defined" — prove it); error propagation clarity; behavior when dependency fails or returns empty. **Most likely source of real `MUST-FIX`.**
-
-4. `strict-maintainer-style` — public API design (extensibility, back-compat, unflagged breaking change); new-code test coverage gaps; CHANGELOG entry presence; commit-message / scope discipline; module-boundary violations; undocumented public contract. Skews: `MUST-FIX` on contract break; `BOT-SCOPE` otherwise.
-
-5. `gemini-style` — performance anti-patterns (O(n²) in hot paths, redundant allocations, sync-in-async, unnecessary cloning, unawaited promises in loops); readability (deep nesting, long param lists, unclear public-API names, primitive obsession); architecture consistency (layering violation, inappropriate cross-module imports); missing public-API docstrings. Skews: `BOT-NIT` / `BOT-TASTE`; real perf regressions → `MUST-FIX`.
-
-6. `claude-code-style` — semantic mismatch (name / comment ≠ behavior); implicit or surprising side effects; missing error context on re-throw (lost `cause`); simpler equally-clear alternative; testability (hard-to-mock dependency); missing test for new logic branch; invariant should lift out of loop. Broadest lens — tiebreak to `BOT-TASTE` when purely preferential.
-
-7. `greptileai-style` — **codebase-aware**. Inconsistency with existing patterns in THIS repo; duplicate logic where a utility already exists; naming / convention divergence from neighboring modules; similar bug fixed elsewhere but not applied here. **Before emitting a finding, run `Grep` or `Glob` to cite both the divergent site(s) AND the canonical site(s) in `evidence`. Never invent "inconsistency" without a concrete counter-site on disk.** Zero findings is valid.
-
-**Zero findings from a lens is a valid output. Never invent findings to look thorough.**
-
-## Phase 3: Verification
-
-For every finding before emission:
-1. `Read` the actual code + surrounding context
-2. `Grep` for existing handling — concern may be addressed elsewhere
-3. If asserting a project convention, sample 2-3 similar sites
-
-Never trust the lens. Verify independently.
-
-**Lens-7 extra check**: if a `greptileai-style` finding's `evidence` does not contain at least one concrete `file:line` reference to a counter-site → reject the finding silently.
-
-## Phase 4: Classify & Branch
-
-Build internal verdict table:
-
-```yaml
-round: 1
-stats: { MUST-FIX: 1, BOT-WRONG: 0, BOT-NIT: 2, BOT-SCOPE: 1, BOT-TASTE: 1 }
-findings:
-  - id: 1
-    lens: codex-style
-    file: src/gateway/chat-attachments.ts
-    line: 394
-    claim: "OOXML sniff downgrades to application/zip"
-    verdict: MUST-FIX
-    evidence: "L394 finalMime prefers sniffedMime; isGenericMime guard missing"
-    fix_plan: "Route MIME resolution through detectMime({buffer, headerMime, filePath})"
-    fix_delta: "+3/-5"
-    fix_files: [src/gateway/chat-attachments.ts]
-  - id: 2
-    lens: coderabbit-style
-    file: src/gateway/chat-attachments.ts
-    line: 458
-    claim: "extract helper for marker logic"
-    verdict: BOT-NIT
-    evidence: "single call site"
-    defer_reply: "Single call site — extraction is premature abstraction. Not changing."
-```
-
-Decision:
-- `MUST-FIX == 0` → go to Phase 6 (audit trail + sentinel)
-- `MUST-FIX > 0`:
-  - Sum fix_delta > 30 → STOP: "fix surface exceeds budget (${delta} > 30) — split the commit"
-  - Any fix needs new file → STOP: "fix requires new file ${f} — out of commit scope"
-  - Round > 2 → STOP: "gate did not converge in 2 rounds — this commit must be split"
-  - Else → Phase 5
-
-## Phase 5: Atomic Fix (MUST-FIX > 0)
-
-Apply **ALL** MUST-FIX `fix_plan`s in **one atomic edit pass**. Not one-by-one. The goal is one fix round = one conceptual convergence step, not a cascade of partial edits.
+For `--staged`:
 
 ```bash
-# After edits:
-git add <fix_files only — never stage untracked or new files>
-
-if [ "$mode" = "--committed" ]; then
-  git commit --amend --no-edit  # preserves signing
-fi
+git diff --cached --binary
+git diff --cached --name-only
+git diff --cached --check
 ```
 
-Re-enter Phase 1 with `round += 1`. Loop until `MUST-FIX == 0` or a STOP condition fires.
+Inspect staged and unstaged deltas when a staged path also has unstaged changes.
+The index remains the target; never silently include the working-tree version.
+Review the staged content directly. Use runtime evidence only when it actually
+covers that staged content and all relevant inputs. If this cannot be established,
+report the exact mismatch as `UNVERIFIED`; if the intended target is ambiguous,
+return `INPUT_ERROR`. The caller may resolve its own authorized corrections; this
+read-only gate never stages them or overwrites intentional partial staging.
 
-## Phase 6: Audit Trail + Sentinel
+For `--committed`:
 
-**Only reached when `MUST-FIX == 0`.**
-
-### Build deferred block
-
-From all non-MUST-FIX findings across the final round:
-
+```bash
+git diff HEAD~1..HEAD --binary
+git diff HEAD~1..HEAD --name-only
+git diff HEAD~1..HEAD --check
 ```
+
+For an initial root commit, use `git diff-tree --root --no-commit-id -p HEAD`
+with the corresponding `--binary`, `--name-only`, and `--check` options.
+
+Require an empty index. Review the committed content even when the working tree
+has later changes, but do not use a contaminated working-tree verifier as proof
+of that commit. Report an unresolved verification mismatch as `UNVERIFIED`.
+
+If the diff is empty, report `Nothing to pre-ship` and stop without claiming a
+behavioral verification pass.
+
+Resolve the full refs and fingerprint the binary diff:
+
+```bash
+<exact diff command> | git hash-object --stdin
+```
+
+Record unrelated unstaged and untracked paths. Path non-overlap alone does not
+prove that a project verifier is isolated from those changes.
+
+### Tier
+
+Classify the resolved target. `T0` is purely mechanical — generated-file
+refreshes, formatting-only, lockfile-only, typo fixes with zero semantic delta.
+For `T0`: keep the fingerprint discipline, verify the mechanical property itself
+(regenerate and diff-clean, formatter or parser check, plus the `--check` output
+above), skip Step 2 and Step 3's behavior verifier, and report `PASS` with
+`Tier: T0`. Escalation is one-way: any semantic delta or doubt, now or later in
+the run, raises to the full flow immediately; never downgrade mid-run. Everything
+else runs the full flow as `Tier: full`.
+
+## 2. Review ownership
+
+`pre-ship` produces no findings of its own. Defects belong to
+`liability-review`, and one fingerprint is reviewed once:
+
+- If a `liability-review` verdict bound to this exact fingerprint exists in the
+  session, carry it forward unchanged.
+- Otherwise run `liability-review` in `local` mode on the same target
+  (`--staged`, or `--commit HEAD` for `--committed`) and use its verdict.
+
+Map the verdict without changing the reviewer's findings:
+
+- Any open `P0`/`P1`, `REJECT_LOCAL`, `INPUT_ERROR`, mixed scope, or materially ambiguous intent → `BLOCK`.
+- `REQUEST_CHANGES` caused only by missing required review coverage or verification → `UNVERIFIED`; a concrete defect or an unclear reason → `BLOCK`.
+- A `T2` target whose required independent pass is `not available` → `UNVERIFIED`.
+- `ACCEPT_LOCAL` with no blocker → continue to Step 3; carry `P2` items into the deferred block.
+
+A later green verifier does not erase a pending defect or required review gap.
+If the existing liability verdict withheld acceptance only for a named check,
+its successful exact-target result can update that verdict without repeating
+unaffected analysis. Return new evidence or disagreements to the same liability
+ledger; do not generate a second findings list here.
+
+## 3. Establish canonical verification
+
+Discover the repository-declared gate from the closest `AGENTS.md`, contribution
+guide, package scripts, Makefile/justfile, or CI configuration. Reuse a successful
+result already recorded in the session when its exact command, target fingerprint,
+relevant inputs, environment, and behavior coverage still match. Otherwise run
+the narrowest credible command that exercises the changed behavior. Run any gate
+the repository explicitly requires afresh, plus the diff check from Step 1.
+Prefer an existing focused test over a broad generic suite.
+
+For a semantic change, formatting, lint, type checking, code reading, or another
+model alone is not a behavior-level verifier. If the repository has no credible
+executable signal for the changed behavior, return `UNVERIFIED` and name the
+missing proof. Documentation or declarative-only changes may use their canonical
+build, parser, schema, or link check when that is the relevant contract.
+
+The verifier must cover the reviewed target:
+
+- If it reads the working tree, confirm reviewed paths match the staged or
+  committed content.
+- If unrelated local changes could affect dependencies, configuration, generated
+  inputs, compilation, or test selection, its result does not prove the target.
+  Return `UNVERIFIED` unless isolation is explicit or those paths are proven
+  irrelevant to that command.
+- Do not stash, checkout, reset, or create a worktree to manufacture isolation.
+
+After verification, rerun `git status`, the exact diff command, and its
+fingerprint. If the target changed, inspect the delta and re-resolve the target.
+Update the liability verdict under its drift/re-review contract and rerun checks
+whose relevant inputs changed; preserve demonstrably unaffected evidence. Do not
+PASS until the current complete target is covered. Ambiguous targets return
+`INPUT_ERROR`. Normal ignored outputs do not invalidate the target unless they
+change an input the verifier depends on.
+
+## 4. Explicit verification exemption
+
+`UNVERIFIED` is fail-closed, not a permanent dead end. The caller must report
+the exact missing evidence and its cost, then stop. It may continue only after
+the user replies with the literal word `豁免` after seeing that report.
+
+An accepted exemption does not turn the result into `PASS`. Record it as
+`Pre-Ship: UNVERIFIED — EXEMPTED` with the target fingerprint, missing evidence,
+and the owner's literal reply. It cannot override `BLOCK`, `INPUT_ERROR`, a
+failing verifier, or a changed target. `ship` must discard this record instead
+of publishing it in a PR body or comment.
+
+## 5. Deferred audit block
+
+On `PASS`, emit only confirmed non-blocking defects deferred from this change,
+with their consequence, reason for deferral, and follow-up location or concrete
+revisit condition:
+
+```text
 ## Considered and deferred
 
-- <file:line> [<verdict>]: <defer_reply>
-- <file:line> [<verdict>]: <defer_reply>
+- <finding ID, file:line> [DEFERRED]: <consequence; deferral reason; follow-up location or revisit condition>
 ```
 
-Omit the entire block if zero deferred findings.
+Omit the block when empty; omit disproven candidates and cosmetic notes. `ship`
+carries these defects into its owner report, not the PR body or comments, and
+still excludes verification exemptions from external artifacts. `commit` may
+append the block to the pending commit body. A direct caller chooses an
+appropriate durable review artifact; `pre-ship` itself writes none. Reporting a
+defect does not establish owner acceptance or change its blocking disposition.
 
-### Attach to commit body
+## 6. Optional hook receipt
 
-- `--committed` mode: amend commit body to append the block:
-  ```bash
-  git commit --amend -m "$(git log -1 --pretty=%B)
-
-  ## Considered and deferred
-
-  - ..."
-  ```
-- `--staged` mode: print the block to stdout; the caller (ship / commit skill / user) is responsible for including it in the pending commit message.
-
-### Write sentinel
+After `PASS`, record the reviewed target only when an active PreToolUse hook
+uses `bin/pre-ship-gate`. This applies to Codex and Claude alike:
 
 ```bash
-cwd_hash=$(echo -n "$PWD" | shasum -a 256 | cut -c1-16)
-touch "/tmp/.preship-ok-${cwd_hash}"
+~/.agents/bin/pre-ship-gate record --mode staged --cwd "$PWD"
+~/.agents/bin/pre-ship-gate record --mode committed --cwd "$PWD"
 ```
 
-The Claude Code PreToolUse hook reads this sentinel. mtime within 5 minutes → allow `git commit` / `git push`. Absent or stale → block with instructions to run `/pre-ship` first.
+Run only the command matching the resolved review mode. An installed copy of
+this helper may be used when the source checkout has not yet been updated.
+The receipt binds the canonical worktree, HEAD, target diff fingerprint, and
+creation time for five minutes. A changed target needs renewed review; touching
+a file does not renew it. Commit and push require separate staged and committed
+receipts. Do not combine staging or source changes with the guarded operation.
+When a client hook omits the execution tool working directory, use explicit
+`git -C <reviewed-repository>` so the hook can resolve the same target.
 
-**Never write the sentinel if any STOP condition fired, even if some MUST-FIX were resolved.** Partial progress ≠ gate passed.
+If no active hook consumes it, do nothing. Never record after `BLOCK`,
+`UNVERIFIED`, an exemption, or `INPUT_ERROR`. The receipt is the only permitted
+side effect. It prevents ordinary mistakes; it is not a security boundary and
+cannot inspect opaque scripts, interactive tool continuations, or every tool.
 
-## Phase 7: Report
+## Verdict and output
 
-Human-readable summary:
+- `PASS`: the final resolved or re-anchored target is stable and fully covered,
+  no blocker remains, and the relevant canonical verifier passed.
+- `BLOCK`: code, scope, contract, or verification evidence shows a blocker.
+- `UNVERIFIED`: the change may be correct, but the required target-specific proof
+  is missing or contaminated; only the explicit exemption protocol above may
+  allow a caller to continue.
+- `INPUT_ERROR`: target resolution failed, or target drift remains unresolved
+  or uncovered by the updated review and verification.
 
-```markdown
-## Pre-Ship — round <r>/2 (<mode>)
-
-Findings: N total | MUST-FIX: M resolved | deferred: D
-Fix delta applied: +<a>/-<b> | Exhausted: YES | Sentinel: /tmp/.preship-ok-<hash>
-
-### Applied fixes (atomic)
-| # | file:line | summary | delta |
-
-### Deferred (written to commit body)
-| # | verdict | file:line | defer_reply |
+```text
+Pre-Ship: <PASS | BLOCK | UNVERIFIED | INPUT_ERROR>
+Target: <mode, refs, fingerprint>
+Tier: <T0 | full>
+Review: <liability-review verdict and tier bound to this fingerprint, or T0 mechanical check>
+Verification: <exact commands and results>
+Blockers: <liability-review finding IDs or none>
+Deferred: <count>
+Exemption: <not required | required | accepted with recorded evidence>
 ```
 
-## Edge Cases
-
-- No diff → "Nothing to pre-ship" + write sentinel + exit 0
-- First-round fix delta already > 30 → STOP. Suggest `git reset HEAD <file>` + split via `gmc wt` or hunk staging.
-- Lens 7 finding with empty / non-`file:line` evidence → silently drop (don't trust unverified inconsistency claims)
-- Sentinel write fails (e.g. `/tmp` unwritable) → warn, continue. Hook will fail-safe (no sentinel = block), which is correct behavior.
-- Invocation from `commit` skill (not yet wired) → use `--staged` mode; caller amends commit message
-
-## Anti-patterns (bugs in this skill)
-
-- Inventing lens findings to appear thorough
-- Applying MUST-FIX one-by-one instead of atomic pass
-- Fixing BOT-NIT / BOT-TASTE because "it's easy, might as well"
-- Downgrading real bug to BOT-TASTE because claim was softly worded
-- Extending scope beyond the diff being scanned
-- Running a 3rd round despite `max_rounds = 2`
-- Writing sentinel when any STOP fired (partial progress leaked)
-- Lens 7 emitting "inconsistent with convention" without cited counter-site
+Never claim exhaustion, safety, or bot convergence. This gate reports only the
+evidence actually collected for this exact target.

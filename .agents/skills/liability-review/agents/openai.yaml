@@ -1,0 +1,4 @@
+interface:
+  display_name: "Liability Review"
+  short_description: "Audit local changes or PR merge readiness."
+  default_prompt: "Use $liability-review to audit this local change or PR under maintainer-liability standards."
