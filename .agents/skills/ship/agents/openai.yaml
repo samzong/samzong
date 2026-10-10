@@ -1,0 +1,6 @@
+interface:
+  display_name: "Ship"
+  short_description: "Commit, push, and open a reviewable PR."
+  default_prompt: "Use $ship to ship the staged changes through branch, commit, push, and PR."
+policy:
+  allow_implicit_invocation: false

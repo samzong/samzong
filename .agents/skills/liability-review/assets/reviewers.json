@@ -1,0 +1,5 @@
+[
+  { "agent": "codex", "model": "gpt-6-astra", "reasoning_effort": "low" },
+  { "agent": "claude", "model": "claude-opus-5", "reasoning_effort": "low" },
+  { "agent": "cursor", "model": "cursor-grok-4.6-high-fast" }
+]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser CDP"
+  short_description: "Use Chrome DevTools through shared MCP"
+  default_prompt: "Use $browser-cdp to inspect and verify a webpage through the shared Chrome DevTools MCP."

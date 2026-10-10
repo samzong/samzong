@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Eval"
+  short_description: "Evaluate reviews and close owned PR blockers."
+  default_prompt: "Use $pr-eval to evaluate this PR and continuously close verified blockers if I own it."
