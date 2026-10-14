@@ -1,0 +1,22 @@
+[
+  {
+    "id": "scope-expansion",
+    "public_title": "Unrequested scope expansion",
+    "definition": "The agent added or changed behavior outside the accepted scope."
+  },
+  {
+    "id": "evidence-gap",
+    "public_title": "Unsupported completion or diagnosis",
+    "definition": "The agent claimed a result without evidence at the affected entrypoint."
+  },
+  {
+    "id": "intent-mismatch",
+    "public_title": "Misread requirement or correction",
+    "definition": "The agent implemented a different meaning from the user requirement."
+  },
+  {
+    "id": "workflow-break",
+    "public_title": "Broken delivery or collaboration workflow",
+    "definition": "The agent skipped a required step or crossed an authority boundary."
+  }
+]
