@@ -1,6 +1,6 @@
 # Shared Agent Workflow Snapshot
 
-This directory is an English public snapshot of Samzong's personal cross-repository agent rules, the eleven skills directly named by those rules, and Lody Duo. Human-facing replies default to Chinese. Exact Chinese authorization phrases and examples are intentionally preserved.
+This directory is an English public snapshot of Samzong's personal cross-repository agent rules and thirteen selected skills covering those rules and supporting workflows, including Lody Duo and Correction Audit. Human-facing replies default to Chinese. Exact Chinese authorization phrases and examples are intentionally preserved.
 
 ## Use the snapshot
 
@@ -8,7 +8,7 @@ Read [AGENTS.md](AGENTS.md) and adapt it to your own policy before adopting it. 
 
 Install only the workflows you need and their required sibling skill directories into your host's skill search path, keeping their `SKILL.md`, `agents/`, `references/`, `assets/`, and `scripts/` together where present. Generic `~/.agents/` paths describe the shared installation convention used by these rules; use the corresponding supported location in your own environment. Installing a skill does not install its external tools, create Lody roles, or configure an MCP client.
 
-For Lody Duo, install [lody-duo](skills/lody-duo/SKILL.md), [gmc](skills/gmc/SKILL.md), and [liability-review](skills/liability-review/SKILL.md) as sibling directories. All three skills are required for the complete workflow. The `gmc` CLI is a separate external requirement and is not installed by this package. You do not need to install all twelve skills to use a selected workflow and its required dependencies.
+For Lody Duo, install [lody-duo](skills/lody-duo/SKILL.md), [gmc](skills/gmc/SKILL.md), and [liability-review](skills/liability-review/SKILL.md) as sibling directories. All three skills are required for the complete workflow. The `gmc` CLI is a separate external requirement and is not installed by this package. You do not need to install all thirteen snapshot skills to use a selected workflow and its required dependencies.
 
 Lody Duo includes [eight workflow role configuration references](skills/lody-duo/references/agent-roles.md), with English descriptions and complete translated prompt prefixes that retain the Chinese conversation policy. They support manual inspection and configuration, are not import payloads, and do not create roles or bind a machine. Dispatch uses the current workspace catalog.
 
@@ -34,6 +34,7 @@ The root rules prefer each repository's declared toolchain. Their macOS defaults
 | [gofs](skills/gofs/SKILL.md) | Local static HTTP serving and health checks | `gofs` and `curl` |
 | [browser-cdp](skills/browser-cdp/SKILL.md) | Shared Chrome DevTools MCP and bounded setup | Chrome 144+, supported Node.js and `npx`, the configured Chrome DevTools MCP, and the selected agent client; host-native Browser transport only under the skill's fallback contract |
 | [lody-duo](skills/lody-duo/SKILL.md) | Lody role delegation, verification, and independent review | Lody MCP in a Lody session, the sibling gmc and liability-review skills, the external `gmc` CLI for worktree operations, and compatible roles already supplied by the workspace catalog; Fast reasoning effort at least `high` |
+| [correction-audit](skills/correction-audit/SKILL.md) | Local correction-history analysis, repeated cause clusters, and redacted reporting | A synced Recall index and `recall`; Python 3.10+ through `uv`; Git only for optional `analyze --agents`; `blueprint` and browser-cdp only for dashboard generation and rendered acceptance |
 
 The liability-review independent-review contract prefers a fresh in-runtime reviewer and conditionally uses Confer as a fallback. Confer MCP and the `confer` skill are external and are not bundled here. If no valid independent path is available, retain the contract's unavailable-review verdict and explicit exemption boundary; do not silently replace the transport or waive the review.
 
