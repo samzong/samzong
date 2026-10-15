@@ -9,9 +9,13 @@ Use when someone asks to audit their corrections, repeated agent mistakes, model
 
 ## Prerequisites and scope
 
-- `recall` must be installed and the owner must have run `recall sync`. Confirm `recall --version` and `recall info --format json`; never install it or rebuild the index silently. The export command explains a missing executable and exits 2.
-- Python 3.10+ through `uv`; scripts use only the standard library. `blueprint` with the `html` preset is needed only for the dashboard. A missing Blueprint must not block classification and reporting.
-- Default scope is every indexed project, all time, explicitly `primary` threads. State that scope before exporting. Pass a narrower `--project`, `--source`, or `--time` when requested; unknown/subagent topology is not included. Read only the data needed for this audit.
+- `recall` must be installed and the local index must have synced sessions. Check `recall --version` and `recall info --format json`. Never install `recall` or run `recall sync` silently:
+  - If `recall` is missing, stop and ask the user to confirm installing it with `brew tap samzong/tap && brew trust samzong/tap && brew install recall` before continuing.
+  - If `recall` is installed but the index has no sessions or needs a refresh, ask the user to confirm running `recall sync` before exporting.
+- Python 3.10+ through `uv`; scripts use only the standard library.
+- `blueprint` with the `html` preset is optional for the interactive dashboard (`blueprint --version`). If `blueprint` is missing, ask the user to confirm installing it with `brew tap samzong/tap && brew trust samzong/tap && brew install blueprint`; when `blueprint` is absent or an installed release predates the `html` preset, `audit.py dashboard` automatically falls back to writing `<OUT>/dashboard/index.html` directly from the bundled template (`blueprint_check: "skipped"`).
+- Exact per-turn `model × effort` attribution is currently supported for `claude-code`, `codex`, and `pi`; other Recall sources participate in session/monthly trends and cause clusters with `unknown` model/effort.
+- Default scope is every indexed project, all time, explicitly `primary` threads. State that scope before exporting. For a faster first-time run on large histories, suggest narrowing `--time` (for example `--time 30d`) or `--project`; pass narrower `--project`, `--source`, or `--time` when requested. Unknown/subagent topology is not included. Read only the data needed for this audit.
 - Resolve this Skill's installed directory as `SKILL_DIR`; do not assume a home directory or checkout path. Commands below use its `scripts/audit.py` entrypoint. `OUT` defaults to `.local/correction-audit/<local-date>/` in the caller's working directory; choose a new suffix for another export on the same day. An existing snapshot is never overwritten.
 
 ```bash

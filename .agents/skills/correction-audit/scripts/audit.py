@@ -58,7 +58,12 @@ def day(value, fallback=UNKNOWN):
 
 def command(args):
     if not shutil.which(args[0]):
-        raise ValueError(f'{args[0]} is not installed; install it and retry')
+        hints = {
+            'recall': 'ask the user to confirm installing it via: brew tap samzong/tap && brew trust samzong/tap && brew install recall',
+            'blueprint': 'ask the user to confirm installing it via: brew tap samzong/tap && brew trust samzong/tap && brew install blueprint',
+        }
+        hint = hints.get(Path(args[0]).name, 'install it and retry')
+        raise ValueError(f'{args[0]} is not installed; {hint}')
     result = subprocess.run(args, text=True, capture_output=True)
     if result.returncode:
         raise ValueError(f'{args[0]} failed (exit {result.returncode}); inspect it locally before retrying')
@@ -144,7 +149,7 @@ def export(args):
             inv['users'] = n
             inventory.append(inv)
     if not inventory:
-        raise ValueError('No primary sessions exported; run recall sync or broaden filters')
+        raise ValueError('No primary sessions exported; ask the user to confirm running "recall sync" or broaden filters')
     validate_snapshot(inventory, users)
     write(p / 'inventory.json', inventory)
     write(p / 'users.jsonl', users, True)
@@ -438,15 +443,24 @@ def report(args):
 def dashboard(args):
     data = payload(args.output, args.private)
     out = private_dir(args.output) / 'dashboard' if args.private else args.output / 'dashboard'
-    if not (out / '.blueprint.json').exists():
-        if out.exists() and any(out.iterdir()):
-            raise ValueError('Dashboard directory is nonempty without Blueprint manifest; choose a clean output')
-        command(['blueprint', 'create', 'html', str(out)])
+    if out.exists() and not (out / '.blueprint.json').exists() and set(p.name for p in out.iterdir()) - {'index.html'}:
+        raise ValueError('Dashboard directory contains unexpected files without Blueprint manifest; choose a clean output')
+    blueprint_status = 'skipped'
+    if shutil.which('blueprint'):
+        if not (out / '.blueprint.json').exists() and not (out / 'index.html').exists():
+            created = subprocess.run(['blueprint', 'create', 'html', str(out)], text=True, capture_output=True)
+            if created.returncode == 0 and (out / '.blueprint.json').exists():
+                blueprint_status = 'created'
+    out.mkdir(parents=True, exist_ok=True)
     template = (HERE.parent / 'references' / 'dashboard.html').read_text(encoding='utf-8')
     encoded = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029')
     (out / 'index.html').write_text(template.replace('__DATA__', encoded), encoding='utf-8')
-    command(['blueprint', 'check', str(out)])
-    return {'dashboard': str(out), 'private': args.private, 'blueprint_check': 'passed'}
+    if args.private:
+        (out / 'index.html').chmod(0o600)
+    if (out / '.blueprint.json').exists() and shutil.which('blueprint'):
+        command(['blueprint', 'check', str(out)])
+        blueprint_status = 'passed'
+    return {'dashboard': str(out), 'private': args.private, 'blueprint_check': blueprint_status}
 
 
 def parser():
