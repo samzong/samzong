@@ -71,6 +71,11 @@ class AuditContracts(unittest.TestCase):
             self.assertNotIn(private, public)
         self.invoke('report', '--private')
         self.assertIn('PRIVATE_NAME', (self.p / 'report.md').read_text())
+        self.invoke('dashboard', '--public')
+        self.assertTrue((self.root / 'dashboard' / 'index.html').is_file())
+        self.assertNotIn('PRIVATE_NAME', (self.root / 'dashboard' / 'index.html').read_text())
+        self.invoke('dashboard', '--private')
+        self.assertIn('PRIVATE_NAME', (self.p / 'dashboard' / 'index.html').read_text())
         self.assertEqual(self.p.stat().st_mode & 0o777, 0o700)
         self.assertEqual((self.p / 'labels.jsonl').stat().st_mode & 0o777, 0o600)
 
