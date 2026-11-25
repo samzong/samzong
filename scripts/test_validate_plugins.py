@@ -207,6 +207,27 @@ class ValidatePluginsTests(unittest.TestCase):
         errors, _, _ = VALIDATOR.validate_repository(bad_root)
         self.assertTrue(any("escapes repository root" in err for err in errors))
 
+    def test_rejects_symlink_and_broken_codex_symlink(self) -> None:
+        outside = self.root / "outside.json"
+        write_json(outside, {"name": "SECRET_NAME", "version": "9.9.9"})
+
+        sym_manifest_root = self.root / "sym_manifest"
+        create_fixture(sym_manifest_root)
+        claude_manifest = sym_manifest_root / "plugins" / "steward" / ".claude-plugin" / "plugin.json"
+        claude_manifest.unlink()
+        claude_manifest.symlink_to(outside)
+        errors, _, _ = VALIDATOR.validate_repository(sym_manifest_root)
+        self.assertTrue(any("Symlink component" in err for err in errors))
+        self.assertFalse(any("SECRET_NAME" in err or "9.9.9" in err for err in errors))
+
+        broken_codex_root = self.root / "broken_codex"
+        create_fixture(broken_codex_root)
+        codex_manifest = broken_codex_root / "plugins" / "steward" / ".codex-plugin" / "plugin.json"
+        codex_manifest.unlink()
+        codex_manifest.symlink_to(self.root / "does_not_exist.json")
+        errors, _, _ = VALIDATOR.validate_repository(broken_codex_root)
+        self.assertTrue(any("Symlink component" in err for err in errors))
+
 
 if __name__ == "__main__":
     unittest.main()

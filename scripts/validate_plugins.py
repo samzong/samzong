@@ -14,7 +14,29 @@ SEMVER_RE = re.compile(
 TAG_RE = re.compile(r"^([a-z0-9]+(?:-[a-z0-9]+)*)--v(.+)$")
 
 
-def load_json_object(path: Path, label: str, errors: list[str]) -> dict[str, object] | None:
+def check_contained_path(root: Path, path: Path, label: str, errors: list[str]) -> bool:
+    try:
+        rel = path.relative_to(root)
+    except ValueError:
+        errors.append(f"Path escapes repository root in {label}: {path}")
+        return False
+    cur = root
+    for part in rel.parts:
+        cur = cur / part
+        if cur.is_symlink():
+            errors.append(f"Symlink component is not allowed in {label}: {cur}")
+            return False
+    try:
+        path.resolve().relative_to(root)
+    except ValueError:
+        errors.append(f"Resolved path escapes repository root in {label}: {path}")
+        return False
+    return True
+
+
+def load_json_object(root: Path, path: Path, label: str, errors: list[str]) -> dict[str, object] | None:
+    if not check_contained_path(root, path, label, errors):
+        return None
     if not path.is_file():
         errors.append(f"Missing {label}: {path}")
         return None
@@ -44,7 +66,19 @@ def resolve_within_root(root: Path, raw_source: object, label: str, errors: list
     if not isinstance(raw_source, str) or not raw_source:
         errors.append(f"Missing or invalid source in {label}")
         return None
-    resolved = (root / raw_source).resolve()
+    raw_path = Path(raw_source)
+    if raw_path.is_absolute() or ".." in raw_path.parts:
+        errors.append(f"Source path escapes repository root in {label}: {raw_source!r}")
+        return None
+    cur = root
+    for part in raw_path.parts:
+        if part in ("", "."):
+            continue
+        cur = cur / part
+        if cur.is_symlink():
+            errors.append(f"Symlink component is not allowed in {label}: {cur}")
+            return None
+    resolved = cur.resolve()
     try:
         resolved.relative_to(root)
     except ValueError:
@@ -56,7 +90,7 @@ def resolve_within_root(root: Path, raw_source: object, label: str, errors: list
 def validate_marketplace(root: Path, errors: list[str]) -> dict[str, dict[str, object]]:
     registered: dict[str, dict[str, object]] = {}
     marketplace_path = root / ".claude-plugin" / "marketplace.json"
-    marketplace = load_json_object(marketplace_path, ".claude-plugin/marketplace.json", errors)
+    marketplace = load_json_object(root, marketplace_path, ".claude-plugin/marketplace.json", errors)
     if marketplace is None:
         return registered
 
@@ -82,14 +116,17 @@ def validate_marketplace(root: Path, errors: list[str]) -> dict[str, dict[str, o
         marketplace_version = entry.get("version")
         validate_semver(marketplace_version, f".claude-plugin/marketplace.json ({name})", errors)
 
-        expected_dir = (root / "plugins" / name).resolve()
+        expected_dir = root / "plugins" / name
         source_dir = resolve_within_root(root, entry.get("source"), f".claude-plugin/marketplace.json ({name})", errors)
-        if source_dir is not None and source_dir != expected_dir:
+        contained_dir = check_contained_path(root, expected_dir, f"plugins/{name}", errors)
+        source_valid = source_dir is not None and contained_dir and source_dir == expected_dir.resolve()
+        if source_dir is not None and contained_dir and source_dir != expected_dir.resolve():
             errors.append(
-                f"Marketplace source for {name} resolves to {source_dir}, expected {expected_dir}"
+                f"Marketplace source for {name} resolves to {source_dir}, expected {expected_dir.resolve()}"
             )
-        if not expected_dir.is_dir():
-            errors.append(f"Plugin directory does not exist for {name}: {expected_dir}")
+        if not source_valid or not expected_dir.is_dir():
+            if contained_dir and not expected_dir.is_dir():
+                errors.append(f"Plugin directory does not exist for {name}: {expected_dir}")
             registered[name] = {
                 "marketplace_version": marketplace_version,
                 "claude_version": None,
@@ -99,7 +136,7 @@ def validate_marketplace(root: Path, errors: list[str]) -> dict[str, dict[str, o
             continue
 
         claude_rel = f"plugins/{name}/.claude-plugin/plugin.json"
-        claude_manifest = load_json_object(expected_dir / ".claude-plugin" / "plugin.json", claude_rel, errors)
+        claude_manifest = load_json_object(root, expected_dir / ".claude-plugin" / "plugin.json", claude_rel, errors)
         claude_version: object = None
         if claude_manifest is not None:
             if claude_manifest.get("name") != name:
@@ -113,12 +150,13 @@ def validate_marketplace(root: Path, errors: list[str]) -> dict[str, dict[str, o
                         f"Version mismatch for {name}: .claude-plugin/marketplace.json has {marketplace_version!r}, {claude_rel} has {claude_version!r}"
                     )
 
-        codex_path = expected_dir / ".codex-plugin" / "plugin.json"
+        codex_dir = expected_dir / ".codex-plugin"
+        codex_path = codex_dir / "plugin.json"
         codex_rel = f"plugins/{name}/.codex-plugin/plugin.json"
         codex_version: object = None
-        has_codex = codex_path.exists()
+        has_codex = codex_dir.exists() or codex_dir.is_symlink() or codex_path.exists() or codex_path.is_symlink()
         if has_codex:
-            codex_manifest = load_json_object(codex_path, codex_rel, errors)
+            codex_manifest = load_json_object(root, codex_path, codex_rel, errors)
             if codex_manifest is not None:
                 if codex_manifest.get("name") != name:
                     errors.append(
@@ -147,21 +185,28 @@ def validate_marketplace(root: Path, errors: list[str]) -> dict[str, dict[str, o
 
 def validate_plugins_dir(root: Path, registered: dict[str, dict[str, object]], errors: list[str]) -> None:
     plugins_dir = root / "plugins"
+    if not check_contained_path(root, plugins_dir, "plugins", errors):
+        return
     if not plugins_dir.is_dir():
         errors.append(f"Missing plugins directory: {plugins_dir}")
         return
     for child in sorted(plugins_dir.iterdir()):
-        if not child.is_dir() or child.name.startswith("."):
+        if child.name.startswith("."):
+            continue
+        if child.is_symlink() or not child.is_dir():
+            if child.is_symlink():
+                errors.append(f"Symlink component is not allowed in plugins: {child}")
             continue
         if child.name not in registered:
             errors.append(f"Unregistered plugin directory: plugins/{child.name}")
 
 
 def validate_agents_marketplace(root: Path, registered: dict[str, dict[str, object]], errors: list[str]) -> None:
-    agents_path = root / ".agents" / "plugins" / "marketplace.json"
-    if not agents_path.exists():
+    agents_dir = root / ".agents" / "plugins"
+    agents_path = agents_dir / "marketplace.json"
+    if not (agents_dir.exists() or agents_dir.is_symlink() or agents_path.exists() or agents_path.is_symlink()):
         return
-    agents_marketplace = load_json_object(agents_path, ".agents/plugins/marketplace.json", errors)
+    agents_marketplace = load_json_object(root, agents_path, ".agents/plugins/marketplace.json", errors)
     if agents_marketplace is None:
         return
     entries = agents_marketplace.get("plugins")
