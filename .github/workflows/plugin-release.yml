@@ -1,0 +1,49 @@
+name: Plugin Release
+
+on:
+  push:
+    tags:
+      - "*--v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Plugin release tag to verify
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+  RELEASE_REF: refs/tags/${{ inputs.tag || github.ref_name }}
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    outputs:
+      plugin: ${{ steps.meta.outputs.plugin }}
+      version: ${{ steps.meta.outputs.version }}
+      stage: ${{ steps.meta.outputs.stage }}
+      is_prerelease: ${{ steps.meta.outputs.is_prerelease }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.RELEASE_REF }}
+
+      - name: Verify SemVer plugin tag and manifests
+        id: meta
+        run: |
+          set -euo pipefail
+          if [[ ! "$RELEASE_TAG" =~ ^([a-z0-9]+(-[a-z0-9]+)*)--v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((alpha|beta|rc)\.[1-9][0-9]*))?$ ]]; then
+            echo "::error::Invalid SemVer plugin release tag: $RELEASE_TAG"
+            exit 1
+          fi
+          if [[ "$(git rev-parse HEAD)" != "$(git rev-parse "refs/tags/$RELEASE_TAG^{commit}")" ]]; then
+            echo "::error::Checked out commit does not match tag $RELEASE_TAG"
+            exit 1
+          fi
+          python3 scripts/validate_plugins.py --tag "$RELEASE_TAG" --github-output "$GITHUB_OUTPUT"
+
+      - name: Run plugin validator tests
+        run: python3 -m unittest discover -s scripts -p "test_*.py" -v
